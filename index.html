@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cifras</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <span class="navbar-brand">♪ Cifras</span>
+    <span class="song-count" id="song-count"></span>
+  </nav>
+
+  <div class="container">
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="search"
+        id="search-input"
+        class="search-input"
+        placeholder="Buscar por título ou artista…"
+        autocomplete="off"
+        autofocus
+      />
+    </div>
+
+    <div class="song-list" id="song-list"></div>
+
+    <div class="no-results" id="no-results">
+      Nenhuma música encontrada.
+    </div>
+
+  </div>
+
+  <script src="assets/vendor/fuse.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
+

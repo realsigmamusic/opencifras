@@ -1,0 +1,69 @@
+.chord-sheet {
+  margin-top: 1rem;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+h1.title {
+  color: var(--accent);
+  margin: 1rem 0 0 0;
+}
+
+h2.subtitle {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.paragraph {
+  margin-bottom: 1rem;
+}
+
+.paragraph.chorus {
+  border-left: 0.2rem solid var(--accent);
+  background-color: var(--bg-raised);
+  padding-left: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.paragraph.chorus h3.label {
+  margin-left: -0.5rem;
+  width: calc(100% + 0.5rem);
+}
+
+h3.label, .comment {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--accent);
+  background-color: var(--bg-subtle);
+  padding: 0.25rem 0.5rem;
+  margin: 0 0 0.5rem 0;
+  display: block;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.chord {
+  min-height: 1.5rem;
+  padding-right: 0.5rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: -0.5rem;
+}
+
+.lyrics {
+  min-height: 1.5rem;
+  white-space: pre;
+  color: var(--text-muted);
+  word-break: keep-all;
+}

@@ -1,0 +1,348 @@
+/* ── Reset mínimo ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Tokens ── */
+:root {
+  --bg:         #1a1a1a;
+  --bg-raised:  #222222;
+  --bg-subtle:  #2a2a2a;
+  --border:     #333333;
+  --text:       #e8e4dc;
+  --text-muted: #888888;
+  --accent:     #f0c040;
+  --danger:     #e05555;
+  --radius:     6px;
+  --max-width:  720px;
+}
+
+/* ── Base ── */
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+/* ── Layout ── */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0.6rem;
+}
+
+/* ── Navbar ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg);
+}
+
+.navbar-brand {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.navbar-back {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.25rem;
+}
+
+.navbar-back:hover {
+  color: var(--text);
+}
+
+.song-count {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── Search ── */
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-raised);
+  margin: 1.25rem 0;
+  overflow: hidden;
+}
+
+.search-wrap:focus-within {
+  border-color: var(--accent);
+}
+
+.search-icon {
+  padding: 0 0.75rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 1rem;
+  padding: 0.75rem 0.75rem 0.75rem 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── Song list ── */
+.song-list {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.song-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-raised);
+  transition: background-color 0.1s;
+}
+
+.song-item:last-child {
+  border-bottom: none;
+}
+
+.song-item:hover, .song-item:focus {
+  background-color: var(--bg-subtle);
+  outline: none;
+}
+
+.song-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.song-artist {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.song-key {
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── No results ── */
+.no-results {
+  display: none;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 3rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* ── Song page: header ── */
+.song-header {
+  display: none;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1rem;
+}
+
+.song-header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.song-header .artist {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.key-badge {
+  font-size: 0.8rem;
+  font-family: monospace;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: none;
+}
+
+/* ── Transpose ── */
+.transpose-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0rem;
+  flex-wrap: wrap;
+}
+
+.transpose-label {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.btn-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  font-size: 1.3rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.btn-circle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.transpose-value {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  min-width: 36px;
+  text-align: center;
+}
+
+.btn-reset {
+  border: 1px solid var(--border);
+  background-color: var(--bg-raised);
+  color: var(--text-muted);
+  border-radius: var(--radius);
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.btn-reset:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.key-label {
+  margin-left: auto;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ── Loading / Error ── */
+.state-msg {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 3rem 1rem;
+}
+
+.state-msg.hidden {
+  display: none;
+}
+
+/* ── Toolbar (fixed bottom) ── */
+.toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.toolbar.visible {
+  display: flex;
+}
+
+.toolbar-inner {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.btn-toolbar {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: border-color 0.1s, color 0.1s;
+  text-decoration: none;
+}
+
+.btn-toolbar:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Song content padding (espaço pro toolbar fixo) ── */
+.song-content {
+  padding-bottom: 5rem;
+}
+
+.song-content.hidden {
+  display: none;
+}

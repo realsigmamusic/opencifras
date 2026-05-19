@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cifra</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/song.css" />
+  <style>
+    #error-msg, #song-content, #toolbar { display: none; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="navbar-back">&#8249;</a>
+    <a href="index.html" class="navbar-brand">♪ Cifras</a>
+  </nav>
+
+  <div class="container">
+    <div id="loading-msg" class="state-msg">Carregando cifra…</div>
+    <div id="error-msg" class="state-msg"><span id="error-text"></span></div>
+    <div id="song-content" class="song-content">
+      <div class="song-header">
+        <div>
+          <h1 id="song-title"></h1>
+          <div class="artist" id="song-artist"></div>
+        </div>
+        <span id="song-key-display" class="key-badge"></span>
+      </div>
+      <div class="transpose-row">
+        <span class="transpose-label">Tom</span>
+        <button id="btn-down" class="btn-circle">−</button>
+        <span id="transpose-value" class="transpose-value">0</span>
+        <button id="btn-up" class="btn-circle">+</button>
+        <button id="btn-reset" class="btn-reset">resetar</button>
+        <span id="current-key-label" class="key-label"></span>
+      </div>
+      <div id="chord-sheet"></div>
+    </div>
+  </div>
+
+  <div id="toolbar" class="toolbar">
+    <div class="toolbar-inner">
+      <button id="btn-share" class="btn-toolbar">⬆ Compartilhar</button>
+      <a id="btn-download" href="#" download class="btn-toolbar">⬇ Download .pro</a>
+    </div>
+  </div>
+
+  <script src="assets/vendor/chordsheetjs.min.js"></script>
+  <script src="assets/js/song.js"></script>
+</body>
+</html>
+
