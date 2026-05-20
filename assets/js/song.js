@@ -1,7 +1,7 @@
 /* ── Parâmetros da URL ── */
 const params = new URLSearchParams(location.search);
 const fileUrl = params.get('file');
-const titleParam  = params.get('title')  || 'Cifra';
+const titleParam  = params.get('title')  || '';
 const artistParam = params.get('artist') || '';
 const keyParam    = params.get('key')    || '';
 
@@ -97,7 +97,7 @@ elBtnReset.addEventListener('click', () => { transpose = 0; saveTransposePref();
 elBtnShare.addEventListener('click', async () => {
   const shareData = {
     title: titleParam,
-    text:  `${titleParam}${artistParam ? ' — ' + artistParam : ''}`,
+    text:  `${titleParam}${artistParam ? ' - ' + artistParam : ''}`,
     url:   location.href,
   };
   try {
@@ -132,7 +132,7 @@ function showContent() {
 if (!fileUrl) {
   showError('Nenhuma música especificada.');
 } else {
-  document.title = titleParam + ' — Cifras';
+  document.title = titleParam + '';
   loadFontPref();
   loadTransposePref();
 
@@ -148,7 +148,7 @@ if (!fileUrl) {
       // Download do arquivo original
       const blob = new Blob([text], { type: 'text/plain' });
       elBtnDl.href     = URL.createObjectURL(blob);
-      elBtnDl.download = fileUrl.split('/').pop()?.replace(/\.pro$/i, '.cho') || 'cifra.cho';
+      elBtnDl.download = fileUrl.split('/').pop() || 'cifra.cho';
 
       renderSheet();
       showContent();
