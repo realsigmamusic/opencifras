@@ -1,7 +1,7 @@
 .chord-sheet {
   margin-top: 1rem;
-  font-family: monospace;
-  font-size: 1rem;
+  font-family: var(--font-ui);
+  font-size: var(--chord-size);
 }
 
 h1.title {
@@ -23,7 +23,6 @@ h2.subtitle {
   border-left: 0.2rem solid var(--accent);
   background-color: var(--bg-raised);
   padding-left: 0.5rem;
-  padding-bottom: 1rem;
 }
 
 .paragraph.chorus h3.label {
@@ -32,10 +31,10 @@ h2.subtitle {
 }
 
 h3.label, .comment {
-  font-size: 1rem;
+  font-size: var(--chord-size);
   font-weight: bold;
   color: var(--accent);
-  background-color: var(--bg-subtle);
+  background-color: var(--surface);
   padding: 0.25rem 0.5rem;
   margin: 0 0 0.5rem 0;
   display: block;
