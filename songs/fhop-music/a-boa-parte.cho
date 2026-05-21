@@ -10,10 +10,10 @@
 {tempo: 72}
 
 {start_of_verse: Verso}
-[E] Precioso Jesus
-[E] Aos Teus pés aqui estou
-[E] O que eu poderia te oferecer
-[E] Por tudo o que tu és
+[E] Precioso [%]Jesus
+[E] Aos Teus pés aqui es[%]tou
+[E] O que eu poderia [%]te oferecer
+[E] Por tudo o que tu [%]és
 {end_of_verse}
 
 {start_of_part: Pré refrão}
@@ -29,14 +29,14 @@ Je[C#m]sus Teu va[A2]lor é maior[E]
 {end_of_chorus}
 
 {start_of_part: Interlúdio}
-[E]
+[C#m7][A2][E]
 {end_of_part}
 
 {start_of_verse: Verso}
-[E] Precioso Jesus
-[E] Aos Teus pés aqui estou
-[E] O que eu poderia te oferecer
-[E] Por tudo o que tu és
+[E] Precioso [%]Jesus
+[E] Eu amo o som da tua voz[%]
+[E] Tuas palavras [A2]são mais dese[B2]jáveis
+[C#m7] Que o mais [A2]doce [E]mel
 {end_of_verse}
 
 {start_of_part: Pré refrão}
