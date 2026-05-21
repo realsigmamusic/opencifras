@@ -1,29 +1,58 @@
 {title: Eu e Minha Casa}
-{subtitle: Julliany Souza}
+{subtitle: Julliany Souza (part. Léo Brandão)}
 {artist: Julliany Souza}
+{composer: Julliany Souza, Leo Brandão, Ricardinho}
+{album: Meia Noite}
+{copyright: Part Produções Artísticas Ltda}
+{year: 2025}
 {key: F}
 {time: 4/4}
+{tempo: 67}
 
 {start_of_part: Introdução}
 [Bb][C][Dm7][Am]
 {end_of_part}
 
 {start_of_verse: Verso 1}
-Ben[F2]dita Será nossa casa Ben[Dm7]ditos Serão nossos filhos E [Bb9]nós glorificaremos ao Sen[F2]hor
+Ben[F2]dita Será nossa casa Ben[Dm7]ditos
+Serão nossos filhos E [Bb9]nós glorificaremos ao Sen[F2]hor
 {end_of_verse}
 
 {start_of_verse: Verso 1}
-Minha [F2]casa Não será abalada [Dm7] Em Cristo está alicerçada E [Bb]nós glorificaremos ao [F2]Senhor
+Minha [F2]casa Não será abalada [Dm7]
+Em Cristo está alicerçada E [Bb]nós glorificaremos ao [F2]Senhor
 {end_of_verse}
 
 {start_of_part: Pré refrão}
-A [Bb]rocha em quem minha casa está fir[C2]mada É Ele,[Dm7] é Ele[Am7] O a[Bb]mor que alcançou a minha [C2]casa É Ele, [Dm7] é Ele[Am7]
+A [Bb]rocha em quem minha casa está fir[C2]mada
+É Ele,[Dm7] é Ele[Am7]
+O a[Bb]mor que alcançou a minha [C2]casa
+É Ele, [Dm7] é Ele[Am7]
 {end_of_part}
 
 {start_of_chorus: Refrão}
-[F2]Meu Jesus Eu Te entrego minha [C2]vida Te dou meu lar, minha fa[Dm7]mília Eu e minha casa, Sen[Bb]hor Te serviremos com amor
+[F2]Meu Jesus Eu Te entrego minha [C2]vida
+Te dou meu lar, minha fa[Dm7]mília
+Eu e minha casa, Sen[Bb]hor Te serviremos com amor
 {end_of_chorus}
 
 {start_of_part: Solo}
-[F2]Ô-ô-ô-ô, [Gm7]Ô-ô-ô-ô, [F/A]Ô-ô-ô-ô, [Bb]Ô-ô-ô-ô 
+[F2]Ô-ô-ô-ô, [Gm7]Ô-ô-ô-ô, [F/A]Ô-ô-ô-ô, [Bb]Ô-ô-ô-ô
+{end_of_part}
+
+{start_of_part: Pré refrão}
+A [Bb]rocha em quem minha casa está fir[C2]mada
+É Ele,[Dm7] é Ele[Am7]
+O a[Bb]mor que alcançou a minha [C2]casa
+É Ele, [Dm7] é Ele[Am7]
+{end_of_part}
+
+{start_of_chorus: Refrão}
+[F2]Meu Jesus Eu Te entrego minha [C2]vida
+Te dou meu lar, minha fa[Dm7]mília
+Eu e minha casa, Sen[Bb]hor Te serviremos com amor
+{end_of_chorus}
+
+{start_of_part: Solo}
+[F2]Ô-ô-ô-ô, [Gm7]Ô-ô-ô-ô, [F/A]Ô-ô-ô-ô, [Bb]Ô-ô-ô-ô
 {end_of_part}
