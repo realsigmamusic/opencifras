@@ -25,13 +25,13 @@ O formato esperado do arquivo `songs.json` é:
     "title": "Nome da Música",
     "artist": "Nome do Artista",
     "key": "G",
-    "file": "nome-da-musica.cho"
+    "file": "songs/artista/nome-da-musica.cho"
   },
   {
     "title": "Outra Música",
     "artist": "Outro Artista",
     "key": "Am",
-    "file": "outra-musica.cho"
+    "file": "songs/artista/outra-musica.cho"
   }
 ]
 ```
