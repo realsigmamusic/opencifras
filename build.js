@@ -17,7 +17,7 @@ function parseChordProFile(filePath) {
   for (const line of lines) {
     const trimmed = line.trim();
 
-    // Metadata em ChordPro: {title: ...}, {artist: ...}, etc
+    // Metadata em ChordPro
     const metaMatch = trimmed.match(/^\{([^:]+):\s*(.+?)\}$/);
     if (metaMatch) {
       const key = metaMatch[1].trim().toLowerCase();
@@ -26,9 +26,8 @@ function parseChordProFile(filePath) {
       continue;
     }
 
-    // Se não é metadata, é parte da letra/estrutura
-    // Remove acordes entre [ ]
-    const withoutChords = trimmed.replace(/\[.*?\]/g, '').trim();
+    // Letra pura
+    const withoutChords = trimmed.replace(/\[.*?\]/g, '').replace(/\{.*?\}/g, '').trim();
     if (withoutChords) {
       lyricsLines.push(withoutChords);
     }
