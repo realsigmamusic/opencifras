@@ -2,6 +2,7 @@
   'use strict';
 
   let allSongs = [];
+  let recentSongs = [];
   let showingAll = false;
   let fuse = null;
 
@@ -94,7 +95,7 @@
     if (!query) {
       showingAll = false;
       renderFavoritesSection();
-      renderList(allSongs, true);
+      renderList(recentSongs, true);
       return;
     }
     showingAll = false;
@@ -114,13 +115,20 @@
       const res = await fetch('songs.json');
       const data = await res.json();
 
+      // allSongs = ALFABÉTICA (para "ver todas")
       allSongs = data.sort(function (a, b) {
         const titleA = a.title || "";
         const titleB = b.title || "";
         return titleA.localeCompare(titleB);
       });
 
-      const n = allSongs.length;
+      // recentSongs = POR DATA (últimas adicionadas/editadas)
+      recentSongs = [...data]
+        .sort(function (a, b) {
+          return (b.mtime || 0) - (a.mtime || 0);
+        });
+
+      const n = data.length;
       songCount.textContent = n + ' música' + (n !== 1 ? 's' : '');
 
       fuse = new Fuse(allSongs, {
@@ -131,7 +139,7 @@
       });
 
       renderFavoritesSection();
-      renderList(allSongs, true);
+      renderList(recentSongs, true);
     } catch (err) {
       console.error('Falha ao carregar songs.json', err);
       songList.innerHTML = '<p style="padding:1rem;color:var(--danger)">Erro ao carregar músicas.</p>';
