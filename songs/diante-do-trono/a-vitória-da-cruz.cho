@@ -92,7 +92,7 @@ Jes[E/B]us rug[Esus]iu[E]
 [Am][G/A][Am][G/A]
 {end_of_part}
 
-#{transpose: 1}
+{transpose: 1}
 
 {start_of_verse: Verso 6}
 Caiu co[Am]mo serpente
@@ -109,7 +109,7 @@ A[E]briu minhas ca[E/G#]deias e me resga[Esus]tou[E]
 [Am][G/A][Am][G/A]
 {end_of_part}
 
-#{transpose: 1}
+{transpose: 2}
 
 {start_of_verse: Verso 7}
 No ter[Am]ceiro dia a pedra [G/A]do sepulcro ro[Am]lou[G/A]
@@ -141,11 +141,8 @@ Ra[E]boni! [E/G#]Meu Jesus ressusci[Esus]tou[E]
 {start_of_bridge: Bridge}
 Ele [Am]vive [G/A] (ele [Am]vive)[G/A]
 Ele [Am]reina [G/A] (ele r[Am]eina)[G/A]
-Ressusci[Esus]tou [E] (ressusci[Esus]tou)[E]
+Ressusci[E]tou [Esus] (ressusci[E]tou)[Esus]
 É vence[Am]dor [Am/G] (é vence[D/F#]dor)[F][E]
-{end_of_bridge}
-
-{start_of_bridge: Bridge}
 Está assen[Am]tado [G/A] (está assent[Am]ado)[G/A]
 Sobre o [Am]trono [G/A] (sobre o [Am]trono)[G/A]
 Só ele é [Esus]digno[E] (só ele é d[Esus]igno)[E]
