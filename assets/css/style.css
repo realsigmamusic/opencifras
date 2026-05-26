@@ -214,6 +214,7 @@ section button {
 }
 
 .btn-reset {
+  color: var(--danger);
   font-size: 1rem;
   padding: 0.25rem 0.5rem;
   border: 1px solid var(--border);
