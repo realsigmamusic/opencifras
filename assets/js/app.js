@@ -35,7 +35,7 @@
     return getSavedFavorites().includes(songFile);
   }
 
-  function renderCard(song, isFav = false) {
+  function renderCard(song) {
     const url = 'song.html?file=' + encodeURIComponent(song.file);
     const keyBadge = song.key
       ? '<span class="song-card-key">' + escapeHtml(song.key) + '</span>'
