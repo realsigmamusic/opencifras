@@ -4,6 +4,7 @@ const fileUrl = params.get('file');
 const titleParam  = params.get('title')  || '';
 const artistParam = params.get('artist') || '';
 const keyParam    = params.get('key')    || '';
+const transposeParam = params.get('transpose');
 
 /* ── Elementos ── */
 const elSongHeader = document.getElementById('song-header');
@@ -61,8 +62,13 @@ elBtnFontUp.addEventListener('click', () => {
 
 /* ── Transpose ── */
 function loadTransposePref() {
-  const saved = localStorage.getItem(TRANS_KEY);
-  if (saved !== null) transpose = Number(saved) || 0;
+  if (transposeParam !== null) {
+    transpose = Number(transposeParam) || 0;
+    saveTransposePref();
+  } else {
+    const saved = localStorage.getItem(TRANS_KEY);
+    if (saved !== null) transpose = Number(saved) || 0;
+  }
 }
 
 function saveTransposePref() {
@@ -177,18 +183,35 @@ elBtnFavorite.addEventListener('click', toggleFavorite);
 
 /* ── Compartilhar ── */
 elBtnShare.addEventListener('click', async () => {
+  // URL injetando o transpose
+  const urlObj = new URL(location.href);
+  if (transpose !== 0) {
+    urlObj.searchParams.set('transpose', transpose);
+  } else {
+    urlObj.searchParams.delete('transpose'); // Se for o tom original, limpa a URL
+  }
+  const shareUrl = urlObj.toString();
+
+  // texto da mensagem com Título e Artista
+  const titulo = song && song.metadata && song.metadata.title ? song.metadata.title : titleParam;
+  const artista = song && song.metadata && song.metadata.artist ? song.metadata.artist : artistParam;
+  
+  const textoMensagem = `Cifra de ${titulo} ${artista}`.trim();
+
+  // dados para o compartilhador
   const shareData = {
-    title: titleParam,
-    text:  `${titleParam}${artistParam ? ' - ' + artistParam : ''}`,
-    url:   location.href,
+    title: titulo,
+    text: textoMensagem,
+    url: shareUrl,
   };
+
   try {
     if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
       await navigator.share(shareData);
     } else {
-      await navigator.clipboard.writeText(location.href);
+      await navigator.clipboard.writeText(`${textoMensagem}\n${shareUrl}`);
       elBtnShare.textContent = 'Copiado!';
-      setTimeout(() => elBtnShare.textContent = 'Compartilhar', 2000);
+      setTimeout(() => elBtnShare.textContent = '⬆ Compartilhar', 2000);
     }
   } catch (e) {
     console.warn('share failed', e);
