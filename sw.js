@@ -1,12 +1,12 @@
-const CACHE_NAME = 'v26.05.25';
+const CACHE_NAME = 'v26.05.26';
 const ASSETS = [
-	'./',
-	'./index.html', 
+  './',
+  './index.html', 
   './song.html',
-	'./manifest.json',
-	'./maskable_icon_x512.png',
+  './manifest.json',
+  './maskable_icon_x512.png',
   './assets/css/song.css',
-	'./assets/css/style.css',
+  './assets/css/style.css',
   './assets/js/app.js',
   './assets/js/song.js',
   './assets/vendor/fuse.min.js',
@@ -28,20 +28,21 @@ self.addEventListener('install', (e) => {
         
         // 3. Baixa música por música
         await Promise.all(songs.map(async (song) => {
-          const fileUrl = './' + encodeURI(song.file);
+          const safePath = song.file.split('/').map(encodeURIComponent).join('/');
+          const fileUrl = './' + safePath;
           
           try {
             const songResponse = await fetch(fileUrl);
             if (songResponse.ok) {
               await cache.put(fileUrl, songResponse);
+              console.log(`PWA: Salvo offline -> ${song.title}`); 
             }
           } catch (fetchErr) {
-            // Se UMA música falhar, ele apenas avisa no console e continua baixando o resto!
-            console.warn(`PWA: Não foi possível pré-cachear ${fileUrl}`, fetchErr);
+            console.warn(`PWA: Falha ao baixar ${fileUrl}`, fetchErr);
           }
         }));
 
-        console.log('PWA: O catálogo completo foi salvo para uso offline!');
+        console.log('🎉 PWA: O catálogo completo foi salvo e está pronto para uso offline!');
       } catch (err) {
         console.error('PWA: Erro geral ao processar o songs.json', err);
       }
@@ -64,22 +65,27 @@ self.addEventListener('activate', (e) => {
   self.clients.claim();
 });
 
-// FETCH: Estratégia Stale-While-Revalidate (Abre o cache instantâneo e atualiza de fundo se houver internet)
+// FETCH: funcionamento Offline
 self.addEventListener('fetch', (e) => {
-  // Ignora requisições que não sejam GET locais (extensões do navegador, etc)
   if (e.request.method !== 'GET' || !e.request.url.startsWith('http')) return;
 
   e.respondWith(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(e.request).then((cachedResponse) => {
+      
+      // Isso manda ele ignorar o "?file=..." e carregar o song.html puro da gaveta!
+      return cache.match(e.request, { ignoreSearch: true }).then((cachedResponse) => {
         
         const fetchPromise = fetch(e.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
-            cache.put(e.request, networkResponse.clone());
+            // Se for o song.html, não precisa salvar de novo para não inchar o celular
+            const urlObj = new URL(e.request.url);
+            if (!urlObj.pathname.endsWith('song.html')) {
+              cache.put(e.request, networkResponse.clone());
+            }
           }
           return networkResponse;
         }).catch(() => {
-          // Se falhar (offline), silencia o erro porque o cache resolveu
+          // Se cair aqui, é porque está 100% offline. O cache.match já segurou a barra.
         });
 
         return cachedResponse || fetchPromise;
