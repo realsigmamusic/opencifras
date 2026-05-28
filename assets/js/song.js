@@ -18,7 +18,6 @@ const elErrorText = document.getElementById('error-text');
 const elToolbar   = document.getElementById('toolbar');
 const elBtnDown   = document.getElementById('btn-down');
 const elBtnUp     = document.getElementById('btn-up');
-const elBtnReset  = document.getElementById('btn-reset');
 const elBtnFavorite = document.getElementById('btn-offline');
 const elBtnShare  = document.getElementById('btn-share');
 const elBtnDl     = document.getElementById('btn-download');
@@ -152,6 +151,16 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+function updateUrlParams() {
+  const url = new URL(window.location.href);
+  if (transpose !== 0) {
+    url.searchParams.set('transpose', transpose);
+  } else {
+    url.searchParams.delete('transpose');
+  }
+  window.history.replaceState({}, '', url.toString());
+}
+
 function renderSheet() {
   if (!song) return;
 
@@ -174,9 +183,9 @@ function renderSheet() {
   }
 }
 
-elBtnUp.addEventListener('click',    () => { transpose++; saveTransposePref(); renderSheet(); });
-elBtnDown.addEventListener('click',  () => { transpose--; saveTransposePref(); renderSheet(); });
-elBtnReset.addEventListener('click', () => { transpose = 0; saveTransposePref(); renderSheet(); });
+elBtnUp.addEventListener('click',    () => { transpose++; saveTransposePref(); updateUrlParams(); renderSheet(); });
+elBtnDown.addEventListener('click',  () => { transpose--; saveTransposePref(); updateUrlParams(); renderSheet(); });
+elTransVal.addEventListener('click', () => { transpose = 0; saveTransposePref(); updateUrlParams(); renderSheet(); });
 
 /* ── Favoritar ── */
 elBtnFavorite.addEventListener('click', toggleFavorite);
