@@ -1,7 +1,6 @@
 .chord-sheet {
   margin-top: 1rem;
   font-family: var(--font-sans-serif);
-  font-size: var(--chord-size);
   color: var(--secondary-color);
 }
 
@@ -21,25 +20,25 @@ h2.subtitle {
 }
 
 .paragraph.chorus {
-  border-left: 0.2rem solid var(--warning-text-emphasis);
+  border-left: 0.2em solid var(--warning-text-emphasis);
   border-radius: 0 var(--border-radius) 0 0;
   background-color: var(--tertiary-bg);
-  padding-left: 0.5rem;
+  padding-left: 0.5em;
 }
 
 .paragraph.chorus h3.label {
-  margin-left: -0.5rem;
-  width: calc(100% + 0.5rem);
+  margin-left: -0.5em;
+  width: calc(100% + 0.5em);
 }
 
 h3.label, .comment {
-  font-size: var(--chord-size);
+  font-size: 1em;
   font-weight: bold;
   color: var(--warning-text-emphasis);
   background-color: var(--secondary-bg);
   border-radius: 0 var(--border-radius) 0 0;
-  padding: 0.25rem 0.5rem;
-  margin: 0 0 0.5rem 0;
+  padding: 0.25em 0.5em;
+  margin: 0 0 0.5em 0;
   display: block;
   width: 100%;
 }
@@ -56,15 +55,15 @@ h3.label, .comment {
 }
 
 .chord {
-  min-height: calc(var(--chord-size) + 0.5rem);
-  padding-right: 0.5rem;
+  min-height: calc(1em + 0.5em);
+  padding-right: 0.5em;
   font-weight: bold;
   color: var(--info-text-emphasis);
-  margin-bottom: -0.5rem;
+  margin-bottom: -0.5em;
 }
 
 .lyrics {
-  min-height: 1.5rem;
+  min-height: 1.5em;
   white-space: pre;
   word-break: keep-all;
 }

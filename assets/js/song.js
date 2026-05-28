@@ -33,7 +33,7 @@ const FAVORITES_KEY = 'chordsheets_favorites';
 
 let song      = null;
 let transpose = 0;
-let fontIdx   = 4;
+let fontIdx   = 3;
 
 /* ── Tamanho de fonte ── */
 function loadFontPref() {
@@ -47,7 +47,7 @@ function loadFontPref() {
 
 function applyFont() {
   const size = FONT_SIZES[fontIdx];
-  document.documentElement.style.setProperty('--chord-size', size + 'px');
+  if (elSheet) elSheet.style.fontSize = size + 'px';
   elFontDisp.textContent = size;
   localStorage.setItem(FONT_KEY, size);
 }
