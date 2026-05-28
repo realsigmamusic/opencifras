@@ -6,11 +6,11 @@
 {key: D}
 {time: 2/4}
 
-{start_of_part: Intro}
+{start_of_part: Introdução}
 [D][D4][D][D4]
 {end_of_part}
 
-{start_of_verse: Verse}
+{start_of_verse: Verso 1}
 Te amo, [D]Deus
 Tua [G]graça nunca [D]falha
 Tod[A/C#]os os [Bm]dias
@@ -20,14 +20,14 @@ Até eu me[D] dei[A/C#]tar[Bm]
 Eu canta[G]rei da bon[A]dade de [D]Deus
 {end_of_verse}
 
-{start_of_chorus: Chorus}
+{start_of_chorus: Refrão}
 [G] És fiel em todo [D]tempo
 [G] Em todo tempo Tu és [D/F#]tão, tão [A]bom
 [G] Com todo fôlego que ten[Bm]ho
 Eu canta[G]rei da bon[A]dade de [D]Deus
 {end_of_chorus}
 
-{start_of_verse: Verse}
+{start_of_verse: Verso 2}
 Tua doce [D]voz
 Que me [G]guia em meio ao [D]fogo
 Na es[A/C#]curidão[Bm]
@@ -37,7 +37,7 @@ Que amigo[D][A/C#]és[Bm]
 Vivo [G]na bon[A]dade de [D]Deus
 {end_of_verse}
 
-{start_of_bridge: Bridge}
+{start_of_bridge: Ponte}
 [D/F#] Tua bondade me [G]seguirá,
 me [A]seguirá, Sen[D]hor
 [D/F#] Tua bondade me [G]seguirá,
