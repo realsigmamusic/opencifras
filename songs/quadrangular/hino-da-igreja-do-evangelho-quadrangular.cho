@@ -1,6 +1,6 @@
 {title: Hino Quadrangular}
-{subtitle: Quadrangular Worship}
-{artist: Quadrangular Worship}
+{subtitle: Quadrangular}
+{artist: Quadrangular}
 {composer: Aimée Semple McPherson, Adiel de Oliveira}
 {key: G}
 {time: 4/4}
@@ -73,10 +73,7 @@ do céu vi[G7]rá pra nos le[C]var.
 [A7]de [D7]rei[G]nar
 {end_of_chorus}
 
-{start_of_part: Outro}
+{start_of_part: Final}
 [C]E, com [C#dim]ele, nós ha[G]vemos [E7+]sem [E7]pre
-[A7]de [D7]rei[G]nar
+[A7]de [D7]rei[G]nar[C][G][D][G]
 {end_of_part}
-
-{comment: Ending}
-[G][C][G][D][G]
