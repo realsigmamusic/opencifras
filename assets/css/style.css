@@ -263,8 +263,10 @@ section button {
 
 /* ---------- Busca ---------- */
 .search-wrap {
+  border: none;
   position: relative;
-  margin-bottom: 0.75rem;
+  padding: 0;
+  margin-bottom: 1rem;
 }
 
 .search-icon {
