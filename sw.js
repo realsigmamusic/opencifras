@@ -1,7 +1,6 @@
 const CACHE_NAME = 'v26.05.28';
 const ASSETS = [
-  './',
-  './index.html', 
+  './index.html',
   './manifest.json',
   './maskable_icon_x512.png',
   './assets/css/song.css',
@@ -16,36 +15,28 @@ const ASSETS = [
 // INSTALAÇÃO
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      // 1. Baixa primeiro a estrutura essencial
+    (async () => {
+      const cache = await caches.open(CACHE_NAME);
+      // Cacheia os arquivos base da aplicação
       await cache.addAll(ASSETS);
 
-      // 2. Lê o songs.json para descobrir as cifras
+      // Pré-carrega o catálogo inteiro de músicas (.cho)
       try {
         const response = await fetch('./songs.json');
         const songs = await response.json();
-        
-        // 3. Baixa música por música
-        await Promise.all(songs.map(async (song) => {
+        for (const song of songs) {
           const safePath = song.file.split('/').map(encodeURIComponent).join('/');
           const fileUrl = './' + safePath;
-          
           try {
-            const songResponse = await fetch(fileUrl);
-            if (songResponse.ok) {
-              await cache.put(fileUrl, songResponse);
-              console.log(`PWA: Salvo offline -> ${song.title}`); 
-            }
-          } catch (fetchErr) {
-            console.warn(`PWA: Falha ao baixar ${fileUrl}`, fetchErr);
+            await cache.add(fileUrl);
+          } catch (err) {
+            console.warn(`PWA: Erro ao pré-cachear música: ${fileUrl}`);
           }
-        }));
-
-        console.log('PWA: O catálogo completo foi salvo e está pronto para uso offline!');
+        }
       } catch (err) {
-        console.error('PWA: Erro geral ao processar o songs.json', err);
+        console.warn('PWA: Falha ao ler songs.json durante a instalação');
       }
-    })
+    })()
   );
   self.skipWaiting();
 });
@@ -68,27 +59,35 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET' || !e.request.url.startsWith('http')) return;
 
-  e.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      
-      // Isso manda ele ignorar o "?file=..." e carregar o song.html puro da gaveta!
-      return cache.match(e.request, { ignoreSearch: true }).then((cachedResponse) => {
-        
-        const fetchPromise = fetch(e.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            // Se for o song.html, não precisa salvar de novo para não inchar o celular
-            const urlObj = new URL(e.request.url);
-            if (!urlObj.pathname.endsWith('song.html')) {
-              cache.put(e.request, networkResponse.clone());
-            }
-          }
-          return networkResponse;
-        }).catch(() => {
-          // Se cair aqui, é porque está 100% offline. O cache.match já segurou a barra.
-        });
+  const url = new URL(e.request.url);
 
-        return cachedResponse || fetchPromise;
+  // ESTRATÉGIA PARA NAVEGAÇÃO (SPA): 
+  // Se o usuário carregar index.html?qualquer-coisa, entrega o index.html fixo do cache.
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      caches.match('./index.html').then((response) => response || fetch(e.request))
+    );
+    return;
+  }
+
+  e.respondWith(
+    caches.match(e.request).then((cachedResponse) => {
+      if (cachedResponse) return cachedResponse;
+
+      // Se não estiver no cache, busca na rede e salva para a próxima vez
+      return fetch(e.request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200) return networkResponse;
+
+        // Não salvamos no cache se a URL tiver parâmetros de busca (para não duplicar o index.html)
+        if (!url.search || !url.pathname.endsWith('index.html')) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, responseToCache);
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        // Falha total (offline e sem cache)
       });
-    })
   );
 });
