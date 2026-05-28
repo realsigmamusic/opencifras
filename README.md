@@ -5,13 +5,13 @@ Uma aplicação web rápida, leve e direto ao ponto para gerenciamento, visualiz
 * **Suporte 100% Offline (PWA):** Uma vez instalado no celular ou computador, o aplicativo funciona perfeitamente sem internet. O mecanismo baixa o catálogo inteiro silenciosamente em segundo plano.
 * **Geração Automática do Catálogo:** Um script de automação em Node.js varre suas pastas, limpa tags estruturais e monta o banco de dados sozinho.
 * **Busca Inteligente (Fuzzy Search):** Utiliza o **Fuse.js** para buscas instantâneas e tolerantes a erros de digitação. Pesquise por título, artista ou trechos da letra.
-* **Leitura Dinâmica:** As cifras são renderizadas dinamicamente através da página `song.html`, que captura os parâmetros e renderiza o arquivo `.cho` via URL.
-* **Ferramentas de Palco:** Transposição de tom em tempo real (+/-) e ajuste dinâmico do tamanho da fonte com salvamento automático de preferências.
+* **Leitura Dinâmica:** As cifras são renderizadas dinamicamente através do `index.html` (aplicativo de página única), que captura os parâmetros (`?file=`) e renderiza o arquivo `.cho` via URL.
+* **Ferramentas de Palco:** Transposição de tom em tempo real (+/-) com o valor de transposição clicável para resetar, e ajuste dinâmico do tamanho da fonte com salvamento automático de preferências.
 * **Alta Performance:** Construído com JavaScript puro (Vanilla) e folha de estilos enxuta para garantir carregamento em milissegundos e consumo mínimo de bateria.
 
 ## Tecnologias Utilizadas
 * **HTML5 / CSS3** (Com variáveis dinâmicas e design responsivo focado no mobile)
-* **JavaScript (Vanilla / ES6)**
+* **JavaScript (Vanilla / ES6):** Gerencia a lógica de navegação de página única (SPA), busca, transposição e favoritos.
 * **Service Workers & Cache Storage API** (Para a mecânica offline do PWA)
 * **[ChordSheetJS](https://github.com/martijnversluis/ChordSheetJS)** (Parser e renderizador oficial do ChordPro)
 * **[Fuse.js](https://fusejs.io/)** (Motor de busca fuzzy local)
@@ -38,8 +38,8 @@ npm run build
 O projeto utiliza um Service Worker configurado com a estratégia **Stale-while-revalidate** combinado com um instalador individual à prova de falhas.
 
 Ao abrir o aplicativo, ele carrega instantaneamente os dados do cache local (velocidade máxima). Se houver conexão com a internet, o Service Worker verifica o `songs.json` em segundo plano e atualiza as novas cifras arquivo por arquivo.
-
-> **Nota de Manutenção:** Sempre que gerar um novo lote de músicas com o `build.js`, lembre-se de alterar a versão do cache na primeira linha do arquivo `sw.js` (ex: `const CACHE_NAME = 'v1';`) para forçar os dispositivos dos músicos a baixarem as novidades.
+* **Estratégia de Cache Inteligente:** O Service Worker utiliza a estratégia "Stale-while-revalidate" para garantir que o aplicativo carregue instantaneamente do cache e, em segundo plano, verifique por atualizações.
+* **Atualização de Conteúdo:** Ao gerar um novo lote de músicas com `build.js`, o Service Worker detecta automaticamente as mudanças no `songs.json` e baixa as novas cifras individualmente. A atualização da `CACHE_NAME` no `sw.js` só é necessária para forçar a atualização dos arquivos principais do aplicativo (HTML, CSS, JS).
 
 ## Como executar localmente
 Como o projeto utiliza a `Fetch API` localmente para carregar os arquivos JSON e as cifras, o navegador bloqueará o funcionamento direto se você apenas clicar duas vezes no `index.html` (Erro de CORS). Você precisará de um servidor web local simples.
