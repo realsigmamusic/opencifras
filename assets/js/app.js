@@ -10,12 +10,15 @@
   const songList    = document.getElementById('song-list');
   const favoritesList = document.getElementById('favorites-list');
   const favoritesSection = document.getElementById('favorites-section');
+  const setlistSection = document.getElementById('setlist-section');
+  const setlistList    = document.getElementById('setlist-list');
   const allSongsSection = document.getElementById('all-songs-section');
   const noResults   = document.getElementById('no-results');
   const songCount   = document.getElementById('song-count');
   const btnShowAll  = document.getElementById('btn-show-all');
 
   const FAVORITES_KEY = 'chordsheets_favorites';
+  const SETLIST_KEY   = 'chordsheets_setlist';
   const LIMIT_HOME = 5;
 
   function escapeHtml(str) {
@@ -37,19 +40,32 @@
 
   function renderCard(song) {
     const url = '?file=' + encodeURIComponent(song.file);
-    const keyBadge = song.key
-      ? '<span class="song-card-key">' + escapeHtml(song.key) + '</span>'
-      : '';
 
     return '<a href="' + url + '" class="song-item">'
       +   '<div class="song-card-content">'
       +     '<h1 class="song-card-title">' + escapeHtml(song.title) + '</h1>'
       +     '<span class="song-card-artist">' + escapeHtml(song.artist) + '</span>'
       +   '</div>'
-      +   '<div class="song-card-meta">'
-      +     keyBadge
-      +   '</div>'
       + '</a>';
+  }
+
+  function renderSetlistCard(song) {
+    // Adiciona o parâmetro origin=setlist para ativar a navegação prev/next
+    const html = renderCard(song);
+    return html.replace('?file=', '?origin=setlist&file=');
+  }
+
+  function renderSetlistSection() {
+    const saved = localStorage.getItem(SETLIST_KEY);
+    const setlistData = saved ? JSON.parse(saved) : {};
+    const files = Object.keys(setlistData);
+
+    if (files.length === 0) {
+      setlistSection.style.display = 'none';
+    } else {
+      setlistSection.style.display = 'block';
+      setlistList.innerHTML = files.map(url => renderSetlistCard({ ...setlistData[url], file: url })).join('');
+    }
   }
 
   function renderFavoritesSection() {
@@ -95,6 +111,7 @@
     if (!query) {
       showingAll = false;
       renderFavoritesSection();
+      renderSetlistSection();
       renderList(recentSongs, true);
       return;
     }
@@ -111,20 +128,22 @@
   }
 
   function syncView() {
-    const navBack = document.getElementById('nav-back');
     const songCountLabel = document.getElementById('song-count');
+    const songControls = document.getElementById('song-controls');
+    const navbarBrand = document.getElementById('navbar-brand');
     const params = new URLSearchParams(window.location.search);
 
     if (params.has('file')) {
       document.getElementById('home-view').style.display = 'none';
       document.getElementById('song-view').style.display = 'block';
-      if (navBack) navBack.style.display = 'block';
+      if (songControls) songControls.style.display = 'flex';
       if (songCountLabel) songCountLabel.style.display = 'none';
     } else {
       document.getElementById('home-view').style.display = 'block';
       document.getElementById('song-view').style.display = 'none';
-      if (navBack) navBack.style.display = 'none';
+      if (songControls) songControls.style.display = 'none';
       if (songCountLabel) songCountLabel.style.display = 'inline';
+      if (navbarBrand) navbarBrand.style.display = 'block';
       onSearch(); // Garante que a lista (favoritos e recentes) esteja atualizada
     }
   }
@@ -166,6 +185,7 @@
 
   searchInput.addEventListener('input', onSearch);
   btnShowAll.addEventListener('click', onShowAll);
+  window.addEventListener('setlistChanged', onSearch);
   window.addEventListener('favoritesChanged', onSearch);
   window.addEventListener('popstate', syncView);
   init();

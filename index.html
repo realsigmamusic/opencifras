@@ -27,9 +27,29 @@
 <body>
   <header>
     <nav class="navbar">
-      <a href="?" class="navbar-brand">ChordSheets</a>
+      <a href="?" class="navbar-brand" id="navbar-brand">ChordSheets</a>
       <span class="song-count" id="song-count"></span>
     </nav>
+    <div class="controls">
+      <!-- CONTROLES DA CIFRA -->
+      <div id="song-controls" class="song-controls" style="display: none;">
+        <div class="control-group">
+          <button id="btn-down" class="btn-circle">−</button>
+          <div class="transpose-display">
+            <button id="transpose-value" class="transpose-value" title="Resetar tom">0</button>
+          </div>
+          <button id="btn-up" class="btn-circle">+</button>
+        </div>
+
+        <div class="font-size-group">
+          <button class="btn-font" id="btn-font-down" title="Diminuir fonte">A−</button>
+          <span class="font-size-label" id="font-size-display">16</span>
+          <button class="btn-font" id="btn-font-up" title="Aumentar fonte">A+</button>
+        </div>
+
+        <button id="btn-favorite" class="btn-circle" title="Favoritar">S2</button>
+      </div>
+    </div>
   </header>
 
   <!-- TELA INICIAL -->
@@ -49,8 +69,14 @@
 
       <!-- MÚSICAS FAVORITAS -->
       <section id="favorites-section" style="display:none" aria-labelledby="favorites-title">
-        <h2 class="section-title" id="favorites-title">Músicas favoritas</h2>
+        <h2 class="section-title" id="favorites-title">Favoritos</h2>
         <div class="song-list" id="favorites-list"></div>
+      </section>
+
+      <!-- SETLIST PARA O PALCO -->
+      <section id="setlist-section" style="display:none" aria-labelledby="setlist-title">
+        <h2 class="section-title" id="setlist-title">SetList</h2>
+        <div class="song-list" id="setlist-list"></div>
       </section>
 
       <!-- TODAS AS MÚSICAS -->
@@ -73,17 +99,6 @@
       <div id="error-msg" class="state-msg" style="display:none"><span id="error-text"></span></div>
 
       <article id="song-content" style="display:none">
-        <div class="transpose-row">
-          <button id="btn-down" class="btn-circle">−</button>
-          <button id="transpose-value" class="transpose-value" title="Resetar tom">0</button>
-          <button id="btn-up" class="btn-circle">+</button>
-          <div class="font-size-group">
-            <button class="btn-font" id="btn-font-down" title="Diminuir fonte">A−</button>
-            <span class="font-size-label" id="font-size-display">16</span>
-            <button class="btn-font" id="btn-font-up" title="Aumentar fonte">A+</button>
-          </div>
-        </div>
-        
         <header id="song-header" class="song-header"></header>
         <div id="chord-sheet"></div>
       </article>
@@ -91,10 +106,18 @@
   </main>
 
   <footer id="toolbar" class="toolbar" style="display:none">
-    <div class="toolbar-inner">
-      <button id="btn-offline" class="btn-toolbar">Favoritar</button>
-      <button id="btn-share" class="btn-toolbar">Compartilhar</button>
-      <a id="btn-download" href="#" download class="btn-toolbar">Download</a>
+    <div class="toolbar-container">
+      <!-- NAVEGAÇÃO DO SETLIST (AGORA NO FOOTER) -->
+      <div id="setlist-navigation" class="toolbar-inner" style="display:none; margin-bottom: 0.5rem; width: 100%;">
+        <a id="nav-prev-song" class="btn-toolbar" style="flex:1">← Anterior</a>
+        <a id="nav-next-song" class="btn-toolbar" style="flex:1">Próxima →</a>
+      </div>
+
+      <div class="toolbar-inner">
+        <button id="btn-setlist" class="btn-toolbar">Salvar</button>
+        <button id="btn-share" class="btn-toolbar">Compartilhar</button>
+        <a id="btn-download" href="#" download class="btn-toolbar">Download</a>
+      </div>
     </div>
   </footer>
 

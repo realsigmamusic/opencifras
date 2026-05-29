@@ -10,19 +10,24 @@ const elErrorText = document.getElementById('error-text');
 const elToolbar   = document.getElementById('toolbar');
 const elBtnDown   = document.getElementById('btn-down');
 const elBtnUp     = document.getElementById('btn-up');
-const elBtnFavorite = document.getElementById('btn-offline');
+const elBtnSetlist  = document.getElementById('btn-setlist');
+const elBtnFavorite = document.getElementById('btn-favorite');
 const elBtnShare  = document.getElementById('btn-share');
 const elBtnDl     = document.getElementById('btn-download');
 const elBtnFontDown = document.getElementById('btn-font-down');
 const elBtnFontUp   = document.getElementById('btn-font-up');
 const elFontDisp    = document.getElementById('font-size-display');
+const elNavSection  = document.getElementById('setlist-navigation');
+const elNavPrev     = document.getElementById('nav-prev-song');
+const elNavNext     = document.getElementById('nav-next-song');
 
 /* ── Estado ── */
 const FONT_SIZES = [10, 12, 14, 16, 18, 20, 22, 24, 26];
 const FONT_KEY   = 'chordsheets_fontsize';
+const SETLIST_KEY   = 'chordsheets_setlist';
 const FAVORITES_KEY = 'chordsheets_favorites';
 
-let fileUrl, titleParam, artistParam, keyParam, transposeParam, TRANS_KEY;
+let fileUrl, titleParam, artistParam, keyParam, transposeParam, originParam, TRANS_KEY;
 let song      = null;
 let transpose = 0;
 let fontIdx   = 3;
@@ -34,6 +39,7 @@ function updateStateFromUrl() {
   artistParam = params.get('artist') || '';
   keyParam    = params.get('key')    || '';
   transposeParam = params.get('transpose');
+  originParam = params.get('origin');
   TRANS_KEY = `chordsheets_transpose_${fileUrl}`;
 }
 
@@ -76,30 +82,102 @@ function saveTransposePref() {
   localStorage.setItem(TRANS_KEY, transpose);
 }
 
-/* ── Gerenciar Favoritos ── */
-function getSavedFavorites() {
+/* ── Gerenciar Setlist (Offline Total) ── */
+function getSetlist() {
+  const saved = localStorage.getItem(SETLIST_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+
+function isInSetlist() {
+  return !!getSetlist()[fileUrl];
+}
+
+/* ── Gerenciar Favoritos Clássicos ── */
+function getFavorites() {
   const saved = localStorage.getItem(FAVORITES_KEY);
   return saved ? JSON.parse(saved) : [];
 }
 
-function isFavorite() {
-  return getSavedFavorites().includes(fileUrl);
+function toggleFavorite() {
+  const favs = getFavorites();
+  const index = favs.indexOf(fileUrl);
+  if (index > -1) {
+    favs.splice(index, 1);
+    elBtnFavorite.style.opacity = "0.4";
+  } else {
+    favs.push(fileUrl);
+    elBtnFavorite.style.opacity = "1";
+  }
+  localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+  window.dispatchEvent(new CustomEvent('favoritesChanged'));
 }
 
-function toggleFavorite() {
-  const saved = getSavedFavorites();
-  const index = saved.indexOf(fileUrl);
-  
-  if (index > -1) {
-    saved.splice(index, 1);
-    elBtnFavorite.textContent = 'Favoritar';
+async function toggleSetlist() {
+  const setlist = getSetlist();
+
+  if (setlist[fileUrl]) {
+    delete setlist[fileUrl];
+    elBtnSetlist.textContent = 'Salvar';
   } else {
-    saved.push(fileUrl);
-    elBtnFavorite.textContent = 'Desfavoritar';
+    elBtnSetlist.textContent = 'Salvando...';
+    try {
+      // Quando salva, garante que temos o conteúdo textual
+      const response = await fetch(fileUrl);
+      const text = await response.text();
+      
+      setlist[fileUrl] = {
+        title: song?.metadata?.title || titleParam,
+        artist: song?.metadata?.artist || artistParam,
+        key: song?.metadata?.key || keyParam,
+        content: text,
+        updatedAt: Date.now()
+      };
+      elBtnSetlist.textContent = 'Remover';
+    } catch (err) {
+      alert('Erro ao baixar música para uso offline. Verifique sua conexão.');
+      elBtnSetlist.textContent = 'Salvar';
+      return;
+    }
   }
-  
-  localStorage.setItem(FAVORITES_KEY, JSON.stringify(saved));
-  window.dispatchEvent(new CustomEvent('favoritesChanged'));
+
+  localStorage.setItem(SETLIST_KEY, JSON.stringify(setlist));
+  window.dispatchEvent(new CustomEvent('setlistChanged'));
+}
+
+function setupSetlistNavigation() {
+  if (originParam !== 'setlist') {
+    elNavSection.style.display = 'none';
+    return;
+  }
+
+  const setlist = getSetlist();
+  const files = Object.keys(setlist);
+  const currentIndex = files.indexOf(fileUrl);
+
+  if (currentIndex === -1) {
+    elNavSection.style.display = 'none';
+    return;
+  }
+
+  elNavSection.style.display = 'flex';
+
+  // Botão Anterior
+  if (currentIndex > 0) {
+    const prevFile = files[currentIndex - 1];
+    elNavPrev.href = `?origin=setlist&file=${encodeURIComponent(prevFile)}&title=${encodeURIComponent(setlist[prevFile].title)}&artist=${encodeURIComponent(setlist[prevFile].artist)}`;
+    elNavPrev.style.visibility = 'visible';
+  } else {
+    elNavPrev.style.visibility = 'hidden';
+  }
+
+  // Botão Próximo
+  if (currentIndex < files.length - 1) {
+    const nextFile = files[currentIndex + 1];
+    elNavNext.href = `?origin=setlist&file=${encodeURIComponent(nextFile)}&title=${encodeURIComponent(setlist[nextFile].title)}&artist=${encodeURIComponent(setlist[nextFile].artist)}`;
+    elNavNext.style.visibility = 'visible';
+  } else {
+    elNavNext.style.visibility = 'hidden';
+  }
 }
 
 /* ── Renderiza metadados do ChordPro ── */
@@ -189,9 +267,10 @@ function renderSheet() {
 elBtnUp.addEventListener('click',    () => { transpose++; saveTransposePref(); updateUrlParams(); renderSheet(); });
 elBtnDown.addEventListener('click',  () => { transpose--; saveTransposePref(); updateUrlParams(); renderSheet(); });
 elTransVal.addEventListener('click', () => { transpose = 0; saveTransposePref(); updateUrlParams(); renderSheet(); });
+elBtnFavorite.addEventListener('click', toggleFavorite);
 
 /* ── Favoritar ── */
-elBtnFavorite.addEventListener('click', toggleFavorite);
+elBtnSetlist.addEventListener('click', toggleSetlist);
 
 /* ── Compartilhar ── */
 elBtnShare.addEventListener('click', async () => {
@@ -253,13 +332,18 @@ function initSong() {
   document.title = titleParam + '';
   loadFontPref();
   loadTransposePref();
+  setupSetlistNavigation();
 
   fetch(fileUrl)
-    .then(r => {
-      if (!r.ok) throw new Error(`Arquivo não encontrado: ${fileUrl}`);
-      return r.text();
+    .then(r => r.text())
+    .catch(() => {
+      // Fallback para localStorage se a rede falhar
+      const setlist = getSetlist();
+      if (setlist[fileUrl]) return setlist[fileUrl].content;
+      throw new Error(`Música não encontrada offline. Salve-a no repertório enquanto estiver online.`);
     })
     .then(text => {
+      if (!text) throw new Error("Conteúdo vazio");
       const parser = new ChordSheetJS.ChordProParser();
       song = parser.parse(text);
 
@@ -273,11 +357,15 @@ function initSong() {
       showContent();
       
       // Atualiza estado do botão
-      if (isFavorite()) {
-        elBtnFavorite.textContent = 'Desfavoritar';
+      if (isInSetlist()) {
+        elBtnSetlist.textContent = 'Remover';
       } else {
-        elBtnFavorite.textContent = 'Favoritar';
+        elBtnSetlist.textContent = 'Salvar';
       }
+
+      // Atualiza estado do favorito
+      const favs = getFavorites();
+      elBtnFavorite.style.opacity = favs.includes(fileUrl) ? "1" : "0.4";
     })
     .catch(err => showError(err.message));
 }

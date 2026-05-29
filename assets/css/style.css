@@ -205,18 +205,14 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   background: var(--secondary-bg);
 }
 
-a.navbar-back {
-  font-size: 3rem;
-  color: var(--body-color);
-  transition: opacity .15s;
-  padding-left: 0;
-  padding-right: 0;
-  margin-top: -0.3rem;
+.controls {
+  padding: 0.25rem 1.25rem;
+  background: var(--secondary-bg);
 }
 
-.navbar-back:hover { opacity: .7; }
-
 .navbar-brand {
+  padding-top: 0.25rem;
+  padding-bottom: 0;
   font-size: 2rem;
   font-weight: bold;
   letter-spacing: .02rem;
@@ -225,8 +221,31 @@ a.navbar-back {
 }
 
 .song-count {
+  padding: 0;
   font-size: 1rem;
   color: var(--secondary-color);
+}
+
+.song-controls {
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.transpose-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  min-width: 2.2rem;
 }
 
 section {
@@ -258,7 +277,7 @@ section button {
 .container {
   max-width: 50rem;
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 7.5rem;
+  padding: 1.5rem 1.25rem 6rem; /* Espaço para o footer */
 }
 
 /* ---------- Busca ---------- */
@@ -413,14 +432,20 @@ section button {
   right: 0;
   z-index: 100;
   background: var(--secondary-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid var(--border-color);
   padding: 0.75rem;
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }
 
-.toolbar-inner {
+.toolbar-container {
   max-width: 50rem;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar-inner {
   display: flex;
   gap: 0.5rem;
   align-items: center;
