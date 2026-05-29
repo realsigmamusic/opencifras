@@ -1,11 +1,3 @@
-/* ── Parâmetros da URL ── */
-const params = new URLSearchParams(location.search);
-const fileUrl = params.get('file');
-const titleParam  = params.get('title')  || '';
-const artistParam = params.get('artist') || '';
-const keyParam    = params.get('key')    || '';
-const transposeParam = params.get('transpose');
-
 /* ── Elementos ── */
 const elSongHeader = document.getElementById('song-header');
 const elKeyLabel  = document.getElementById('current-key-label');
@@ -28,12 +20,22 @@ const elFontDisp    = document.getElementById('font-size-display');
 /* ── Estado ── */
 const FONT_SIZES = [10, 12, 14, 16, 18, 20, 22, 24, 26];
 const FONT_KEY   = 'chordsheets_fontsize';
-const TRANS_KEY  = `chordsheets_transpose_${fileUrl}`;
 const FAVORITES_KEY = 'chordsheets_favorites';
 
+let fileUrl, titleParam, artistParam, keyParam, transposeParam, TRANS_KEY;
 let song      = null;
 let transpose = 0;
 let fontIdx   = 3;
+
+function updateStateFromUrl() {
+  const params = new URLSearchParams(location.search);
+  fileUrl = params.get('file');
+  titleParam  = params.get('title')  || '';
+  artistParam = params.get('artist') || '';
+  keyParam    = params.get('key')    || '';
+  transposeParam = params.get('transpose');
+  TRANS_KEY = `chordsheets_transpose_${fileUrl}`;
+}
 
 /* ── Tamanho de fonte ── */
 function loadFontPref() {
@@ -244,9 +246,10 @@ function showContent() {
   elToolbar.style.display = 'block';
 }
 
-if (!fileUrl) {
-  showError('Nenhuma música especificada.');
-} else {
+function initSong() {
+  updateStateFromUrl();
+  if (!fileUrl) return;
+
   document.title = titleParam + '';
   loadFontPref();
   loadTransposePref();
@@ -278,3 +281,6 @@ if (!fileUrl) {
     })
     .catch(err => showError(err.message));
 }
+
+window.addEventListener('popstate', initSong);
+initSong();

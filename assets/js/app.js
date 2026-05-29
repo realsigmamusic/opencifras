@@ -110,27 +110,29 @@
     window.scrollTo(0, 0);
   }
 
+  function syncView() {
+    const navBack = document.getElementById('nav-back');
+    const songCountLabel = document.getElementById('song-count');
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has('file')) {
+      document.getElementById('home-view').style.display = 'none';
+      document.getElementById('song-view').style.display = 'block';
+      if (navBack) navBack.style.display = 'block';
+      if (songCountLabel) songCountLabel.style.display = 'none';
+    } else {
+      document.getElementById('home-view').style.display = 'block';
+      document.getElementById('song-view').style.display = 'none';
+      if (navBack) navBack.style.display = 'none';
+      if (songCountLabel) songCountLabel.style.display = 'inline';
+      onSearch(); // Garante que a lista (favoritos e recentes) esteja atualizada
+    }
+  }
+
   async function init() {
     try {
       const res = await fetch('songs.json');
       const data = await res.json();
-      
-      const navBack = document.getElementById('nav-back');
-      const songCountLabel = document.getElementById('song-count');
-
-      // Alternar entre tela inicial e cifra baseado na URL
-      const params = new URLSearchParams(window.location.search);
-      if (params.has('file')) {
-        document.getElementById('home-view').style.display = 'none';
-        document.getElementById('song-view').style.display = 'block';
-        if (navBack) navBack.style.display = 'block';
-        if (songCountLabel) songCountLabel.style.display = 'none';
-      } else {
-        document.getElementById('home-view').style.display = 'block';
-        document.getElementById('song-view').style.display = 'none';
-        if (navBack) navBack.style.display = 'none';
-        if (songCountLabel) songCountLabel.style.display = 'inline';
-      }
 
       // allSongs = ALFABÉTICA (para "ver todas")
       allSongs = data.sort(function (a, b) {
@@ -155,8 +157,7 @@
         ignoreLocation: true
       });
 
-      renderFavoritesSection();
-      renderList(recentSongs, true);
+      syncView();
     } catch (err) {
       console.error('Falha ao carregar songs.json', err);
       songList.innerHTML = '<p style="padding:1rem;color:var(--danger)">Erro ao carregar músicas.</p>';
@@ -166,5 +167,6 @@
   searchInput.addEventListener('input', onSearch);
   btnShowAll.addEventListener('click', onShowAll);
   window.addEventListener('favoritesChanged', onSearch);
+  window.addEventListener('popstate', syncView);
   init();
 })();

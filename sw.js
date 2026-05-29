@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v26.05.28';
+const CACHE_NAME = 'v26.05.29';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -88,6 +88,8 @@ self.addEventListener('fetch', (e) => {
         return networkResponse;
       }).catch(() => {
         // Falha total (offline e sem cache)
+        console.log('PWA: Recurso não encontrado na rede nem no cache.');
       });
+    })
   );
 });
