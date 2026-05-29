@@ -117,6 +117,7 @@
     }
     showingAll = false;
     favoritesSection.style.display = 'none';
+    setlistSection.style.display = 'none';
     renderList(fuse.search(query).map(function (r) { return r.item; }), false);
   }
 
