@@ -7,7 +7,7 @@
     "theme_color": "#f8f9fa",
 	"icons": [
 		{
-			"src": "maskable_icon_x512.png",
+			"src": "./assets/maskable_icon_x512.png",
 			"sizes": "512x512",
 			"type": "image/png"
 		}
