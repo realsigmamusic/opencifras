@@ -125,7 +125,7 @@ async function toggleSetlist() {
 
   if (setlist[fileUrl]) {
     delete setlist[fileUrl];
-    elBtnSetlist.textContent = 'Salvar';
+    elBtnSetlist.textContent = 'Setlist';
   } else {
     elBtnSetlist.textContent = 'Salvando...';
     try {
@@ -143,7 +143,7 @@ async function toggleSetlist() {
       elBtnSetlist.textContent = 'Remover';
     } catch (err) {
       alert('Erro ao baixar música para uso offline. Verifique sua conexão.');
-      elBtnSetlist.textContent = 'Salvar';
+      elBtnSetlist.textContent = 'Setlist';
       return;
     }
   }
@@ -379,9 +379,9 @@ function initSong() {
       
       // Atualiza estado do botão
       if (isInSetlist()) {
-        elBtnSetlist.textContent = 'Remover';
+        elBtnSetlist.textContent = 'Remover'; // remover
       } else {
-        elBtnSetlist.textContent = 'Salvar';
+        elBtnSetlist.textContent = 'Setlist'; // salvar
       }
     })
     .catch(err => showError(err.message));
