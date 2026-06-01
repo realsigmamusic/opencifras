@@ -43,10 +43,11 @@ body {
   font-family: var(--font-sans-serif);
   min-height: 100dvh;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; touch-action: manipulation; }
+button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; touch-action: manipulation; }
 
 /* ---------- Navbar ---------- */
 .header-controls {
