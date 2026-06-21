@@ -55,11 +55,15 @@ h3.label, .comment {
 }
 
 .chord {
-  min-height: calc(1em + 0.5em);
+  min-height: calc(1em + 0.75em);
   padding-right: 0.5em;
   font-weight: bold;
   color: var(--info-text-emphasis);
   margin-bottom: -0.5em;
+}
+
+.chord-sheet .lyrics:empty {
+  display: none;
 }
 
 .lyrics {
