@@ -369,11 +369,38 @@ function initSong() {
       const parser = new ChordSheetJS.ChordProParser();
       song = parser.parse(text);
 
-      renderMetadata(song);
+      // INTEGRAÇÃO CHORD-SYMBOL
+      console.log('Verificando window["chord-symbol"]', window["chord-symbol"]);
+      
+      if (window["chord-symbol"]) {
+        const parseChord = window["chord-symbol"].chordParserFactory();
+        const renderChord = window["chord-symbol"].chordRendererFactory();
 
-      const blob = new Blob([text], { type: 'text/plain' });
-      elBtnDl.href     = URL.createObjectURL(blob);
-      elBtnDl.download = fileUrl.split('/').pop() || 'cifra.cho';
+        song.lines.forEach(line => {
+          line.items.forEach(item => {
+            // Verifica se o bloco de texto possui um acorde
+            if (item.chords) {
+              const parsed = parseChord(item.chords);
+              
+              if (!parsed.error) { 
+                let formatted = renderChord(parsed);
+                formatted = formatted.replace(/maj7/g, '7M')
+                                     .replace(/ma7/g, '7M')
+                                     .replace(/Ma7/g, '7M')
+                                     .replace(/maj/g, '')
+                                     .replace(/mi/g, 'm');
+                                     
+                //console.log(`Acorde convertido: De [${item.chords}] para [${formatted}]`);
+                item.chords = formatted;
+              } else {
+                console.warn(`Acorde ignorado/inválido pelo chord-symbol: ${item.chords}`);
+              }
+            }
+          });
+        });
+      } else {
+        console.error('ERRO: O objeto window["chord-symbol"] não foi encontrado.');
+      }
 
       renderSheet();
       showContent();

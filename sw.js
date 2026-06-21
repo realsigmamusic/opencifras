@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v26.06.20';
+const CACHE_NAME = 'v26.06.21';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -9,13 +9,36 @@ const ASSETS = [
   './assets/js/song.js',
   './assets/vendor/fuse.min.js',
   './assets/vendor/chordsheetjs.min.js',
+  './assets/vendor/chordsymbol.min.js',
   './songs.json'
 ];
 
-// INSTALAÇÃO: cacheia só os assets estáticos da UI
+// INSTALAÇÃO: cacheia assets estáticos e faz o pré-cache de todas as músicas
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(async (cache) => {
+      // 1. Salva os arquivos estáticos da UI
+      await cache.addAll(ASSETS);
+      
+      // 2. Busca o songs.json para descobrir quais são os arquivos .cho
+      try {
+        const response = await fetch('./songs.json');
+        if (response.ok) {
+          const songs = await response.json();
+          
+          // Extrai o caminho de cada música (ajuste 'song.file' se a sua propriedade no JSON tiver outro nome, como 'song.path')
+          const choUrls = songs
+            .map(song => song.file) // substitua 'file' pela chave correta do seu JSON
+            .filter(url => url);    // remove valores nulos/vazios
+            
+          // Adiciona todas as cifras ao cache em segundo plano
+          await cache.addAll(choUrls);
+          console.log('SW: Todas as músicas foram cacheadas para uso offline!');
+        }
+      } catch (err) {
+        console.warn('SW: Não foi possível pré-cachear as músicas:', err);
+      }
+    })
   );
   self.skipWaiting();
 });
