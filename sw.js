@@ -9,7 +9,6 @@ const ASSETS = [
   './assets/js/song.js',
   './assets/vendor/fuse.min.js',
   './assets/vendor/chordsheetjs.min.js',
-  './assets/vendor/chordsymbol.min.js',
   './songs.json'
 ];
 
