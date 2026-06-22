@@ -14,7 +14,6 @@
   const setlistList    = document.getElementById('setlist-list');
   const allSongsSection = document.getElementById('all-songs-section');
   const noResults   = document.getElementById('no-results');
-  const songCount   = document.getElementById('song-count');
   const btnShowAll  = document.getElementById('btn-show-all');
 
   const FAVORITES_KEY = 'chordsheets_favorites';
@@ -234,7 +233,6 @@
         });
 
       const n = data.length;
-      songCount.textContent = n + ' música' + (n !== 1 ? 's' : '');
 
       fuse = new Fuse(allSongs, {
         keys: ['title', 'artist', 'lyrics'],
