@@ -189,6 +189,7 @@ section button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-top: 0.2rem;
 }
 
 .song-card-artist {
@@ -199,6 +200,7 @@ section button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-bottom: 1px solid var(--border-color);
 }
 
 /* ---------- Sem resultados ---------- */
@@ -378,7 +380,7 @@ section button {
 }
 
 .bottom-nav-item.active {
-  color: var(--primary);
+  color: var(--info-text-emphasis);
 }
 
 /* ---------- Artistas ---------- */
@@ -392,14 +394,13 @@ section button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.6rem 0.5rem;
-  border-radius: var(--border-radius);
+  padding-top: 1rem;
   cursor: pointer;
   border-bottom: 1px solid var(--border-color);
 }
 
 .artist-name {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .artist-count {
@@ -409,11 +410,11 @@ section button {
 }
 
 .artist-back-btn {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.4rem;
   font-size: 1rem;
-  color: var(--primary);
+  color: var(--info-text-emphasis);
   padding: 0.5rem 0;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-color);

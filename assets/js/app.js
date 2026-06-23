@@ -20,7 +20,7 @@
   const FAVORITES_KEY = 'chordsheets_favorites';
 
   //Configurações 
-  const LIMIT_HOME = 5; // quantas músicas mostrar na aba Início antes do "ver todas"
+  const LIMIT_HOME = 7; // quantas músicas mostrar na aba Início antes do "ver todas"
 
   // UTILITÁRIOS ==================================================================================
 
@@ -113,7 +113,6 @@
     artistsEl.innerHTML = sorted.map(artist => `
       <div class="artist-item" data-artist="${escapeHtml(artist)}">
         <span class="artist-name">${escapeHtml(artist)}</span>
-        <span class="artist-count">${artists[artist].length} música${artists[artist].length !== 1 ? 's' : ''}</span>
       </div>
     `).join('');
 
@@ -148,9 +147,9 @@
   // Chamada toda vez que o usuário digita na barra de pesquisa
   function onSearch() {
     const query = searchInput.value.trim();
+    document.getElementById('all-songs-title').textContent = query ? 'Resultados da busca' : showingAll ? 'Todas as músicas' : 'Músicas recentes';
 
     if (!query) {
-      // Sem texto: volta para a lista de recentes
       showingAll = false;
       renderList(recentSongs, true);
       return;
@@ -165,6 +164,7 @@
   function onShowAll() {
     showingAll = true;
     btnShowAll.style.display = 'none';
+    document.getElementById('all-songs-title').textContent = 'Todas as músicas';
     renderList(allSongs, false);
     window.scrollTo(0, 0);
   }
