@@ -283,6 +283,15 @@
     }
   }
 
+  /* const selectFontUi = document.getElementById("font-ui");
+
+  selectFontUi.addEventListener("change", () => {
+      document.documentElement.style.setProperty(
+          "--font-ui",
+          selectFontUi.value
+      );
+  }); */
+
   //Eventos globais 
   searchInput.addEventListener('input', onSearch);
   btnShowAll.addEventListener('click', onShowAll);
@@ -298,6 +307,10 @@ async function loadAppVersion() {
   const res   = await fetch('./sw.js');
   const text  = await res.text();
   const match = text.match(/CACHE_NAME\s*=\s*['"]([^'"]+)['"]/);
-  if (match) document.getElementById('app-version').textContent = `v${match[1]}`;
+  if (match) {
+    document.getElementById('app-version').textContent = `v${match[1]}`;
+    document.getElementById('opencifras-version').textContent = `v${match[1]}`;
+    document.getElementById('chordsheetjs-version').textContent = `v${ChordSheetJS.version}`;
+  }
 }
 loadAppVersion();

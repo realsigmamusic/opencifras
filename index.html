@@ -36,7 +36,7 @@
           <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
         </svg>
         OpenCifras
-        <span class="song-count" id="app-version"></span>
+        <span id="app-version"></span>
       </a>
     </nav>
 
@@ -143,29 +143,35 @@
 
       <!-- CONFIGURAÇÕES -->
       <section id="config-section" style="display:none">
-        <h2>Configurações</h2>
-      
+        <h2>Configurações</h2><!--
         <div class="config-group">
-          <h3>Sobre:</h3>
+          <select id="font-ui">
+            <option value="sans-serif" selected>sans-serif</option>
+            <option value="monospace">monospace</option>
+            <option value="serif">serif</option>
+          </select>
+        </div>
+
+        <h2>Sobre</h2> -->
+        <div class="config-group">
+          <h3>OpenCifras <span id="opencifras-version"></span></h3>
           <p>Aplicativo de cifras no formato ChordPro, offline, sem anúncios e sem cadastro.</p>
           <a href="https://github.com/realsigmamusic/opencifras" target="_blank" class="config-link">
-            Saiba mais...
+            Saiba mais…
           </a>
         </div>
-      
         <div class="config-group">
           <h3>ChordPro</h3>
-          <p>Formato de texto simples para cifras musicais. Os acordes ficam entre colchetes, diretamente na letra: <code>[Dm7]Letra [G7]da [CM7]Música</code>. Arquivos com extensão <code>.cho</code>.</p>
+          <p>Formato de texto para cifras musicais. Os acordes ficam entre colchetes, na letra:<br><code>[Dm7]Letra [G7]da [CM7]Música</code><br>Arquivos com extensão <code>.cho</code></p>
           <a href="https://www.chordpro.org" target="_blank" class="config-link">
-            Saiba mais...
+            Saiba mais…
           </a>
         </div>
-      
         <div class="config-group">
-          <h3>ChordSheetJS</h3>
+          <h3>ChordSheetJS <span id="chordsheetjs-version"></span></h3>
           <p>Biblioteca open-source que faz o parse e renderização das cifras no app. Responsável pelo alinhamento perfeito dos acordes sobre as sílabas.</p>
           <a href="https://martijnversluis.github.io/ChordSheetJS/" target="_blank" class="config-link">
-            Saiba mais...
+            Saiba mais…
           </a>
         </div>
       </section>
@@ -185,7 +191,7 @@
     </div>
   </main>
 
-  <footer class="site-footer">
+  <footer>
     <nav class="bottom-nav">
       <a class="bottom-nav-item active" id="nav-inicio">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">

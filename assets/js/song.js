@@ -205,7 +205,7 @@ function renderSheet() {
   elSheet.innerHTML = elSheet.innerHTML.replace(/\.\.\./g, '…'); // reticências tipográficas
   elSheet.querySelectorAll('.chord').forEach(el => {
     el.innerHTML = el.innerHTML
-      .replace(/maj7/gi, 'Δ7') // CΔ7 em vez de Cmaj7
+      .replace(/ma/gi, 'M') // CΔ7 em vez de Cmaj7
       .replace(/dim/gi,  '°'); // C° em vez de Cdim
   });
 

@@ -3,7 +3,8 @@
   --primary: #0d6efd;
   --info: #0dcaf0;
   --danger: #dc3545;
-  --font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-ui: sans-serif;
+  --font-song: sans-serif;
   --body-color: #212529;
   --body-bg: #fff;
   --secondary-color: rgba(33, 37, 41, 0.75);
@@ -40,7 +41,7 @@ html { font-size: 16px; }
 body {
   background: var(--body-bg);
   color: var(--body-color);
-  font-family: var(--font-sans-serif);
+  font-family: var(--font-ui);
   min-height: 100dvh;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -55,6 +56,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   top: 0;
   z-index: 1000;
   background: var(--secondary-bg);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .navbar {
@@ -84,9 +86,10 @@ button { cursor: pointer; border: none; background: none; font: inherit; color: 
   flex: 1;
 }
 
-.song-count {
+#app-version {
   padding: 0;
   font-size: 1rem;
+  font-weight: lighter;
   color: var(--secondary-color);
 }
 
@@ -184,6 +187,15 @@ section button {
   gap: 2px;
 }
 
+.song-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.song-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
 .song-card-title {
   font-size: 1.5rem;
   white-space: nowrap;
@@ -200,7 +212,6 @@ section button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-bottom: 1px solid var(--border-color);
 }
 
 /* ---------- Sem resultados ---------- */
@@ -260,33 +271,6 @@ section button {
   color: var(--secondary-text-emphasis);
   min-width: 2rem;
   text-align: center;
-}
-
-/* ---------- Toolbar (rodapé fixo) ---------- */
-.toolbar {
-  position: fixed;
-  bottom: calc(env(safe-area-inset-bottom) + 3.5rem);
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: var(--secondary-bg);
-  backdrop-filter: blur(15px);
-  border-top: 1px solid var(--border-color);
-  padding: 0.75rem;
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
-}
-
-.toolbar-container {
-  max-width: 50rem;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.toolbar-inner {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
 }
 
 /* Botões de ação */
@@ -362,12 +346,9 @@ section button {
 
 .artist-name {
   font-size: 1.2rem;
-}
-
-.artist-count {
-  font-size: 0.85rem;
-  color: var(--tertiary-color);
-  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .artist-back-btn {
@@ -397,6 +378,12 @@ section button {
   font-weight: bold;
   color: var(--body-color);
   margin-bottom: 0.4rem;
+}
+
+#config-section select {
+  font-size: 1rem;
+  color: var(--body-color);
+  margin-bottom: 0.8rem;
 }
 
 #config-section p {
