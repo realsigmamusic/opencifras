@@ -8,21 +8,20 @@
 {time: 4/4}
 
 {start_of_part: Introdução}
-[A][A9M][D/A][A9M]
-[A][E/B][D/C#][E9sus]
+[|][A][E/A][|][D/A][E/A][|][A][E/B][|][D/C#][E9sus4]
 {end_of_part}
 
 {start_of_verse: Verso}
-Em Es[A]pírito, em ver[A9M]dade
+Em Es[A]pírito, em ver[E/A]dade
 Te ado[D/A]ramos,[D/E] Te ado[A]ramos[D/E]
-Em Es[A]pírito, em ver[A9M]dade
+Em Es[A]pírito, em ver[E/A]dade
 Te ado[D/A]ramos,[D/E] Te ado[A]ramos[E/G#]
 {end_of_verse}
 
 {start_of_part: Pré refrão}
-Rei do [F#m]reis [F#mM7/E#] e Sen[F#m7/E]hor[D#m7b5]
+Rei do [F#m]reis [F#mM7] e Sen[F#m7]hor[D#m7b5]
 Te entre[D]gamos [E]nosso vi[A]ver[E/G#]
-Rei do [F#m]reis [F#mM7/E#] e Sen[F#m7/E]hor[D#m7b5]
+Rei do [F#m]reis [F#mM7] e Sen[F#m7]hor[D#m7b5]
 Te entre[D]gamos [Bm7]nosso vi[E]ver
 {end_of_part}
 
@@ -36,6 +35,10 @@ Meu pra[E/G#]zer é vi[F#m7]ver
 na [E]casa de [D]Deus
 Onde [E]flui o a[A]mor
 {end_of_chorus}
+
+{start_of_part: Solo}
+[|][A][E/A][D/A][|][A][E/A][D/A][|]
+{end_of_part}
 
 {start_of_part: Final}
 Minis[E]trando o lou[A]vor[C#m7][Bm7]
