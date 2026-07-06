@@ -1,6 +1,5 @@
 // Elementos da tela da cifra 
 const elSongHeader  = document.getElementById('song-header');
-const elKeyLabel    = document.getElementById('current-key-label');
 const elTransVal    = document.getElementById('transpose-value');
 const elSheet       = document.getElementById('chord-sheet');
 const elContent     = document.getElementById('song-content');
@@ -211,17 +210,6 @@ function renderSheet() {
 
   // Atualiza o contador de semitons (+2, -1 etc.)
   elTransVal.textContent = (transpose >= 0 ? '+' : '') + transpose;
-
-  // Atualiza o tom atual exibido (ex: "Lá" após transpor de "Sol")
-  if (keyParam) {
-    try {
-      const key        = ChordSheetJS.Chord.parse(keyParam);
-      const currentKey = key.transpose(transpose);
-      elKeyLabel.textContent = currentKey.toString();
-    } catch (_) {
-      elKeyLabel.textContent = '';
-    }
-  }
 
   // Rodapé discreto com a versão da biblioteca
   const footer = document.createElement('div');
