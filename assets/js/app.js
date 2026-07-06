@@ -292,8 +292,19 @@
       );
   }); */
 
+  // Debounce simples: só executa a busca depois que o usuário parar de digitar por 150ms
+  function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
+  const debouncedSearch = debounce(onSearch, 150);
+
   //Eventos globais 
-  searchInput.addEventListener('input', onSearch);
+  searchInput.addEventListener('input', debouncedSearch);
   btnShowAll.addEventListener('click', onShowAll);
   window.addEventListener('favoritesChanged', onSearch); // disparado pelo song.js ao favoritar
   window.addEventListener('popstate', syncView);         // disparado ao usar o botão voltar do browser
