@@ -255,16 +255,16 @@ section button {
 .btn-font {
   width: 2.25rem;
   height: 2.25rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-color);
   border-radius: 0.5rem;
-  background: var(--body);
+  background: var(--body-bg);
   font-size: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: border-color .15s, color .15s;
 }
-.btn-font:hover { border-color: var(--accent); color: var(--accent); }
+.btn-font:hover { border-color: var(--info); color: var(--info); }
 
 .font-size-label {
   font-size: 1rem;
