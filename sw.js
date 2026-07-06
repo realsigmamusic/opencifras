@@ -1,4 +1,4 @@
-const CACHE_NAME = '1.1.7';
+const CACHE_NAME = '1.1.8';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -24,15 +24,25 @@ self.addEventListener('install', (e) => {
         const response = await fetch('./songs.json');
         if (response.ok) {
           const songs = await response.json();
-          
-          // Extrai o caminho de cada música (ajuste 'song.file' se a sua propriedade no JSON tiver outro nome, como 'song.path')
+
           const choUrls = songs
-            .map(song => song.file) // substitua 'file' pela chave correta do seu JSON
-            .filter(url => url);    // remove valores nulos/vazios
-            
-          // Adiciona todas as cifras ao cache em segundo plano
-          await cache.addAll(choUrls);
-          console.log('SW: Todas as músicas foram cacheadas para uso offline!');
+            .map(song => song.file)
+            .filter(url => url);
+
+          // Cacheia cada música individualmente — se uma falhar, as outras continuam
+          const results = await Promise.allSettled(
+            choUrls.map(async (url) => {
+              const res = await fetch(url);
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              await cache.put(url, res);
+            })
+          );
+
+          const failed = results.filter(r => r.status === 'rejected');
+          console.log(`SW: ${choUrls.length - failed.length}/${choUrls.length} músicas cacheadas para uso offline.`);
+          if (failed.length) {
+            console.warn('SW: falha ao cachear algumas músicas:', failed.map(f => f.reason));
+          }
         }
       } catch (err) {
         console.warn('SW: Não foi possível pré-cachear as músicas:', err);
