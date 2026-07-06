@@ -34,9 +34,10 @@ let keyParam;       // tom original (vem da URL)
 let transposeParam; // transposição inicial (vem da URL, se compartilhada com tom)
 let TRANS_KEY;      // chave no localStorage para salvar a transposição desta música
 
-let song      = null; // objeto da música parseado pelo ChordSheetJS
-let transpose = 0;    // quantos semitons estamos transpondo (0 = tom original)
-let fontIdx   = 3;    // índice no array FONT_SIZES (3 = 16px, o padrão)
+let song           = null; // objeto da música parseado pelo ChordSheetJS
+let currentBlobUrl = null; // URL do blob de download atual, para revogar antes de criar um novo
+let transpose      = 0;    // quantos semitons estamos transpondo (0 = tom original)
+let fontIdx        = 3;    // índice no array FONT_SIZES (3 = 16px, o padrão)
 
 // Escapa caracteres especiais para evitar bugs ao inserir texto no HTML
 function escapeHtml(str) {
@@ -295,9 +296,13 @@ function initSong() {
       renderMetadata(song);
 
       // Prepara o botão de download com o arquivo original
-      const blob       = new Blob([text], { type: 'text/plain' });
-      elBtnDl.href     = URL.createObjectURL(blob);
-      elBtnDl.download = fileUrl.split('/').pop() || 'cifra.cho';
+      if (currentBlobUrl) {
+        URL.revokeObjectURL(currentBlobUrl); // libera o blob da música anterior
+      }
+      const blob        = new Blob([text], { type: 'text/plain' });
+      currentBlobUrl    = URL.createObjectURL(blob);
+      elBtnDl.href      = currentBlobUrl;
+      elBtnDl.download  = fileUrl.split('/').pop() || 'cifra.cho';
 
       renderSheet();
       showContent();
