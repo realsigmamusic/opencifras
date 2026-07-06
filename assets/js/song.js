@@ -10,6 +10,9 @@ const elBtnDown     = document.getElementById('btn-down');
 const elBtnUp       = document.getElementById('btn-up');
 const elBtnFavorite = document.getElementById('btn-favorite');
 const elBtnShare    = document.getElementById('btn-share');
+const elBtnMenu      = document.getElementById('btn-menu');
+const elDropdownMenu = document.getElementById('dropdown-menu');
+const elBtnAutoscroll = document.getElementById('btn-autoscroll');
 const elBtnDl       = document.getElementById('btn-download');
 const elBtnFontDown = document.getElementById('btn-font-down');
 const elBtnFontUp   = document.getElementById('btn-font-up');
@@ -251,6 +254,54 @@ elBtnShare.addEventListener('click', async () => {
     console.warn('Compartilhamento falhou', e);
   }
 });
+
+// MENU DROPDOWN (⋮) ==============================================================================
+
+elBtnMenu.addEventListener('click', (e) => {
+  e.stopPropagation();
+  elDropdownMenu.classList.toggle('open');
+});
+
+// Fecha o menu ao clicar em qualquer item dele, ou fora dele
+elDropdownMenu.addEventListener('click', () => elDropdownMenu.classList.remove('open'));
+document.addEventListener('click', () => elDropdownMenu.classList.remove('open'));
+
+// AUTOSCROLL =====================================================================================
+
+let autoscrollInterval = null;
+const AUTOSCROLL_STEP_MS = 50;   // intervalo entre cada "passinho" de rolagem
+const AUTOSCROLL_STEP_PX = 1;    // quantos pixels rola a cada passinho
+
+function stopAutoscroll() {
+  if (autoscrollInterval) {
+    clearInterval(autoscrollInterval);
+    autoscrollInterval = null;
+  }
+  elBtnAutoscroll.classList.remove('active');
+}
+
+function startAutoscroll() {
+  autoscrollInterval = setInterval(() => {
+    window.scrollBy(0, AUTOSCROLL_STEP_PX);
+    // Chegou ao fim da página → para sozinho
+    if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+      stopAutoscroll();
+    }
+  }, AUTOSCROLL_STEP_MS);
+  elBtnAutoscroll.classList.add('active');
+}
+
+elBtnAutoscroll.addEventListener('click', () => {
+  if (autoscrollInterval) {
+    stopAutoscroll();
+  } else {
+    startAutoscroll();
+  }
+});
+
+// Se o usuário rolar manualmente enquanto o autoscroll está ativo, ele para (evita "briga" entre os dois)
+// window.addEventListener('wheel', () => { if (autoscrollInterval) stopAutoscroll(); });
+// window.addEventListener('touchmove', () => { if (autoscrollInterval) stopAutoscroll(); }, { passive: true });
 
 // CONTROLE DE TELA (loading / erro / conteúdo) ===================================================
 

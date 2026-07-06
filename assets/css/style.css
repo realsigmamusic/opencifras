@@ -231,8 +231,7 @@ section button {
 }
 
 .btn-circle {
-  width: 2.25rem;
-  height: 2.25rem;
+  padding: 0.5rem;
   border-radius: 50%;
   border: 1px solid var(--border-color);
   background: var(--body-bg);
@@ -253,8 +252,7 @@ section button {
 }
 
 .btn-font {
-  width: 2.25rem;
-  height: 2.25rem;
+  padding: 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   background: var(--body-bg);
@@ -275,7 +273,7 @@ section button {
 
 /* Botões de ação */
 .btn-toolbar {
-  flex: 1;
+/*flex: 1;*/
   padding: 0.5rem;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
@@ -403,4 +401,50 @@ section button {
 #config-section a {
   font-size: 0.85rem;
   color: var(--info-text-emphasis);
+}
+
+/* ---------- Menu dropdown (⋮) ---------- */
+.dropdown-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.dropdown-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  min-width: 10.5rem;
+  background: var(--body-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 1001;
+}
+
+.dropdown-menu.open {
+  display: flex;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--body-color);
+  text-align: left;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background: var(--secondary-bg);
+}
+
+/* ---------- Autoscroll ---------- */
+#btn-autoscroll.active {
+  color: var(--warning-text-emphasis);
+  border-color: var(--warning-text-emphasis);
 }
