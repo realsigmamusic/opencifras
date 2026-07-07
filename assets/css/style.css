@@ -448,3 +448,23 @@ section button {
   color: var(--warning-text-emphasis);
   border-color: var(--warning-text-emphasis);
 }
+
+/* ---------- Filtro por quantidade de acordes ---------- */
+.chord-filter-wrap {
+  margin-bottom: 1rem;
+}
+
+.chord-filter {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: var(--tertiary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--body-color);
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.chord-filter:focus {
+  border-color: var(--primary);
+}

@@ -2,10 +2,11 @@
   'use strict';
 
   //Dados carregados do songs.json 
-  let allSongs    = [];    // todas as músicas em ordem alfabética
-  let recentSongs = [];    // as mesmas músicas, ordenadas pela data de edição
-  let showingAll  = false; // controla se estamos mostrando todas ou só as 5 recentes
-  let fuse        = null;  // motor de busca fuzzy (Fuse.js)
+  let allSongs         = [];    // todas as músicas em ordem alfabética
+  let recentSongs      = [];    // as mesmas músicas, ordenadas pela data de edição
+  let showingAll       = false; // controla se estamos mostrando todas ou só as 5 recentes
+  let chordFilterValue = '';    // '' = sem filtro; caso contrário, número de acordes selecionado
+  let fuse             = null;  // motor de busca fuzzy (Fuse.js)
 
   //Elementos da tela inicial 
   const searchInput      = document.getElementById('search-input');
@@ -15,6 +16,7 @@
   const allSongsSection  = document.getElementById('all-songs-section');
   const noResults        = document.getElementById('no-results');
   const btnShowAll       = document.getElementById('btn-show-all');
+  const chordFilter      = document.getElementById('chord-filter');
 
   //Chaves do localStorage 
   const FAVORITES_KEY = 'chordsheets_favorites';
@@ -41,7 +43,8 @@
 
   // Gera o HTML de um card de música (link clicável com título e artista)
   function renderCard(song) {
-    const url = '?file=' + encodeURIComponent(song.file);
+    const url = '?file=' + encodeURIComponent(song.file)
+      + (song.chordCount !== undefined ? '&chords=' + song.chordCount : '');
     return '<a href="' + url + '" class="song-item">'
       + '<div class="song-card-content">'
       +   '<h1 class="song-card-title">'  + escapeHtml(song.title)  + '</h1>'
@@ -142,6 +145,22 @@
     document.getElementById('artist-back').addEventListener('click', renderArtistsSection);
   }
 
+  // Aplica o filtro por quantidade de acordes sobre uma lista de músicas
+  function applyChordFilter(songs) {
+    if (chordFilterValue === '') return songs;
+    const n = Number(chordFilterValue);
+    return songs.filter(s => s.chordCount === n);
+  }
+
+  // Lê os valores reais de chordCount existentes no acervo e popula o <select>
+  function populateChordFilter() {
+    const counts = [...new Set(allSongs.map(s => s.chordCount).filter(c => c !== undefined))]
+      .sort((a, b) => a - b);
+
+    chordFilter.innerHTML = '<option value="">Todas as músicas</option>'
+      + counts.map(c => `<option value="${c}">${c} acorde${c === 1 ? '' : 's'}</option>`).join('');
+  }
+
   // BUSCA ========================================================================================
 
   // Chamada toda vez que o usuário digita na barra de pesquisa
@@ -151,13 +170,13 @@
 
     if (!query) {
       showingAll = false;
-      renderList(recentSongs, true);
+      renderList(applyChordFilter(recentSongs), true);
       return;
     }
 
     // Com texto: executa a busca fuzzy e mostra resultados
     showingAll = false;
-    renderList(fuse.search(query).map(r => r.item), false);
+    renderList(applyChordFilter(fuse.search(query).map(r => r.item)), false);
   }
 
   // Chamado ao clicar em "ver todas as X músicas"
@@ -165,7 +184,7 @@
     showingAll = true;
     btnShowAll.style.display = 'none';
     document.getElementById('all-songs-title').textContent = 'Todas as músicas';
-    renderList(allSongs, false);
+    renderList(applyChordFilter(allSongs), false);
     window.scrollTo(0, 0);
   }
 
@@ -276,6 +295,8 @@
         ignoreLocation: true
       });
 
+      populateChordFilter();
+
       syncView();
     } catch (err) {
       console.error('Falha ao carregar songs.json', err);
@@ -302,6 +323,12 @@
   }
 
   const debouncedSearch = debounce(onSearch, 150);
+
+  chordFilter.addEventListener('change', () => {
+    chordFilterValue = chordFilter.value;
+    showingAll = false;
+    onSearch();
+  });
 
   //Eventos globais 
   searchInput.addEventListener('input', debouncedSearch);
