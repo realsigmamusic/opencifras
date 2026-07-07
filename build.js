@@ -13,6 +13,7 @@ function parseChordProFile(filePath) {
 
   const metadata = {};
   let lyricsLines = [];
+  const chordSet = new Set(); // acordes únicos encontrados na música
 
   for (const line of lines) {
     const trimmed = line.trim();
@@ -26,6 +27,15 @@ function parseChordProFile(filePath) {
       continue;
     }
 
+    // Extrai os acordes da linha (ex: [C], [G/B], [Am7]) antes de descartá-los
+    const chordMatches = trimmed.match(/\[([^\]]+)\]/g);
+    if (chordMatches) {
+      chordMatches.forEach(m => {
+        const chord = m.slice(1, -1).trim();
+        if (chord) chordSet.add(chord);
+      });
+    }
+
     // Letra pura
     const withoutChords = trimmed.replace(/\[.*?\]/g, '').replace(/\{.*?\}/g, '').trim();
     if (withoutChords) {
@@ -35,7 +45,7 @@ function parseChordProFile(filePath) {
 
   const lyrics = lyricsLines.join(' ').replace(/\s+/g, ' ').trim();
 
-  return { metadata, lyrics };
+  return { metadata, lyrics, chordCount: chordSet.size };
 }
 
 // Recursivamente encontra todos os .cho em songs/
@@ -81,7 +91,7 @@ async function main() {
   for (const filePath of choFiles) {
     try {
       const stat = fs.statSync(filePath);
-      const { metadata, lyrics } = parseChordProFile(filePath);
+      const { metadata, lyrics, chordCount } = parseChordProFile(filePath);
       const relativePath = getRelativePath(filePath);
 
       const song = {
@@ -89,6 +99,7 @@ async function main() {
         artist: metadata.artist || '',
         file: relativePath,
         lyrics: lyrics,
+        chordCount: chordCount,
         mtime: stat.mtimeMs,
       };
 
