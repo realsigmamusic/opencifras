@@ -10,9 +10,12 @@ Projetado especificamente para músicos de palco e ministérios de louvor, o apl
 
 ## Diferenciais
 
-* **Alinhamento Perfeito de Fonte (Sem Quebras):** Ao contrário dos grandes portais de cifras que renderizam o texto de forma rígida em tags `<pre>`, o opencifras processa a cifra estruturalmente em blocos HTML fluidos (`.row`, `.chord`, `.lyrics`). Você pode aumentar ou diminuir a escala da fonte (`A+` / `A-`) e os acordes permanecem milimetricamente fixados sobre a sílaba correta.
-* **Transposer Resiliente com URL Viva:** Mude o tom da música instantaneamente através de um círculo de quintas em JavaScript. O tom selecionado é memorizado no dispositivo e anexado via parâmetros diretamente na URL (`?file=...&key=...`), facilitando o compartilhamento da cifra no tom exato com os outros integrantes da banda.
+* **Alinhamento Perfeito de Fonte (Sem Quebras):** Ao contrário dos grandes portais de cifras que renderizam o texto de forma rígida em tags `<pre>`, o opencifras processa a cifra estruturalmente em blocos HTML fluidos (`.row`, `.chord`, `.lyrics`) via `ChordSheetJS`. Você pode aumentar ou diminuir a escala da fonte e os acordes permanecem milimetricamente fixados sobre a sílaba correta.
+* **Transposer Resiliente com URL Viva:** Mude o tom da música instantaneamente pelos botões de transposição. O tom selecionado é memorizado no dispositivo (por música) e anexado via parâmetro na URL (`?file=...&transpose=...`), facilitando o compartilhamento da cifra no tom exato com os outros integrantes da banda.
 * **Busca Avançada com Algoritmo Fuzzy:** Impulsionado pelo `Fuse.js`, a barra de pesquisa executa uma varredura instantânea e profunda cruzando dados de **Título**, **Artista** e trechos da **Letra da música** simultaneamente, ignorando acentos ou erros pequenos de digitação.
+* **Filtro por Quantidade de Acordes:** Um menu de filtro (ícone de funil) exibe apenas os níveis de dificuldade que realmente existem no seu acervo, tanto na Home quanto na aba Favoritos, permitindo separar rapidamente repertório mais simples de mais avançado.
+* **Rolagem Automática:** Botão dedicado na tela da cifra ativa uma rolagem automática de velocidade fixa, útil para tocar ao vivo sem precisar tocar na tela — ela se interrompe sozinha ao chegar no fim da cifra.
+* **PWA com Cache Resiliente:** O Service Worker pré-cacheia cada arquivo `.cho` individualmente (não tudo-ou-nada), então uma música com erro de rede não impede as demais de ficarem disponíveis offline.
 * **UI Dinâmica:** Interface limpa construída com variáveis CSS nativas (`:root`). Conta com suporte automático a **Modo Claro e Modo Escuro** via sistema (`prefers-color-scheme`), sincronizando inclusive a barra de status do sistema operacional do celular (`theme-color`).
 
 ---
@@ -34,21 +37,28 @@ Focado em simplicidade de deploy, velocidade máxima de carregamento e zero depe
 O acervo de músicas é armazenado em formato de texto puro `.cho` dentro da estrutura do projeto. Para manter a aplicação leve e estática, o índice de busca é centralizado em um arquivo único `songs.json` gerado via automação.
 
 ### O Fluxo de Trabalho:
-**Build do Catálogo:** Execução do script gerador que varre a pasta de músicas, extrai as letras limpas para otimizar o tamanho do indexador do `Fuse.js`, carimba o timestamp de modificação (`mtime` para a seção de Recentes) e reconstrói o `songs.json`.
+**Build do Catálogo:** Execução do script gerador (`build.js`, Node.js) que varre recursivamente a pasta `songs/`, e para cada `.cho`:
+* Extrai os metadados ChordPro (`{title:}`, `{artist:}` etc.);
+* Extrai a letra limpa (sem acordes) para indexação pelo `Fuse.js`;
+* Conta os **acordes únicos/distintos** da música (`chordCount`), usado no filtro por dificuldade;
+* Carimba o timestamp de modificação (`mtime`, usado na seção de Recentes).
 
-Sempre que o catálogo for atualizado, basta rodar o comando de compilação da sua esteira e realizar o `git push` para atualizar o GitHub Pages automaticamente.
+O resultado é escrito em `songs.json`, consumido pelo app no navegador.
+
+Sempre que o catálogo for atualizado, basta rodar `node build.js` e fazer o `git push` para atualizar o GitHub Pages automaticamente.
 
 ---
 
 ## Organização do Projeto
 
-* `index.html`: Ponto de entrada do aplicativo (SPA). Gerencia a Home, buscas, favoritos e listagem do Repertório.
-* `song.html`: Tela de performance que carrega, transpõe e renderiza a cifra selecionada.
-* `sw.js`: Service worker focado no isolamento e persistência dos assets da aplicação.
-* `songs.json`: Índice estruturado de metadados de todo o acervo.
-* `assets/js/app.js`: Inteligência da tela inicial, busca fuzzy e manipulação do armazenamento doméstico.
-* `assets/js/song.js`: Motor de renderização da cifra, transposição, escala de fontes e navegação do repertório.
+* `index.html`: Ponto de entrada único do aplicativo (SPA). Alterna entre a Home (busca, artistas, favoritos, configurações) e a tela da cifra via parâmetro `?file=` na URL, sem recarregar a página.
+* `build.js`: Script Node.js que varre `songs/`, faz o parse dos arquivos `.cho` e gera o `songs.json`.
+* `sw.js`: Service worker focado no isolamento e persistência offline dos assets e das cifras.
+* `songs.json`: Índice estruturado de metadados de todo o acervo (título, artista, letra, `chordCount`, `mtime`), gerado pelo `build.js`.
+* `assets/js/app.js`: Inteligência da tela inicial — busca fuzzy, filtro por acordes, favoritos, listagem de artistas.
+* `assets/js/song.js`: Motor de renderização da cifra — transposição, escala de fontes, favoritar, compartilhar, baixar e rolagem automática.
 * `assets/css/`: Folhas de estilo divididas (`style.css` para a estrutura global e `song.css` para o comportamento e design visual dos acordes).
+* `songs/`: Acervo de cifras em texto puro, no formato `.cho` (ChordPro).
 
 ---
 
