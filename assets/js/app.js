@@ -16,7 +16,8 @@
   const allSongsSection  = document.getElementById('all-songs-section');
   const noResults        = document.getElementById('no-results');
   const btnShowAll       = document.getElementById('btn-show-all');
-  const chordFilter      = document.getElementById('chord-filter');
+  const chordFilterBtns  = document.querySelectorAll('.btn-filter');
+  const chordFilterMenus = document.querySelectorAll('.chord-filter-menu');
 
   //Chaves do localStorage 
   const FAVORITES_KEY = 'chordsheets_favorites';
@@ -57,15 +58,21 @@
 
   // Mostra as músicas favoritas na aba Favoritos
   function renderFavoritesSection() {
-    const saved        = getSavedFavorites();
-    const favoriteSongs = allSongs.filter(s => saved.includes(s.file));
+    const saved            = getSavedFavorites();
+    const allFavoriteSongs = allSongs.filter(s => saved.includes(s.file));
 
-    if (favoriteSongs.length === 0) {
+    if (allFavoriteSongs.length === 0) {
       favoritesSection.style.display = 'none';
-    } else {
-      favoritesSection.style.display = 'block';
-      favoritesList.innerHTML = favoriteSongs.map(s => renderCard(s)).join('');
+      return;
     }
+
+    favoritesSection.style.display = 'block';
+    populateFavoritesChordFilterMenu();
+    const filtered = applyChordFilter(allFavoriteSongs);
+
+    favoritesList.innerHTML = filtered.length
+      ? filtered.map(s => renderCard(s)).join('')
+      : '<p style="padding:1rem;color:var(--tertiary-color);text-align:center;">Nenhum favorito com esse filtro.</p>';
   }
 
   // Mostra a lista de músicas na aba Início (recentes ou resultado de busca)
@@ -153,13 +160,84 @@
   }
 
   // Lê os valores reais de chordCount existentes no acervo e popula o <select>
-  function populateChordFilter() {
-    const counts = [...new Set(allSongs.map(s => s.chordCount).filter(c => c !== undefined))]
+  // Monta o HTML de um menu de filtro a partir de uma lista de músicas
+  function buildChordFilterHtml(songs) {
+    const counts = [...new Set(songs.map(s => s.chordCount).filter(c => c !== undefined))]
       .sort((a, b) => a - b);
 
-    chordFilter.innerHTML = '<option value="">Todas as músicas</option>'
-      + counts.map(c => `<option value="${c}">${c} acorde${c === 1 ? '' : 's'}</option>`).join('');
+    return '<button class="dropdown-item chord-filter-item active" data-value="">Todas as músicas</button>'
+      + counts.map(c => `<button class="dropdown-item chord-filter-item" data-value="${c}">${c} acorde${c === 1 ? '' : 's'}</button>`).join('');
   }
+
+  // Liga os cliques de um menu já preenchido
+  function bindChordFilterMenu(menu) {
+    menu.querySelectorAll('.chord-filter-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        chordFilterValue = btn.dataset.value;
+        updateChordFilterUI();
+        closeAllChordFilterMenus();
+        refreshVisibleFilteredSection();
+      });
+    });
+  }
+
+  // Popula o menu da Início com os valores de TODO o acervo
+  function populateHomeChordFilterMenu() {
+    const menu = document.getElementById('home-chord-filter-menu');
+    if (!menu) return;
+    menu.innerHTML = buildChordFilterHtml(allSongs);
+    bindChordFilterMenu(menu);
+    updateChordFilterUI();
+  }
+
+  // Popula o menu de Favoritos só com os valores presentes ENTRE os favoritos
+  function populateFavoritesChordFilterMenu() {
+    const menu = document.getElementById('favorites-chord-filter-menu');
+    if (!menu) return;
+    const saved  = getSavedFavorites();
+    const favSongs = allSongs.filter(s => saved.includes(s.file));
+    menu.innerHTML = buildChordFilterHtml(favSongs);
+    bindChordFilterMenu(menu);
+    updateChordFilterUI();
+  }
+
+  // Atualiza o destaque visual do item selecionado e do botão de funil
+  function updateChordFilterUI() {
+    chordFilterMenus.forEach(menu => {
+      menu.querySelectorAll('.chord-filter-item').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === chordFilterValue);
+      });
+    });
+    chordFilterBtns.forEach(btn => btn.classList.toggle('active', chordFilterValue !== ''));
+  }
+
+  function closeAllChordFilterMenus() {
+    chordFilterMenus.forEach(menu => menu.classList.remove('open'));
+  }
+
+  // Reaplica a busca/lista certa dependendo de qual aba está visível no momento
+  function refreshVisibleFilteredSection() {
+    const isFavoritesTabOpen = document.getElementById('favorites-section').style.display !== 'none';
+
+    if (isFavoritesTabOpen) {
+      renderFavoritesSection();
+    } else {
+      onSearch();
+    }
+  }
+
+  // Abre/fecha o menu de filtro ao clicar no botão de funil
+  chordFilterBtns.forEach((btn, i) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const menu    = chordFilterMenus[i];
+      const wasOpen = menu.classList.contains('open');
+      closeAllChordFilterMenus();
+      if (!wasOpen) menu.classList.add('open');
+    });
+  });
+
+  document.addEventListener('click', closeAllChordFilterMenus);
 
   // BUSCA ========================================================================================
 
@@ -295,7 +373,7 @@
         ignoreLocation: true
       });
 
-      populateChordFilter();
+      populateHomeChordFilterMenu();
 
       syncView();
     } catch (err) {
@@ -323,12 +401,6 @@
   }
 
   const debouncedSearch = debounce(onSearch, 150);
-
-  chordFilter.addEventListener('change', () => {
-    chordFilterValue = chordFilter.value;
-    showingAll = false;
-    onSearch();
-  });
 
   //Eventos globais 
   searchInput.addEventListener('input', debouncedSearch);
