@@ -150,10 +150,16 @@ section button {
 
 /* ---------- Busca ---------- */
 .search-wrap {
+  display: flex;
+  align-items: center;
   border: none;
-  position: relative;
   padding: 0;
   margin-bottom: 1rem;
+}
+
+.search-input-wrap {
+  position: relative;
+  flex: 1;
 }
 
 .search-icon {
@@ -168,7 +174,7 @@ section button {
 
 .search-input {
   width: 100%;
-  padding: 0.8rem 1rem 0.8rem 2.5rem;
+  padding: 0.8rem 2.75rem 0.8rem 2.5rem;
   background: var(--tertiary-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
@@ -417,11 +423,13 @@ section button {
   top: calc(100% + 0.5rem);
   min-width: 10.5rem;
   background: var(--body-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 1001;
+}
+
+button.dropdown-item.chord-filter-item {
+  background: none;
+  border: none;
 }
 
 .dropdown-menu.open {
@@ -432,7 +440,7 @@ section button {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.65rem 0.9rem;
+  padding: 0.25rem 1rem;
   font-size: 0.9rem;
   color: var(--body-color);
   text-align: left;
@@ -450,21 +458,53 @@ section button {
 }
 
 /* ---------- Filtro por quantidade de acordes ---------- */
-.chord-filter-wrap {
-  margin-bottom: 1rem;
+.filter-dropdown-wrap {
+  position: relative;
+  flex-shrink: 0;
 }
 
-.chord-filter {
-  width: 100%;
-  padding: 0.7rem 1rem;
-  background: var(--tertiary-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--body-color);
-  font-size: 0.95rem;
-  outline: none;
+.chord-filter-menu {
+  max-height: 16rem;
+  overflow-y: auto;
 }
 
-.chord-filter:focus {
-  border-color: var(--primary);
+.chord-filter-item.active {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+#favorites-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---------- Funil dentro do input de busca ---------- */
+.filter-dropdown-inline {
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+button.btn-filter {
+  margin: 0;
+  border: none;
+}
+
+.filter-dropdown-inline .btn-filter {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: transparent;
+  margin: 0;
+}
+
+.filter-dropdown-inline .btn-filter:hover {
+  color: var(--info);
+}
+
+.filter-dropdown-inline .dropdown-menu {
+  top: calc(100% + 0.5rem);
+  right: -0.4rem;
 }
