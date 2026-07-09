@@ -1,22 +1,22 @@
 // Elementos da tela da cifra 
-const elSongHeader  = document.getElementById('song-header');
-const elTransVal    = document.getElementById('transpose-value');
-const elSheet       = document.getElementById('chord-sheet');
-const elContent     = document.getElementById('song-content');
-const elLoading     = document.getElementById('loading-msg');
-const elError       = document.getElementById('error-msg');
-const elErrorText   = document.getElementById('error-text');
-const elBtnDown     = document.getElementById('btn-down');
-const elBtnUp       = document.getElementById('btn-up');
-const elBtnFavorite = document.getElementById('btn-favorite');
-const elBtnShare    = document.getElementById('btn-share');
-const elBtnMenu      = document.getElementById('btn-menu');
-const elDropdownMenu = document.getElementById('dropdown-menu');
+const elSongHeader    = document.getElementById('song-header');
+const elTransVal      = document.getElementById('transpose-value');
+const elSheet         = document.getElementById('chord-sheet');
+const elContent       = document.getElementById('song-content');
+const elLoading       = document.getElementById('loading-msg');
+const elError         = document.getElementById('error-msg');
+const elErrorText     = document.getElementById('error-text');
+const elBtnDown       = document.getElementById('btn-down');
+const elBtnUp         = document.getElementById('btn-up');
+const elBtnFavorite   = document.getElementById('btn-favorite');
+const elBtnShare      = document.getElementById('btn-share');
+const elBtnMenu       = document.getElementById('btn-menu');
+const elDropdownMenu  = document.getElementById('dropdown-menu');
 const elBtnAutoscroll = document.getElementById('btn-autoscroll');
-const elBtnDl       = document.getElementById('btn-download');
-const elBtnFontDown = document.getElementById('btn-font-down');
-const elBtnFontUp   = document.getElementById('btn-font-up');
-const elFontDisp    = document.getElementById('font-size-display');
+const elBtnDl         = document.getElementById('btn-download');
+const elBtnFontDown   = document.getElementById('btn-font-down');
+const elBtnFontUp     = document.getElementById('btn-font-up');
+const elFontDisp      = document.getElementById('font-size-display');
 
 // Configurações de fonte 
 const FONT_SIZES = [10, 12, 14, 16, 18, 20, 22, 24, 26]; // tamanhos disponíveis em px
@@ -211,7 +211,7 @@ function renderSheet() {
   elSheet.innerHTML = elSheet.innerHTML.replace(/\.\.\./g, '…'); // reticências tipográficas
   elSheet.querySelectorAll('.chord').forEach(el => {
     el.innerHTML = el.innerHTML
-      .replace(/ma/gi, 'M') // CΔ7 em vez de Cmaj7
+      .replace(/ma7/gi, '7M') // C7M em vez de Cma7
       .replace(/dim/gi,  '°'); // C° em vez de Cdim
   });
 
