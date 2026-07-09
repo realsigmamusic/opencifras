@@ -22,7 +22,7 @@ Defend[Esus]er![E]
 {end_of_verse}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {start_of_verse: Verso 2}
@@ -43,7 +43,7 @@ Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {start_of_verse: Verso 3}
@@ -58,7 +58,7 @@ Que ma[E/B]tou Je[Esus]sus[E]
 {end_of_verse}
 
 {start_of_part: Solo}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {start_of_verse: Verso 4}
@@ -80,7 +80,7 @@ Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {start_of_verse: Verso 5}
@@ -95,7 +95,7 @@ Jes[E/B]us rug[Esus]iu[E]
 {end_of_verse}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {transpose: 1}
@@ -118,7 +118,7 @@ Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {transpose: 2}
@@ -132,7 +132,7 @@ Não de[E/B]via procu[Esus]rar[E]
 {end_of_verse}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {start_of_verse: Verso 8}
@@ -153,7 +153,7 @@ Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
 {start_of_part: Interlúdio}
-[Am][G/A][Am][G/A]
+[|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {start_of_bridge: Ponte}
@@ -176,5 +176,5 @@ Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
 {start_of_part: Final}
-[Am][Am/G][D/F#][F][E]
+[|][Am][Am/G][|][D/F#][F][E][|]
 {end_of_part}
