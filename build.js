@@ -28,11 +28,15 @@ function parseChordProFile(filePath) {
     }
 
     // Extrai os acordes da linha (ex: [C], [G/B], [Am7]) antes de descartá-los
+    // Ignora marcadores de organização como [|], [%], [(], [)], [2x] etc.
+    const CHORD_PATTERN = /^[A-G](#|b)?/i; // precisa começar com uma nota musical válida (A-G)
     const chordMatches = trimmed.match(/\[([^\]]+)\]/g);
     if (chordMatches) {
       chordMatches.forEach(m => {
         const chord = m.slice(1, -1).trim();
-        if (chord) chordSet.add(chord);
+        if (chord && CHORD_PATTERN.test(chord)) {
+          chordSet.add(chord);
+        }
       });
     }
 
