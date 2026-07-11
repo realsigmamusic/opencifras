@@ -17,6 +17,7 @@ Projetado especificamente para músicos de palco e ministérios de louvor, o apl
 * **Rolagem Automática:** Botão dedicado na tela da cifra ativa uma rolagem automática de velocidade fixa, útil para tocar ao vivo sem precisar tocar na tela — ela se interrompe sozinha ao chegar no fim da cifra.
 * **PWA com Cache Resiliente:** O Service Worker pré-cacheia cada arquivo `.cho` individualmente (não tudo-ou-nada), então uma música com erro de rede não impede as demais de ficarem disponíveis offline.
 * **UI Dinâmica:** Interface limpa construída com variáveis CSS nativas (`:root`). Conta com suporte automático a **Modo Claro e Modo Escuro** via sistema (`prefers-color-scheme`), sincronizando inclusive a barra de status do sistema operacional do celular (`theme-color`).
+* **Cifras Próprias (Importar/Criar/Editar):** O botão **+** no menu inferior abre um editor para colar, digitar ou importar um arquivo `.cho` do aparelho. Essas cifras ficam salvas só no `localStorage` do dispositivo e aparecem misturadas ao restante do acervo (busca, Home, artistas, favoritos), com um selo **Local** discreto no card. Também é possível clicar em **Editar cifra** em qualquer música do acervo oficial: o app cria automaticamente uma cópia local editável (sem alterar o arquivo original do repositório) e já abre o editor nela.
 
 ---
 
@@ -47,17 +48,22 @@ O resultado é escrito em `songs.json`, consumido pelo app no navegador.
 
 Sempre que o catálogo for atualizado, basta rodar `node build.js` e fazer o `git push` para atualizar o GitHub Pages automaticamente.
 
+### Cifras Locais (do usuário)
+
+Além do acervo oficial em `songs.json`, o app mantém no navegador um segundo catálogo, **por aparelho**, com as cifras que o próprio usuário importou ou criou (`assets/js/local-songs.js`, salvo em `localStorage`). Em tempo de execução os dois catálogos são unidos numa única lista (busca, Home, artistas e favoritos enxergam tudo junto), e cada cifra local ganha um "arquivo" sintético no formato `local:<id>` para se comportar como qualquer outra música do acervo. Nada disso passa pelo `build.js` nem é publicado no GitHub Pages — é conteúdo que existe só localmente, no aparelho de quem o criou.
+
 ---
 
 ## Organização do Projeto
 
-* `index.html`: Ponto de entrada único do aplicativo (SPA). Alterna entre a Home (busca, artistas, favoritos, configurações) e a tela da cifra via parâmetro `?file=` na URL, sem recarregar a página.
+* `index.html`: Ponto de entrada único do aplicativo (SPA). Alterna entre a Home (busca, artistas, favoritos, configurações) e a tela da cifra via parâmetro `?file=` na URL, sem recarregar a página. Também contém o editor de cifras (`#cho-editor-overlay`), usado para importar, criar e editar cifras locais.
 * `build.js`: Script Node.js que varre `songs/`, faz o parse dos arquivos `.cho` e gera o `songs.json`.
 * `sw.js`: Service worker focado no isolamento e persistência offline dos assets e das cifras.
-* `songs.json`: Índice estruturado de metadados de todo o acervo (título, artista, letra, `chordCount`, `mtime`), gerado pelo `build.js`.
-* `assets/js/app.js`: Inteligência da tela inicial — busca fuzzy, filtro por acordes, favoritos, listagem de artistas.
-* `assets/js/song.js`: Motor de renderização da cifra — transposição, escala de fontes, favoritar, compartilhar, baixar e rolagem automática.
-* `assets/css/`: Folhas de estilo divididas (`style.css` para a estrutura global e `song.css` para o comportamento e design visual dos acordes).
+* `songs.json`: Índice estruturado de metadados de todo o acervo oficial (título, artista, letra, `chordCount`, `mtime`), gerado pelo `build.js`.
+* `assets/js/local-songs.js`: Camada de armazenamento das cifras locais (`localStorage`) — ler, salvar, excluir e converter uma cifra local no mesmo formato de catálogo usado pelas músicas do `songs.json`. Compartilhada entre `app.js` e `song.js`.
+* `assets/js/app.js`: Inteligência da tela inicial — busca fuzzy, filtro por acordes, favoritos, listagem de artistas, e o editor de cifras acessado pelo botão **+** do menu inferior.
+* `assets/js/song.js`: Motor de renderização da cifra — transposição, escala de fontes, favoritar, compartilhar, baixar, rolagem automática e o botão **Editar cifra** (que cria uma cópia local ao editar uma música oficial).
+* `assets/css/`: Folhas de estilo divididas (`style.css` para a estrutura global, componentes de UI e o editor de cifras; `song.css` para o comportamento e design visual dos acordes).
 * `songs/`: Acervo de cifras em texto puro, no formato `.cho` (ChordPro).
 
 ---
