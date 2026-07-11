@@ -308,6 +308,7 @@ section button {
   border-top: 1px solid var(--border-color);
   display: flex;
   padding-bottom: env(safe-area-inset-bottom);
+  padding-right: 1rem;
 }
 
 .bottom-nav-item {
@@ -316,10 +317,9 @@ section button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0;
+  padding: 0.8rem 0;
   gap: 0.2rem;
   font-size: 0.7rem;
-  color: var(--tertiary-color);
   cursor: pointer;
 }
 
