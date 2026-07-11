@@ -1,4 +1,4 @@
-const CACHE_NAME = '2.2.5';
+const CACHE_NAME = '2.2.6';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -7,6 +7,7 @@ const ASSETS = [
   './assets/css/style.css',
   './assets/js/app.js',
   './assets/js/song.js',
+  './assets/js/local-songs.js',
   './assets/vendor/fuse.min.js',
   './assets/vendor/chordsheetjs.min.js',
   './songs.json'
@@ -18,10 +19,10 @@ self.addEventListener('install', (e) => {
     caches.open(CACHE_NAME).then(async (cache) => {
       // 1. Salva os arquivos estáticos da UI
       await cache.addAll(ASSETS);
-      
+
       // 2. Busca o songs.json para descobrir quais são os arquivos .cho
       try {
-        const response = await fetch('./songs.json');
+        const response = await fetch('./songs.json', { cache: 'no-store' });
         if (response.ok) {
           const songs = await response.json();
 
@@ -32,7 +33,7 @@ self.addEventListener('install', (e) => {
           // Cacheia cada música individualmente — se uma falhar, as outras continuam
           const results = await Promise.allSettled(
             choUrls.map(async (url) => {
-              const res = await fetch(url);
+              const res = await fetch(url, { cache: 'no-store' });
               if (!res.ok) throw new Error(`HTTP ${res.status}`);
               await cache.put(url, res);
             })
@@ -91,7 +92,7 @@ self.addEventListener('fetch', (e) => {
   // DADOS DINÂMICOS (songs.json, .cho): network-first, cache como fallback
   if (isDataRequest(url)) {
     e.respondWith(
-      fetch(e.request)
+      fetch(e.request, { cache: 'no-store' })
         .then(networkResponse => {
           // Atualiza o cache com a versão mais recente
           if (networkResponse && networkResponse.status === 200) {
