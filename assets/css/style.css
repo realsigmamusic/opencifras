@@ -510,3 +510,126 @@ button.btn-filter {
   top: calc(100% + 0.5rem);
   right: -0.4rem;
 }
+
+/* ---------- Selo "Local" nos cards de música ---------- */
+.song-card-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background: var(--border-color);
+  color: var(--tertiary-color);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+/* ---------- Editor de cifra (importar/criar/editar cifras locais) ---------- */
+.cho-editor-link-btn {
+  border: none;
+  background: none;
+  color: var(--primary);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.cho-editor-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.cho-editor {
+  background: var(--body-bg);
+  color: var(--body-color);
+  width: 100%;
+  max-width: 640px;
+  max-height: 92vh;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .cho-editor-overlay { align-items: center; }
+  .cho-editor { border-radius: 12px; max-height: 85vh; }
+}
+
+.cho-editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cho-editor-header h2 { margin: 0; font-size: 1.05rem; }
+
+.cho-editor-body {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.cho-editor-textarea {
+  width: 100%;
+  min-height: 40vh;
+  flex: 1;
+  resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--body-bg);
+  color: inherit;
+}
+
+.cho-editor-error {
+  color: var(--danger);
+  background: rgba(220, 53, 69, 0.08);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.cho-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.cho-editor-footer-right { display: flex; gap: 0.5rem; margin-left: auto; }
+
+.cho-editor-btn {
+  border: 1px solid var(--border-color);
+  background: none;
+  color: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.cho-editor-btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.cho-editor-btn-danger { border-color: var(--danger); color: var(--danger); }

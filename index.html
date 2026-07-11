@@ -132,6 +132,13 @@
               </svg>
               <span>Baixar .pdf</span>
             </button>
+
+            <button id="btn-edit-local" class="dropdown-item" title="Editar esta cifra" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+              </svg>
+              <span>Editar cifra</span>
+            </button>
           </div>
         </div>
 
@@ -271,6 +278,13 @@
         </svg>
         <span>Favoritos</span>
       </a>
+      <a class="bottom-nav-item" id="nav-add" title="Importar ou criar cifra">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+        </svg>
+        <span>Adicionar</span>
+      </a>
       <a class="bottom-nav-item" id="nav-config">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders2" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5M12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5M1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8m9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5m1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -280,9 +294,46 @@
     </nav>
   </footer>
 
+  <!-- EDITOR DE CIFRA (importar/criar/editar cifras locais) -->
+  <div id="cho-editor-overlay" class="cho-editor-overlay" style="display:none">
+    <div class="cho-editor">
+      <div class="cho-editor-header">
+        <h2 id="cho-editor-title">Nova cifra</h2>
+        <button id="cho-editor-close" class="btn-toolbar" type="button" title="Fechar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="cho-editor-body">
+        <input type="file" id="cho-editor-file-input" accept=".cho,text/plain" style="display:none" />
+        <button id="cho-editor-pick-file" class="cho-editor-link-btn" type="button">Selecionar arquivo .cho do aparelho…</button>
+
+        <textarea
+          id="cho-editor-textarea"
+          class="cho-editor-textarea"
+          spellcheck="false"
+          placeholder="{title: Nome da música}&#10;{artist: Nome do artista}&#10;&#10;[C]Cole ou digite aqui a cifra no formato [G]ChordPro…"
+        ></textarea>
+
+        <div id="cho-editor-error" class="cho-editor-error" style="display:none"></div>
+      </div>
+
+      <div class="cho-editor-footer">
+        <button id="cho-editor-delete" class="cho-editor-btn cho-editor-btn-danger" type="button" style="display:none">Excluir</button>
+        <div class="cho-editor-footer-right">
+          <button id="cho-editor-cancel" class="cho-editor-btn" type="button">Cancelar</button>
+          <button id="cho-editor-save" class="cho-editor-btn cho-editor-btn-primary" type="button">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="./assets/vendor/fuse.min.js"></script>
   <script src="./assets/vendor/chordsheetjs.min.js"></script>
   <script src="./assets/vendor/chordsymbol.min.js"></script>
+  <script src="./assets/js/local-songs.js"></script>
   <script src="./assets/js/app.js"></script>
   <script src="./assets/js/song.js"></script>
 </body>

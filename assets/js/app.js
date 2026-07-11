@@ -2,7 +2,8 @@
   'use strict';
 
   //Dados carregados do songs.json 
-  let allSongs         = [];    // todas as músicas em ordem alfabética
+  let officialSongs    = [];    // só o que veio do songs.json (sem as cifras locais)
+  let allSongs         = [];    // acervo oficial + cifras locais, em ordem alfabética
   let recentSongs      = [];    // as mesmas músicas, ordenadas pela data de edição
   let showingAll       = false; // controla se estamos mostrando todas ou só as 5 recentes
   let chordFilterValue = '';    // '' = sem filtro; caso contrário, número de acordes selecionado
@@ -48,7 +49,9 @@
       + (song.chordCount !== undefined ? '&chords=' + song.chordCount : '');
     return '<a href="' + url + '" class="song-item">'
       + '<div class="song-card-content">'
-      +   '<h1 class="song-card-title">'  + escapeHtml(song.title)  + '</h1>'
+      +   '<h1 class="song-card-title">'  + escapeHtml(song.title)
+      +     (song.isLocal ? ' <span class="song-card-badge" title="Cifra importada/criada por você, salva só neste aparelho">Local</span>' : '')
+      +   '</h1>'
       +   '<span class="song-card-artist">' + escapeHtml(song.artist) + '</span>'
       + '</div>'
       + '</a>';
@@ -266,6 +269,106 @@
     window.scrollTo(0, 0);
   }
 
+  // MINHAS CIFRAS (importar/criar/editar cifras locais) =========================================
+
+  const elBtnAddSong       = document.getElementById('nav-add');
+
+  const elEditorOverlay    = document.getElementById('cho-editor-overlay');
+  const elEditorTitle      = document.getElementById('cho-editor-title');
+  const elEditorTextarea   = document.getElementById('cho-editor-textarea');
+  const elEditorError      = document.getElementById('cho-editor-error');
+  const elEditorFileInput  = document.getElementById('cho-editor-file-input');
+  const elEditorPickFile   = document.getElementById('cho-editor-pick-file');
+  const elEditorSave       = document.getElementById('cho-editor-save');
+  const elEditorCancel     = document.getElementById('cho-editor-cancel');
+  const elEditorClose      = document.getElementById('cho-editor-close');
+  const elEditorDelete     = document.getElementById('cho-editor-delete');
+
+  let editingId = null; // id da cifra local em edição; null = criando uma nova
+
+  // Abre o editor. id = null → cifra nova; id existente → edita o conteúdo salvo
+  function openEditor(id) {
+    editingId = id || null;
+    elEditorError.style.display = 'none';
+    elEditorError.textContent   = '';
+
+    if (editingId) {
+      const raw = window.LocalSongs.get(editingId);
+      elEditorTitle.textContent  = 'Editar cifra';
+      elEditorTextarea.value     = raw ? raw.content : '';
+      elEditorDelete.style.display = 'inline-block';
+    } else {
+      elEditorTitle.textContent  = 'Nova cifra';
+      elEditorTextarea.value     = '';
+      elEditorDelete.style.display = 'none';
+    }
+
+    elEditorOverlay.style.display = 'flex';
+    elEditorTextarea.focus();
+  }
+
+  function closeEditor() {
+    elEditorOverlay.style.display = 'none';
+    editingId = null;
+  }
+
+  // Selecionar um arquivo .cho do aparelho só joga o texto dele no campo — não salva sozinho
+  elEditorPickFile.addEventListener('click', () => elEditorFileInput.click());
+  elEditorFileInput.addEventListener('change', () => {
+    const file = elEditorFileInput.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => { elEditorTextarea.value = String(reader.result || ''); };
+    reader.onerror = () => { elEditorError.textContent = 'Não foi possível ler esse arquivo.'; elEditorError.style.display = 'block'; };
+    reader.readAsText(file);
+    elEditorFileInput.value = ''; // permite selecionar o mesmo arquivo de novo depois
+  });
+
+  elEditorSave.addEventListener('click', () => {
+    const text = elEditorTextarea.value;
+
+    if (!text.trim()) {
+      elEditorError.textContent   = 'Cole ou digite o conteúdo da cifra antes de salvar.';
+      elEditorError.style.display = 'block';
+      return;
+    }
+
+    // Valida que pelo menos dá pra fazer o parse ChordPro antes de salvar
+    try {
+      new ChordSheetJS.ChordProParser().parse(text);
+    } catch (e) {
+      elEditorError.textContent   = 'Não consegui interpretar esse texto como ChordPro. Confira a formatação (acordes entre colchetes, ex: [C]) e tente de novo.';
+      elEditorError.style.display = 'block';
+      return;
+    }
+
+    window.LocalSongs.save(editingId, text);
+    closeEditor();
+  });
+
+  elEditorDelete.addEventListener('click', () => {
+    if (!editingId) return;
+    if (confirm('Excluir esta cifra local? Essa ação não pode ser desfeita.')) {
+      window.LocalSongs.remove(editingId);
+      closeEditor();
+    }
+  });
+
+  elEditorCancel.addEventListener('click', closeEditor);
+  elEditorClose.addEventListener('click', closeEditor);
+  elEditorOverlay.addEventListener('click', (e) => { if (e.target === elEditorOverlay) closeEditor(); });
+
+  elBtnAddSong.addEventListener('click', () => openEditor(null));
+
+  // Exposto globalmente para o song.js poder abrir o editor a partir da tela da cifra
+  window.openChoEditor = openEditor;
+
+  // Sempre que uma cifra local muda (criada/editada/excluída), refaz o catálogo e a busca
+  window.addEventListener('localSongsChanged', () => {
+    rebuildCatalog();
+    refreshVisibleFilteredSection();
+  });
+
   // NAVEGAÇÃO POR ABAS (bottom nav) ==============================================================
 
   const navItems = document.querySelectorAll('.bottom-nav-item');
@@ -349,32 +452,37 @@
     }
   }
 
+  // Junta o acervo oficial com as cifras locais e reconstrói ordenação/índice de busca.
+  // Chamada no carregamento inicial e sempre que uma cifra local é criada/editada/excluída.
+  function rebuildCatalog() {
+    const merged = officialSongs.concat(window.LocalSongs.list());
+
+    // Ordem alfabética — usada na aba "ver todas"
+    allSongs = merged.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+
+    // Ordem por data de edição — usada na aba Início
+    recentSongs = [...merged].sort((a, b) => (b.mtime || 0) - (a.mtime || 0));
+
+    // Configura o Fuse.js para busca por título, artista e letra
+    fuse = new Fuse(allSongs, {
+      keys: ['title', 'artist', 'lyrics'],
+      threshold: 0.35,
+      minMatchCharLength: 2,
+      ignoreLocation: true
+    });
+
+    populateHomeChordFilterMenu();
+  }
+
   // INICIALIZAÇÃO ================================================================================
 
   // Carrega o catálogo de músicas e configura a busca
   async function init() {
     try {
       const res  = await fetch('songs.json');
-      const data = await res.json();
+      officialSongs = await res.json();
 
-      // Ordem alfabética — usada na aba "ver todas"
-      allSongs = data.sort((a, b) =>
-        (a.title || '').localeCompare(b.title || '')
-      );
-
-      // Ordem por data de edição — usada na aba Início
-      recentSongs = [...data].sort((a, b) => (b.mtime || 0) - (a.mtime || 0));
-
-      // Configura o Fuse.js para busca por título, artista e letra
-      fuse = new Fuse(allSongs, {
-        keys: ['title', 'artist', 'lyrics'],
-        threshold: 0.35,
-        minMatchCharLength: 2,
-        ignoreLocation: true
-      });
-
-      populateHomeChordFilterMenu();
-
+      rebuildCatalog();
       syncView();
     } catch (err) {
       console.error('Falha ao carregar songs.json', err);

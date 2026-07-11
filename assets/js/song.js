@@ -16,6 +16,7 @@ const elBtnAutoscroll = document.getElementById('btn-autoscroll');
 const elBtnDlCho      = document.getElementById('btn-download-cho');
 const elBtnDlTxt      = document.getElementById('btn-download-txt');
 const elBtnDlPdf      = document.getElementById('btn-download-pdf');
+const elBtnEditLocal  = document.getElementById('btn-edit-local');
 const elBtnFontDown   = document.getElementById('btn-font-down');
 const elBtnFontUp     = document.getElementById('btn-font-up');
 const elFontDisp      = document.getElementById('font-size-display');
@@ -41,6 +42,7 @@ let transposeParam; // transposição inicial (vem da URL, se compartilhada com 
 let TRANS_KEY;      // chave no localStorage para salvar a transposição desta música
 
 let song              = null; // objeto da música parseado pelo ChordSheetJS
+let currentSongText   = null; // texto ChordPro bruto da cifra atual (usado ao criar cópia local de músicas oficiais)
 let currentChoBlobUrl = null; // URL do blob do .cho original, para revogar antes de criar um novo
 let currentTxtBlobUrl = null; // URL do blob do .txt gerado, para revogar antes de criar um novo
 let transpose      = 0;    // quantos semitons estamos transpondo (0 = tom original)
@@ -54,6 +56,19 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// Nome-base usado nos três downloads (.cho/.txt/.pdf): mesmo nome do arquivo original,
+// ou (pra cifras locais, que não têm um arquivo real) o título salvo na própria cifra
+function baseFilename() {
+  if (window.LocalSongs.isLocalFile(fileUrl)) {
+    const title = (song && song.metadata && song.metadata.title) || titleParam || 'cifra';
+    return String(title)
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-zA-Z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '') || 'cifra';
+  }
+  return (fileUrl || 'cifra').split('/').pop().replace(/\.cho$/i, '');
 }
 
 // Lê os parâmetros da URL e atualiza as variáveis de estado
@@ -214,8 +229,8 @@ function renderSheet() {
   elSheet.innerHTML = elSheet.innerHTML.replace(/\.\.\./g, '…'); // reticências tipográficas
   elSheet.querySelectorAll('.chord').forEach(el => {
     el.innerHTML = el.innerHTML
-      .replace(/ma7/gi, '7M') // C7M em vez de Cma7
-      .replace(/dim/gi,  '°'); // C° em vez de Cdim
+      .replace(/ma7/gi, '7M'); // C7M em vez de Cma7
+      //.replace(/dim/gi,  '°'); // C° em vez de Cdim
   });
 
   // Atualiza o contador de semitons (+2, -1 etc.)
@@ -232,7 +247,7 @@ function renderSheet() {
   currentTxtBlobUrl = URL.createObjectURL(txtBlob);
   elBtnDlTxt.href   = currentTxtBlobUrl;
 
-  const baseName    = (fileUrl || 'cifra').split('/').pop().replace(/\.cho$/i, '');
+  const baseName    = baseFilename();
   const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
   elBtnDlTxt.download = `${baseName}${transSuffix}.txt`;
 
@@ -319,11 +334,11 @@ elBtnDlPdf.addEventListener('click', async () => {
 
     const transposed = song.transpose(transpose);
     const formatter  = new ChordSheetJSPdf.PdfFormatter({
-      layout: { chordDiagrams: { enabled: false } } // sem diagramas de acordes para violão
+      layout: { chordDiagrams: { enabled: false } } // app é "universal" (não só violão/guitarra), sem diagramas
     });
     formatter.format(transposed);
 
-    const baseName    = (fileUrl || 'cifra').split('/').pop().replace(/\.cho$/i, '');
+    const baseName    = baseFilename();
     const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
     formatter.getDocumentWrapper().save(`${baseName}${transSuffix}.pdf`);
   } catch (e) {
@@ -402,6 +417,20 @@ function showContent() {
 
 // INICIALIZAÇÃO DA CIFRA =========================================================================
 
+// Busca o texto ChordPro da cifra atual — da rede (arquivo .cho real) ou do
+// localStorage (cifra local do usuário), dependendo do que fileUrl representa
+function fetchSongText(url) {
+  if (window.LocalSongs.isLocalFile(url)) {
+    const raw = window.LocalSongs.get(window.LocalSongs.idFromFile(url));
+    if (!raw) return Promise.reject(new Error('Esta cifra local não foi encontrada. Ela pode ter sido excluída neste aparelho.'));
+    return Promise.resolve(raw.content);
+  }
+  return fetch(url).then(r => {
+    if (!r.ok) throw new Error('Música não encontrada. Verifique sua conexão.');
+    return r.text();
+  });
+}
+
 // Carrega e renderiza a cifra indicada na URL (?file=...)
 function initSong() {
   updateStateFromUrl();
@@ -412,13 +441,10 @@ function initSong() {
   loadTransposePref();
   updateFavoriteUI();
 
-  fetch(fileUrl)
-    .then(r => r.text())
-    .catch(() => {
-      throw new Error('Música não encontrada. Verifique sua conexão.');
-    })
+  fetchSongText(fileUrl)
     .then(text => {
       if (!text) throw new Error('Conteúdo vazio.');
+      currentSongText = text;
 
       // Faz o parse do formato ChordPro (.cho) para um objeto JS
       const parser = new ChordSheetJS.ChordProParser();
@@ -433,13 +459,42 @@ function initSong() {
       const blob          = new Blob([text], { type: 'text/plain' });
       currentChoBlobUrl   = URL.createObjectURL(blob);
       elBtnDlCho.href     = currentChoBlobUrl;
-      elBtnDlCho.download = fileUrl.split('/').pop() || 'cifra.cho';
+      elBtnDlCho.download = `${baseFilename()}.cho`;
 
       renderSheet();
       showContent();
     })
     .catch(err => showError(err.message));
 }
+
+elBtnEditLocal.addEventListener('click', () => {
+  // Cifra já é local → edita direto o conteúdo salvo
+  if (window.LocalSongs.isLocalFile(fileUrl)) {
+    window.openChoEditor(window.LocalSongs.idFromFile(fileUrl));
+    return;
+  }
+
+  // Cifra oficial → cria uma cópia local editável com o conteúdo atual e passa
+  // a apontar a tela para essa cópia, sem afetar o arquivo oficial original
+  if (!currentSongText) return;
+
+  const newId   = window.LocalSongs.save(null, currentSongText);
+  const newFile = window.LocalSongs.PREFIX + newId;
+
+  const url = new URL(window.location.href);
+  url.searchParams.set('file', newFile);
+  url.searchParams.delete('transpose');
+  window.history.pushState({}, '', url.toString());
+
+  initSong();
+  window.openChoEditor(newId);
+});
+
+// Se a cifra local aberta agora for editada ou excluída (pela aba Configurações,
+// por exemplo), recarrega a tela pra refletir a mudança na hora
+window.addEventListener('localSongsChanged', () => {
+  if (fileUrl && window.LocalSongs.isLocalFile(fileUrl)) initSong();
+});
 
 // Recarrega a cifra ao usar o botão "voltar" do browser
 window.addEventListener('popstate', initSong);
