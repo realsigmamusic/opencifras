@@ -13,7 +13,8 @@ const elBtnShare      = document.getElementById('btn-share');
 const elBtnMenu       = document.getElementById('btn-menu');
 const elDropdownMenu  = document.getElementById('dropdown-menu');
 const elBtnAutoscroll = document.getElementById('btn-autoscroll');
-const elBtnDl         = document.getElementById('btn-download');
+const elBtnDlCho      = document.getElementById('btn-download-cho');
+const elBtnDlTxt      = document.getElementById('btn-download-txt');
 const elBtnFontDown   = document.getElementById('btn-font-down');
 const elBtnFontUp     = document.getElementById('btn-font-up');
 const elFontDisp      = document.getElementById('font-size-display');
@@ -38,8 +39,9 @@ let chordsParam;    // quantidade de acordes distintos (vem da URL)
 let transposeParam; // transposição inicial (vem da URL, se compartilhada com tom)
 let TRANS_KEY;      // chave no localStorage para salvar a transposição desta música
 
-let song           = null; // objeto da música parseado pelo ChordSheetJS
-let currentBlobUrl = null; // URL do blob de download atual, para revogar antes de criar um novo
+let song              = null; // objeto da música parseado pelo ChordSheetJS
+let currentChoBlobUrl = null; // URL do blob do .cho original, para revogar antes de criar um novo
+let currentTxtBlobUrl = null; // URL do blob do .txt gerado, para revogar antes de criar um novo
 let transpose      = 0;    // quantos semitons estamos transpondo (0 = tom original)
 let fontIdx        = 3;    // índice no array FONT_SIZES (3 = 16px, o padrão)
 
@@ -218,6 +220,21 @@ function renderSheet() {
   // Atualiza o contador de semitons (+2, -1 etc.)
   elTransVal.textContent = (transpose >= 0 ? '+' : '') + transpose;
 
+  // Gera o .txt (acordes sobre a letra, em texto puro) no tom atual, para download
+  const txtFormatter = new ChordSheetJS.ChordsOverWordsFormatter();
+  const txtContent   = txtFormatter.format(transposed);
+
+  if (currentTxtBlobUrl) {
+    URL.revokeObjectURL(currentTxtBlobUrl); // libera o blob do .txt anterior
+  }
+  const txtBlob     = new Blob([txtContent], { type: 'text/plain' });
+  currentTxtBlobUrl = URL.createObjectURL(txtBlob);
+  elBtnDlTxt.href   = currentTxtBlobUrl;
+
+  const baseName    = (fileUrl || 'cifra').split('/').pop().replace(/\.cho$/i, '');
+  const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
+  elBtnDlTxt.download = `${baseName}${transSuffix}.txt`;
+
   // Rodapé discreto com a versão da biblioteca
   const footer = document.createElement('div');
   footer.style.cssText = 'margin-top:2rem; padding-top:0.75rem; border-top:1px solid var(--border-color); font-size:0.75rem; color:var(--tertiary-color); text-align:center; margin-bottom:1.25rem;';
@@ -349,14 +366,14 @@ function initSong() {
 
       renderMetadata(song);
 
-      // Prepara o botão de download com o arquivo original
-      if (currentBlobUrl) {
-        URL.revokeObjectURL(currentBlobUrl); // libera o blob da música anterior
+      // Prepara o botão de download com o arquivo original (.cho)
+      if (currentChoBlobUrl) {
+        URL.revokeObjectURL(currentChoBlobUrl); // libera o blob da música anterior
       }
-      const blob        = new Blob([text], { type: 'text/plain' });
-      currentBlobUrl    = URL.createObjectURL(blob);
-      elBtnDl.href      = currentBlobUrl;
-      elBtnDl.download  = fileUrl.split('/').pop() || 'cifra.cho';
+      const blob          = new Blob([text], { type: 'text/plain' });
+      currentChoBlobUrl   = URL.createObjectURL(blob);
+      elBtnDlCho.href     = currentChoBlobUrl;
+      elBtnDlCho.download = fileUrl.split('/').pop() || 'cifra.cho';
 
       renderSheet();
       showContent();
