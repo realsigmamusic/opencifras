@@ -15,6 +15,7 @@ const elDropdownMenu  = document.getElementById('dropdown-menu');
 const elBtnAutoscroll = document.getElementById('btn-autoscroll');
 const elBtnDlCho      = document.getElementById('btn-download-cho');
 const elBtnDlTxt      = document.getElementById('btn-download-txt');
+const elBtnDlPdf      = document.getElementById('btn-download-pdf');
 const elBtnFontDown   = document.getElementById('btn-font-down');
 const elBtnFontUp     = document.getElementById('btn-font-up');
 const elFontDisp      = document.getElementById('font-size-display');
@@ -272,6 +273,65 @@ elBtnShare.addEventListener('click', async () => {
     }
   } catch (e) {
     console.warn('Compartilhamento falhou', e);
+  }
+});
+
+// BAIXAR PDF ======================================================================================
+
+// Os vendors do PDF (jsPDF + ChordSheetJS/pdf) são grandes (~1.1MB juntos), então só
+// carregamos sob demanda, no primeiro clique em "Baixar .pdf" — não no carregamento da página.
+let pdfLibPromise = null;
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error(`Falha ao carregar ${src}`));
+    document.head.appendChild(script);
+  });
+}
+
+function loadPdfLib() {
+  if (window.ChordSheetJSPdf) return Promise.resolve();
+  if (!pdfLibPromise) {
+    // jsPDF precisa vir primeiro: o bundle do ChordSheetJS/pdf espera window.jspdf.jsPDF já disponível
+    pdfLibPromise = loadScript('./assets/vendor/jspdf.umd.min.js')
+      .then(() => loadScript('./assets/vendor/chordsheetjs-pdf.min.js'))
+      .catch(err => {
+        pdfLibPromise = null; // permite tentar de novo em caso de falha (ex: sem internet na 1ª vez)
+        throw err;
+      });
+  }
+  return pdfLibPromise;
+}
+
+elBtnDlPdf.addEventListener('click', async () => {
+  if (!song) return;
+
+  const label = elBtnDlPdf.querySelector('span');
+  const originalLabel = label.textContent;
+  label.textContent = 'Gerando PDF…';
+  elBtnDlPdf.disabled = true;
+
+  try {
+    await loadPdfLib();
+
+    const transposed = song.transpose(transpose);
+    const formatter  = new ChordSheetJSPdf.PdfFormatter({
+      layout: { chordDiagrams: { enabled: false } } // sem diagramas de acordes para violão
+    });
+    formatter.format(transposed);
+
+    const baseName    = (fileUrl || 'cifra').split('/').pop().replace(/\.cho$/i, '');
+    const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
+    formatter.getDocumentWrapper().save(`${baseName}${transSuffix}.pdf`);
+  } catch (e) {
+    console.warn('Falha ao gerar PDF', e);
+    alert('Não foi possível gerar o PDF. Verifique sua conexão e tente novamente.');
+  } finally {
+    label.textContent  = originalLabel;
+    elBtnDlPdf.disabled = false;
   }
 });
 
