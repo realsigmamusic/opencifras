@@ -6,6 +6,10 @@ Projetado especificamente para músicos de palco e ministérios de louvor, o apl
 
 **Acesse a aplicação rodando no GitHub Pages:** [realsigmamusic.github.io/opencifras](https://realsigmamusic.github.io/opencifras)
 
+|   |   |   |   |   |
+|---|---|---|---|---|
+| ![Artistas](screenshots/musica.jpg) | ![Configurações](screenshots/inicio.jpg) | ![Favoritos](screenshots/favotitos.jpg) | ![Início](screenshots/artistas.jpg) | ![Música](screenshots/configuracoes.jpg) |
+
 ---
 
 ## Diferenciais
