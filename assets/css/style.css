@@ -633,3 +633,37 @@ button.btn-filter {
 }
 
 .cho-editor-btn-danger { border-color: var(--danger); color: var(--danger); }
+
+/* ---------- Banner (foto que abre o WhatsApp, sem ad network) ---------- */
+.home-banner-section {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0;
+  border: none;
+}
+
+.home-banner {
+  display: block;
+  line-height: 0;
+}
+
+.home-banner-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.home-banner-close {
+  position: absolute;
+  top: -0.4rem;
+  right: 0.15rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

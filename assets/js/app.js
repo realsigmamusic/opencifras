@@ -272,6 +272,7 @@
   // MINHAS CIFRAS (importar/criar/editar cifras locais) =========================================
 
   const elBtnAddSong       = document.getElementById('nav-add');
+  const elBtnBannerClose   = document.getElementById('home-banner-close');
 
   const elEditorOverlay    = document.getElementById('cho-editor-overlay');
   const elEditorTitle      = document.getElementById('cho-editor-title');
@@ -515,6 +516,13 @@
   btnShowAll.addEventListener('click', onShowAll);
   window.addEventListener('favoritesChanged', onSearch); // disparado pelo song.js ao favoritar
   window.addEventListener('popstate', syncView);         // disparado ao usar o botão voltar do browser
+
+  // Fecha o banner só nesta sessão — nada é salvo, então ele volta ao recarregar a página
+  if (elBtnBannerClose) {
+    elBtnBannerClose.addEventListener('click', () => {
+      elBtnBannerClose.closest('.home-banner-section').style.display = 'none';
+    });
+  }
 
   init();
 })();
