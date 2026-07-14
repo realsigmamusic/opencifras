@@ -1,8 +1,9 @@
-const CACHE_NAME = '2.3.0';
+const CACHE_NAME = '2.3.1';
 const ASSETS = [
   './index.html',
   './manifest.json',
   './assets/maskable_icon_x512.png',
+  './assets/banner.webp',
   './assets/css/song.css',
   './assets/css/style.css',
   './assets/js/app.js',
