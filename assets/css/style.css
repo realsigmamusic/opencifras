@@ -385,8 +385,8 @@ section button {
 }
 
 #config-section select {
-  font-size: 1rem;
-  color: var(--body-color);
+  font-size: 0.9rem;
+  color: var(--secondary-color);
   margin-bottom: 0.8rem;
 }
 
@@ -665,4 +665,34 @@ button.btn-filter {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ---------- Tema manual (Configurações > Aparência) ----------
+   Tem prioridade sobre o @media (prefers-color-scheme) acima, pois
+   [data-theme] é mais específico que :root sozinho. Sem o atributo
+   (modo "Automático"), o tema volta a seguir o sistema normalmente. */
+html[data-theme="light"] {
+  --body-color: #212529;
+  --body-bg: #fff;
+  --secondary-color: rgba(33, 37, 41, 0.75);
+  --secondary-bg: #e9ecef;
+  --tertiary-color: rgba(33, 37, 41, 0.5);
+  --tertiary-bg: #f8f9fa;
+  --secondary-text-emphasis: #2b2f32;
+  --info-text-emphasis: #055160;
+  --warning-text-emphasis: #664d03;
+  --border-color: #dee2e6;
+}
+
+html[data-theme="dark"] {
+  --body-color: #dee2e6;
+  --body-bg: #212529;
+  --secondary-color: rgba(222, 226, 230, 0.75);
+  --secondary-bg: #343a40;
+  --tertiary-color: rgba(222, 226, 230, 0.5);
+  --tertiary-bg: #2b3035;
+  --secondary-text-emphasis: #a7acb1;
+  --info-text-emphasis: #6edff6;
+  --warning-text-emphasis: #ffda6a;
+  --border-color: #495057;
 }

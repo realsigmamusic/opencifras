@@ -22,6 +22,7 @@
 
   //Chaves do localStorage 
   const FAVORITES_KEY = 'chordsheets_favorites';
+  const THEME_KEY      = 'chordsheets_theme';
 
   //Configurações 
   const LIMIT_HOME = 7; // quantas músicas mostrar na aba Início antes do "ver todas"
@@ -273,6 +274,8 @@
 
   const elBtnAddSong       = document.getElementById('nav-add');
   const elBtnBannerClose   = document.getElementById('home-banner-close');
+  const elThemeSelect      = document.getElementById('theme-select');
+  const elMetaThemeColor   = document.getElementById('meta-theme-color');
 
   const elEditorOverlay    = document.getElementById('cho-editor-overlay');
   const elEditorTitle      = document.getElementById('cho-editor-title');
@@ -521,6 +524,52 @@
   if (elBtnBannerClose) {
     elBtnBannerClose.addEventListener('click', () => {
       elBtnBannerClose.closest('.home-banner-section').style.display = 'none';
+    });
+  }
+
+  // ---------- Tema manual (Configurações > Aparência) ----------
+  const THEME_LIGHT_BG = '#e9ecef';
+  const THEME_DARK_BG  = '#343a40';
+  const systemDarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  // value: 'auto' | 'light' | 'dark' — retorna se o resultado final é escuro
+  function isEffectivelyDark(value) {
+    if (value === 'dark') return true;
+    if (value === 'light') return false;
+    return !!(systemDarkQuery && systemDarkQuery.matches);
+  }
+
+  function applyTheme(value) {
+    if (value === 'light' || value === 'dark') {
+      document.documentElement.setAttribute('data-theme', value);
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    if (elMetaThemeColor) {
+      elMetaThemeColor.setAttribute('content', isEffectivelyDark(value) ? THEME_DARK_BG : THEME_LIGHT_BG);
+    }
+  }
+
+  function getSavedTheme() {
+    try { return localStorage.getItem(THEME_KEY) || 'auto'; } catch (e) { return 'auto'; }
+  }
+
+  const initialTheme = getSavedTheme();
+  if (elThemeSelect) elThemeSelect.value = initialTheme;
+  applyTheme(initialTheme);
+
+  if (elThemeSelect) {
+    elThemeSelect.addEventListener('change', () => {
+      const value = elThemeSelect.value;
+      try { localStorage.setItem(THEME_KEY, value); } catch (e) {}
+      applyTheme(value);
+    });
+  }
+
+  // Em modo "Automático", se o sistema trocar de tema com o app aberto, atualiza a cor da barra de status
+  if (systemDarkQuery) {
+    systemDarkQuery.addEventListener('change', () => {
+      if (getSavedTheme() === 'auto') applyTheme('auto');
     });
   }
 
