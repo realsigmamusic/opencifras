@@ -672,6 +672,7 @@ button.btn-filter {
    [data-theme] é mais específico que :root sozinho. Sem o atributo
    (modo "Automático"), o tema volta a seguir o sistema normalmente. */
 html[data-theme="light"] {
+  color-scheme: light;
   --body-color: #212529;
   --body-bg: #fff;
   --secondary-color: rgba(33, 37, 41, 0.75);
@@ -685,6 +686,7 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
+  color-scheme: dark;
   --body-color: #dee2e6;
   --body-bg: #212529;
   --secondary-color: rgba(222, 226, 230, 0.75);
