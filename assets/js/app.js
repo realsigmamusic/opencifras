@@ -24,6 +24,18 @@
   const FAVORITES_KEY = 'chordsheets_favorites';
   const THEME_KEY      = 'chordsheets_theme';
   const FONT_KEY       = 'chordsheets_font';
+  const CHORD_COLOR_KEY = 'chordsheets_chord_color';
+
+  // Cada opção tem um tom pra tema claro (mais escuro/saturado, legível no branco) e outro
+  // pra tema escuro (mais claro/pastel, legível no fundo escuro) — mesmo padrão que o app já
+  // usa em --info-text-emphasis (#055160 no claro / #6edff6 no escuro).
+  const CHORD_COLOR_PRESETS = {
+    blue:   { light: '#0d6efd', dark: '#6ea8fe' },
+    green:  { light: '#198754', dark: '#4ade80' },
+    orange: { light: '#b45309', dark: '#fbbf24' },
+    red:    { light: '#dc3545', dark: '#f87171' },
+    purple: { light: '#7c3aed', dark: '#c084fc' }
+  };
 
   //Configurações 
   const LIMIT_HOME = 7; // quantas músicas mostrar na aba Início antes do "ver todas"
@@ -277,6 +289,7 @@
   const elBtnBannerClose   = document.getElementById('home-banner-close');
   const elThemeSelect      = document.getElementById('theme-select');
   const elFontSelect       = document.getElementById('font-select');
+  const elChordColorSelect = document.getElementById('chord-color-select');
   const elMetaThemeColor   = document.getElementById('meta-theme-color');
 
   const elEditorOverlay    = document.getElementById('cho-editor-overlay');
@@ -392,7 +405,6 @@
     document.getElementById('all-songs-section').style.display = tab === 'inicio'    ? 'block' : 'none';
     document.getElementById('artists-section').style.display   = tab === 'artistas'  ? 'block' : 'none';
     document.getElementById('favorites-section').style.display = tab === 'favoritos' ? 'block' : 'none';
-    document.getElementById('config-section').style.display    = tab === 'config'    ? 'block' : 'none';
     document.getElementById('no-results').style.display        = 'none';
   }
 
@@ -420,13 +432,17 @@
     renderFavoritesSection();
   });
 
-  // Clique em "Configurações"
-  document.getElementById('nav-config').addEventListener('click', () => {
-    window.history.pushState({}, '', '?');
-    syncView();
-    setActiveNav('nav-config');
-    showTab('config');
-  });
+  // Clique em "Configurações": abre por cima da tela atual (Home ou música), sem navegar
+  // pra Home — assim, ao fechar, você continua exatamente onde estava.
+  const elSettingsOverlay = document.getElementById('settings-overlay');
+  const elSettingsClose   = document.getElementById('settings-close');
+
+  function openSettingsModal() { elSettingsOverlay.style.display = 'flex'; }
+  function closeSettingsModal() { elSettingsOverlay.style.display = 'none'; }
+
+  document.getElementById('nav-config').addEventListener('click', openSettingsModal);
+  elSettingsClose.addEventListener('click', closeSettingsModal);
+  elSettingsOverlay.addEventListener('click', (e) => { if (e.target === elSettingsOverlay) closeSettingsModal(); });
 
   // CONTROLE DE TELA (home vs. cifra aberta) =====================================================
 
@@ -556,13 +572,17 @@
       const value = elThemeSelect.value;
       try { localStorage.setItem(THEME_KEY, value); } catch (e) {}
       applyTheme(value);
+      applyChordColor(getSavedChordColor()); // a cor pode depender do tema (claro/escuro)
     });
   }
 
   // Em modo "Automático", se o sistema trocar de tema com o app aberto, atualiza a cor da barra de status
   if (systemDarkQuery) {
     systemDarkQuery.addEventListener('change', () => {
-      if (getSavedTheme() === 'auto') applyTheme('auto');
+      if (getSavedTheme() === 'auto') {
+        applyTheme('auto');
+        applyChordColor(getSavedChordColor());
+      }
     });
   }
 
@@ -587,6 +607,37 @@
       const value = elFontSelect.value;
       try { localStorage.setItem(FONT_KEY, value); } catch (e) {}
       applyFont(value);
+    });
+  }
+
+  // ---------- Cor do acorde (Configurações > Aparência) ----------
+  // "default" remove o override e deixa a cor voltar a seguir o tema (var(--info-text-emphasis));
+  // qualquer outro valor é uma chave de CHORD_COLOR_PRESETS, resolvida pro tom certo (claro/escuro)
+  // conforme o tema efetivo atual — por isso salvamos a CHAVE, não o hex, e reaplicamos sempre
+  // que o tema mudar (inclusive quando "Sistema" muda sozinho com o app aberto).
+  function applyChordColor(key) {
+    const preset = CHORD_COLOR_PRESETS[key];
+    if (!preset) {
+      document.documentElement.style.removeProperty('--chord-color');
+      return;
+    }
+    const value = isEffectivelyDark(getSavedTheme()) ? preset.dark : preset.light;
+    document.documentElement.style.setProperty('--chord-color', value);
+  }
+
+  function getSavedChordColor() {
+    try { return localStorage.getItem(CHORD_COLOR_KEY) || 'default'; } catch (e) { return 'default'; }
+  }
+
+  const initialChordColor = getSavedChordColor();
+  if (elChordColorSelect) elChordColorSelect.value = initialChordColor;
+  applyChordColor(initialChordColor);
+
+  if (elChordColorSelect) {
+    elChordColorSelect.addEventListener('change', () => {
+      const value = elChordColorSelect.value;
+      try { localStorage.setItem(CHORD_COLOR_KEY, value); } catch (e) {}
+      applyChordColor(value);
     });
   }
 

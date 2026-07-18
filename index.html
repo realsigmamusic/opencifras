@@ -228,49 +228,8 @@
         </button>
       </section>
 
-      <!-- CONFIGURAÇÕES -->
-      <section id="config-section" style="display:none">
-        <h2>Configurações</h2>
-        <div class="config-group">
-          <h3>Aparência</h3>
-          <p>Escolha o tema do aplicativo.</p>
-          <select id="theme-select">
-            <option value="auto">Sistema</option>
-            <option value="light">Claro</option>
-            <option value="dark">Escuro</option>
-          </select>
-        </div>
-        <div class="config-group">
-          <h3>Fonte</h3>
-          <p>Escolha a fonte usada em todo o app, incluindo as cifras.</p>
-          <select id="font-select">
-            <option value="sans-serif">Sem serifa (padrão)</option>
-            <option value="serif">Serifada</option>
-            <option value="monospace">Monoespaçada</option>
-          </select>
-        </div>
-        <div class="config-group">
-          <h3>OpenCifras <span id="opencifras-version"></span></h3>
-          <p>Aplicativo de cifras no formato ChordPro, offline, sem anúncios e sem cadastro.</p>
-          <a href="https://github.com/realsigmamusic/opencifras" target="_blank" class="config-link">
-            Saiba mais…
-          </a>
-        </div>
-        <div class="config-group">
-          <h3>ChordPro</h3>
-          <p>Formato de texto para cifras musicais. Os acordes ficam entre colchetes, na letra:<br><code>[Dm7]Letra [G7]da [CM7]Música</code><br>Arquivos com extensão <code>.cho</code></p>
-          <a href="https://www.chordpro.org" target="_blank" class="config-link">
-            Saiba mais…
-          </a>
-        </div>
-        <div class="config-group">
-          <h3>ChordSheetJS <span id="chordsheetjs-version"></span></h3>
-          <p>Biblioteca open-source que faz o parse e renderização das cifras no app. Responsável pelo alinhamento perfeito dos acordes sobre as sílabas.</p>
-          <a href="https://martijnversluis.github.io/ChordSheetJS/" target="_blank" class="config-link">
-            Saiba mais…
-          </a>
-        </div>
-      </section>
+      <!-- Configurações agora é um modal (ver #settings-overlay perto do fim do body),
+           pra poder ser aberto de cima da música sem perder o lugar. -->
     </div>
   </main>
 
@@ -322,6 +281,76 @@
       </a>
     </nav>
   </footer>
+
+  <!-- CONFIGURAÇÕES (modal — abre por cima de onde você estiver, música ou Home) -->
+  <div id="settings-overlay" class="cho-editor-overlay" style="display:none">
+    <div class="cho-editor">
+      <div class="cho-editor-header">
+        <h2>Configurações</h2>
+        <button id="settings-close" class="btn-toolbar" type="button" title="Fechar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="cho-editor-body">
+        <section id="config-section">
+          <div class="config-group">
+            <h3>Aparência</h3>
+            <p>Escolha o tema do aplicativo.</p>
+            <select id="theme-select">
+              <option value="auto">Sistema</option>
+              <option value="light">Claro</option>
+              <option value="dark">Escuro</option>
+            </select>
+          </div>
+          <div class="config-group">
+            <h3>Fonte</h3>
+            <p>Escolha a fonte usada em todo o app, incluindo as cifras.</p>
+            <select id="font-select">
+              <option value="sans-serif">Sem serifa</option>
+              <option value="serif">Com serifa</option>
+              <option value="monospace">Monospaçada</option>
+            </select>
+          </div>
+          <div class="config-group">
+            <h3>Cor do acorde</h3>
+            <p>Escolha a cor usada para destacar os acordes na cifra.</p>
+            <select id="chord-color-select">
+              <option value="default">Padrão</option>
+              <option value="blue">Azul</option>
+              <option value="green">Verde</option>
+              <option value="orange">Laranja</option>
+              <option value="red">Vermelho</option>
+              <option value="purple">Roxo</option>
+            </select>
+          </div>
+          <div class="config-group">
+            <h3>OpenCifras <span id="opencifras-version"></span></h3>
+            <p>Aplicativo de cifras no formato ChordPro, offline, sem anúncios e sem cadastro.</p>
+            <a href="https://github.com/realsigmamusic/opencifras" target="_blank" class="config-link">
+              Saiba mais…
+            </a>
+          </div>
+          <div class="config-group">
+            <h3>ChordPro</h3>
+            <p>Formato de texto para cifras musicais. Os acordes ficam entre colchetes, na letra:<br><code>[Dm7]Letra [G7]da [CM7]Música</code><br>Arquivos com extensão <code>.cho</code></p>
+            <a href="https://www.chordpro.org" target="_blank" class="config-link">
+              Saiba mais…
+            </a>
+          </div>
+          <div class="config-group">
+            <h3>ChordSheetJS <span id="chordsheetjs-version"></span></h3>
+            <p>Biblioteca open-source que faz o parse e renderização das cifras no app. Responsável pelo alinhamento perfeito dos acordes sobre as sílabas.</p>
+            <a href="https://martijnversluis.github.io/ChordSheetJS/" target="_blank" class="config-link">
+              Saiba mais…
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <!-- EDITOR DE CIFRA (importar/criar/editar cifras locais) -->
   <div id="cho-editor-overlay" class="cho-editor-overlay" style="display:none">

@@ -16,6 +16,7 @@
   --warning-text-emphasis: #664d03;
   --border-color: #dee2e6;
   --border-radius: 0.375rem;
+  --chord-color: var(--info-text-emphasis); /* cor dos acordes na cifra — configurável em Aparência */
 }
 
 @media (prefers-color-scheme: dark) {

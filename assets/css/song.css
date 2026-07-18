@@ -58,7 +58,7 @@ h3.label, .comment {
   min-height: calc(1em + 0.75em);
   padding-right: 0.5em;
   font-weight: bold;
-  color: var(--info-text-emphasis);
+  color: var(--chord-color);
   margin-bottom: -0.5em;
 }
 
