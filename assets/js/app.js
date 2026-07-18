@@ -23,6 +23,7 @@
   //Chaves do localStorage 
   const FAVORITES_KEY = 'chordsheets_favorites';
   const THEME_KEY      = 'chordsheets_theme';
+  const FONT_KEY       = 'chordsheets_font';
 
   //Configurações 
   const LIMIT_HOME = 7; // quantas músicas mostrar na aba Início antes do "ver todas"
@@ -275,6 +276,7 @@
   const elBtnAddSong       = document.getElementById('nav-add');
   const elBtnBannerClose   = document.getElementById('home-banner-close');
   const elThemeSelect      = document.getElementById('theme-select');
+  const elFontSelect       = document.getElementById('font-select');
   const elMetaThemeColor   = document.getElementById('meta-theme-color');
 
   const elEditorOverlay    = document.getElementById('cho-editor-overlay');
@@ -494,15 +496,6 @@
     }
   }
 
-  /* const selectFontUi = document.getElementById("font-ui");
-
-  selectFontUi.addEventListener("change", () => {
-      document.documentElement.style.setProperty(
-          "--font-ui",
-          selectFontUi.value
-      );
-  }); */
-
   // Debounce simples: só executa a busca depois que o usuário parar de digitar por 150ms
   function debounce(fn, delay) {
     let timer;
@@ -570,6 +563,30 @@
   if (systemDarkQuery) {
     systemDarkQuery.addEventListener('change', () => {
       if (getSavedTheme() === 'auto') applyTheme('auto');
+    });
+  }
+
+  // ---------- Fonte (Configurações > Fonte) ----------
+  // Uma única escolha do usuário controla a fonte da interface (--font-ui) e das
+  // cifras (--font-song) ao mesmo tempo, já que ele quer as duas iguais.
+  function applyFont(value) {
+    document.documentElement.style.setProperty('--font-ui', value);
+    document.documentElement.style.setProperty('--font-song', value);
+  }
+
+  function getSavedFont() {
+    try { return localStorage.getItem(FONT_KEY) || 'sans-serif'; } catch (e) { return 'sans-serif'; }
+  }
+
+  const initialFont = getSavedFont();
+  if (elFontSelect) elFontSelect.value = initialFont;
+  applyFont(initialFont);
+
+  if (elFontSelect) {
+    elFontSelect.addEventListener('change', () => {
+      const value = elFontSelect.value;
+      try { localStorage.setItem(FONT_KEY, value); } catch (e) {}
+      applyFont(value);
     });
   }
 
