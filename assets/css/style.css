@@ -635,17 +635,25 @@ button.btn-filter {
 
 .cho-editor-btn-danger { border-color: var(--danger); color: var(--danger); }
 
-/* ---------- Banner (foto que abre o WhatsApp, sem ad network) ---------- */
+/* ---------- Banner (carrossel de anúncios, sem ad network) ---------- */
 .home-banner-section {
   position: relative;
-  display: inline-block;
+  overflow: hidden;
   margin-bottom: 1rem;
   padding: 0;
   border: none;
+  border-radius: var(--border-radius);
 }
 
-.home-banner {
-  display: block;
+.home-banner-track {
+  display: flex;
+  transition: transform .35s ease;
+  touch-action: pan-y;
+}
+
+.home-banner-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
   line-height: 0;
 }
 
@@ -653,6 +661,34 @@ button.btn-filter {
   display: block;
   width: 100%;
   height: auto;
+  pointer-events: none; /* o clique é tratado pelo <a> pai (.home-banner-slide) */
+}
+
+.home-banner-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  pointer-events: none; /* só os botões (dots) individuais recebem clique */
+}
+
+.home-banner-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0;
+  pointer-events: auto;
+  transition: background .15s, transform .15s;
+}
+
+.home-banner-dot.active {
+  background: #fff;
+  transform: scale(1.2);
 }
 
 .home-banner-close {
@@ -666,6 +702,7 @@ button.btn-filter {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 /* ---------- Tema manual (Configurações > Aparência) ----------
