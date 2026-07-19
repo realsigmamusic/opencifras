@@ -28,6 +28,9 @@ const FONT_KEY   = 'chordsheets_fontsize'; // chave no localStorage
 // Chave dos favoritos no localStorage 
 const FAVORITES_KEY = 'chordsheets_favorites';
 
+// Número de WhatsApp que recebe os relatos de erro na cifra (mesmo número do banner da home)
+const REPORT_WHATSAPP_NUMBER = '5575999674176';
+
 // Ícones de coração (favorito vazio e favorito preenchido) 
 const ICON_HEART      = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/></svg>`;
 const ICON_HEART_FILL = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/></svg>`;
@@ -251,11 +254,45 @@ function renderSheet() {
   const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
   elBtnDlTxt.download = `${baseName}${transSuffix}.txt`;
 
+  // Link para reportar cifra/letra errada, com os dados da música já preenchidos no WhatsApp
+  elSheet.appendChild(buildReportErrorLink());
+
   // Rodapé discreto com a versão da biblioteca
   const footer = document.createElement('div');
   footer.style.cssText = 'margin-top:2rem; padding-top:0.75rem; border-top:1px solid var(--border-color); font-size:0.75rem; color:var(--tertiary-color); text-align:center; margin-bottom:1.25rem;';
   footer.textContent   = `ChordSheetJS v${ChordSheetJS.version}`;
   elSheet.appendChild(footer);
+}
+
+// Monta o link "Cifra ou letra errada? Clique aqui para reportar", que abre o WhatsApp
+// já com uma mensagem pronta (título, artista, tom atual e link da cifra). O usuário só
+// precisa completar descrevendo o erro e apertar enviar — não é possível enviar sozinho
+// sem essa confirmação do usuário, por restrição do próprio navegador/WhatsApp.
+function buildReportErrorLink() {
+  const wrap = document.createElement('div');
+  wrap.className = 'report-error-wrap';
+
+  const link = document.createElement('a');
+  link.className   = 'report-error-link';
+  link.target      = '_blank';
+  link.rel         = 'noopener';
+  link.textContent = 'Cifra ou letra errada? Clique aqui para reportar';
+  link.href        = buildReportErrorUrl();
+
+  wrap.appendChild(link);
+  return wrap;
+}
+
+function buildReportErrorUrl() {
+  const titulo  = (song && song.metadata && song.metadata.title)  || titleParam  || 'Sem título';
+  const artista = (song && song.metadata && song.metadata.artist) || artistParam || '';
+  const tomTxt  = (transpose !== 0) ? ` (transposta ${transpose >= 0 ? '+' : ''}${transpose})` : '';
+
+  let mensagem = `Olá! Encontrei um possível erro na cifra de "${titulo}"`;
+  if (artista) mensagem += ` - ${artista}`;
+  mensagem += `${tomTxt}.\nLink: ${window.location.href}\n\nO erro é: `;
+
+  return `https://wa.me/${REPORT_WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`;
 }
 
 // COMPARTILHAR ===================================================================================

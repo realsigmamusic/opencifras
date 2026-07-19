@@ -88,3 +88,21 @@ h3.label, .comment {
   color: var(--tertiary-color);
   font-weight: normal;
 }
+
+.report-error-wrap {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.report-error-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  border-bottom: 1px dashed var(--border-color);
+  padding-bottom: 0.1rem;
+}
+
+.report-error-link:hover {
+  color: var(--info-text-emphasis);
+  border-bottom-color: var(--info-text-emphasis);
+}
