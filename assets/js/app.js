@@ -9,6 +9,32 @@
   let chordFilterValue = '';    // '' = sem filtro; caso contrário, número de acordes selecionado
   let fuse             = null;  // motor de busca fuzzy (Fuse.js)
 
+  // ===============================================================================================
+  // BANNERS DA HOME (carrossel) — edite esta lista pra adicionar, remover ou trocar um anúncio.
+  // Cada item precisa de: image (caminho do arquivo em assets/), link (pra onde vai ao clicar) e
+  // alt (texto alternativo, importante pra acessibilidade). A ordem aqui é a ordem de exibição.
+  // ===============================================================================================
+  const HOME_BANNERS = [
+    {
+      image: 'assets/banner1.webp',
+      link:  'https://wa.me/5575999674176',
+      alt:   'Anúncio: Escola de Música Real Sigma Música - fale conosco pelo WhatsApp'
+    },
+    {
+      image: 'assets/banner2.webp',
+      link:  'https://wa.me/5575999674176',
+      alt:   'Anúncio: Anucie aqui! - fale conosco pelo WhatsApp'
+    }
+    // Pra adicionar outro anúncio, é só copiar o bloco acima e colar aqui embaixo, ex:
+    // ,{
+    //   image: 'assets/banner2.webp',
+    //   link:  'https://wa.me/55XXXXXXXXXXX',
+    //   alt:   'Descrição do segundo anúncio'
+    // }
+  ];
+  const BANNER_AUTOPLAY_MS = 6000; // intervalo entre trocas automáticas (ms)
+
+
   //Elementos da tela inicial 
   const searchInput      = document.getElementById('search-input');
   const songList         = document.getElementById('song-list');
@@ -287,6 +313,9 @@
 
   const elBtnAddSong       = document.getElementById('nav-add');
   const elBtnBannerClose   = document.getElementById('home-banner-close');
+  const elBannerSection    = document.getElementById('home-banner-section');
+  const elBannerTrack      = document.getElementById('home-banner-track');
+  const elBannerDots       = document.getElementById('home-banner-dots');
   const elThemeSelect      = document.getElementById('theme-select');
   const elFontSelect       = document.getElementById('font-select');
   const elChordColorSelect = document.getElementById('chord-color-select');
@@ -530,11 +559,7 @@
   window.addEventListener('popstate', syncView);         // disparado ao usar o botão voltar do browser
 
   // Fecha o banner só nesta sessão — nada é salvo, então ele volta ao recarregar a página
-  if (elBtnBannerClose) {
-    elBtnBannerClose.addEventListener('click', () => {
-      elBtnBannerClose.closest('.home-banner-section').style.display = 'none';
-    });
-  }
+  // (a lógica completa do carrossel, incluindo este botão, está em initBannerCarousel())
 
   // ---------- Tema manual (Configurações > Aparência) ----------
   const THEME_LIGHT_BG = '#e9ecef';
@@ -641,6 +666,90 @@
     });
   }
 
+  // ---------- Carrossel de banners (Início) ----------
+  // Monta os slides a partir de HOME_BANNERS, com troca automática, bolinhas indicadoras
+  // clicáveis e arraste/swipe no touch. Pausa o autoplay enquanto o usuário interage.
+  function initBannerCarousel() {
+    if (!elBannerSection || !elBannerTrack || !HOME_BANNERS.length) {
+      if (elBannerSection) elBannerSection.style.display = 'none';
+      return;
+    }
+
+    let current      = 0;
+    let autoplayTimer = null;
+
+    // Monta um slide (link + imagem) por banner configurado
+    elBannerTrack.innerHTML = HOME_BANNERS.map(b => `
+      <a href="${b.link}" class="home-banner-slide" target="_blank" rel="noopener">
+        <img src="${b.image}" alt="${escapeHtml(b.alt || '')}" class="home-banner-photo" loading="lazy">
+      </a>
+    `).join('');
+
+    // Só mostra as bolinhas se houver mais de um banner
+    const showDots = HOME_BANNERS.length > 1;
+    if (elBannerDots) {
+      elBannerDots.style.display = showDots ? 'flex' : 'none';
+      if (showDots) {
+        elBannerDots.innerHTML = HOME_BANNERS.map((_, i) =>
+          `<button class="home-banner-dot" data-index="${i}" aria-label="Ver anúncio ${i + 1}"></button>`
+        ).join('');
+      }
+    }
+    const dotEls = elBannerDots ? Array.from(elBannerDots.querySelectorAll('.home-banner-dot')) : [];
+
+    function goTo(index) {
+      current = (index + HOME_BANNERS.length) % HOME_BANNERS.length;
+      elBannerTrack.style.transform = `translateX(-${current * 100}%)`;
+      dotEls.forEach((dot, i) => dot.classList.toggle('active', i === current));
+    }
+
+    function startAutoplay() {
+      if (!showDots) return; // com 1 banner só, não tem o que trocar
+      stopAutoplay();
+      autoplayTimer = setInterval(() => goTo(current + 1), BANNER_AUTOPLAY_MS);
+    }
+    function stopAutoplay() {
+      if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+    }
+
+    dotEls.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goTo(Number(dot.dataset.index));
+        startAutoplay(); // reinicia a contagem após clique manual
+      });
+    });
+
+    // Swipe no touch (celular) — arrasta pra esquerda/direita pra trocar o slide
+    let touchStartX = null;
+    elBannerTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      stopAutoplay();
+    }, { passive: true });
+    elBannerTrack.addEventListener('touchend', (e) => {
+      if (touchStartX === null) return;
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) > 40) goTo(current + (deltaX < 0 ? 1 : -1));
+      touchStartX = null;
+      startAutoplay();
+    });
+
+    // Pausa a troca automática enquanto o mouse está sobre o banner (desktop)
+    elBannerSection.addEventListener('mouseenter', stopAutoplay);
+    elBannerSection.addEventListener('mouseleave', startAutoplay);
+
+    // Fecha o banner só nesta sessão — nada é salvo, então ele volta ao recarregar a página
+    if (elBtnBannerClose) {
+      elBtnBannerClose.addEventListener('click', () => {
+        stopAutoplay();
+        elBannerSection.style.display = 'none';
+      });
+    }
+
+    goTo(0);
+    startAutoplay();
+  }
+
+  initBannerCarousel();
   init();
 })();
 
