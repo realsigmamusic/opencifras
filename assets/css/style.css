@@ -368,6 +368,15 @@ section button {
   width: 100%;
 }
 
+.artist-song-count {
+  font-size: 0.75rem;
+  color: var(--tertiary-color);
+  background: var(--secondary-bg);
+  padding: 0.2rem;
+  border-radius: 1rem;
+  font-weight: 900;
+}
+
 #config-section div {
   padding: 0.5rem;
   border-bottom: 1px solid var(--border-color);
