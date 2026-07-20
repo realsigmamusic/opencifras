@@ -247,11 +247,15 @@
 
     const sorted = Object.keys(artists).sort((a, b) => a.localeCompare(b));
 
-    artistsEl.innerHTML = sorted.map(artist => `
-      <div class="artist-item" data-artist="${escapeHtml(artist)}">
-        <span class="artist-name">${escapeHtml(artist)}</span>
-      </div>
-    `).join('');
+    artistsEl.innerHTML = sorted.map(artist => {
+      const count = artists[artist].length;
+      return `
+        <div class="artist-item" data-artist="${escapeHtml(artist)}">
+          <span class="artist-name">${escapeHtml(artist)}</span>
+          <sup class="artist-song-count">${count}</sup>
+        </div>
+      `;
+    }).join('');
 
     artistsEl.querySelectorAll('.artist-item').forEach(el => {
       el.addEventListener('click', () => renderArtistSongs(el.dataset.artist));
