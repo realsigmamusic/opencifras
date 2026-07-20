@@ -63,6 +63,7 @@ window.LocalSongs = (function () {
       return Object.assign(base, {
         title: (meta.title && String(meta.title).trim()) || 'Sem título',
         artist: (meta.artist && String(meta.artist).trim()) || '',
+        time: (meta.time && String(meta.time).trim()) || '',
         chordCount: song.getChords().length,
         lyrics: extractLyrics(raw.content || '')
       });

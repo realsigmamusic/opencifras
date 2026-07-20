@@ -1,18 +1,21 @@
 (function () {
   'use strict';
 
-  //Dados carregados do songs.json 
+  // Dados carregados do songs.json 
   let officialSongs    = [];    // só o que veio do songs.json (sem as cifras locais)
   let allSongs         = [];    // acervo oficial + cifras locais, em ordem alfabética
   let recentSongs      = [];    // as mesmas músicas, ordenadas pela data de edição
   let showingAll       = false; // controla se estamos mostrando todas ou só as 5 recentes
-  let chordFilterValue = '';    // '' = sem filtro; caso contrário, número de acordes selecionado
   let fuse             = null;  // motor de busca fuzzy (Fuse.js)
 
+  // Estado dos filtros combinados
+  let activeFilters = {
+    chords: '',
+    time: ''
+  };
+
   // ===============================================================================================
-  // BANNERS DA HOME (carrossel) — edite esta lista pra adicionar, remover ou trocar um anúncio.
-  // Cada item precisa de: image (caminho do arquivo em assets/), link (pra onde vai ao clicar) e
-  // alt (texto alternativo, importante pra acessibilidade). A ordem aqui é a ordem de exibição.
+  // BANNERS DA HOME (carrossel)
   // ===============================================================================================
   const HOME_BANNERS = [
     {
@@ -23,19 +26,12 @@
     {
       image: 'assets/banner2.webp',
       link:  'https://wa.me/5575999674176',
-      alt:   'Anúncio: Anucie aqui! - fale conosco pelo WhatsApp'
+      alt:   'Anúncio: Anuncie aqui! - fale conosco pelo WhatsApp'
     }
-    // Pra adicionar outro anúncio, é só copiar o bloco acima e colar aqui embaixo, ex:
-    // ,{
-    //   image: 'assets/banner2.webp',
-    //   link:  'https://wa.me/55XXXXXXXXXXX',
-    //   alt:   'Descrição do segundo anúncio'
-    // }
   ];
-  const BANNER_AUTOPLAY_MS = 6000; // intervalo entre trocas automáticas (ms)
+  const BANNER_AUTOPLAY_MS = 6000;
 
-
-  //Elementos da tela inicial 
+  // Elementos da tela inicial 
   const searchInput      = document.getElementById('search-input');
   const songList         = document.getElementById('song-list');
   const favoritesList    = document.getElementById('favorites-list');
@@ -43,18 +39,22 @@
   const allSongsSection  = document.getElementById('all-songs-section');
   const noResults        = document.getElementById('no-results');
   const btnShowAll       = document.getElementById('btn-show-all');
-  const chordFilterBtns  = document.querySelectorAll('.btn-filter');
-  const chordFilterMenus = document.querySelectorAll('.chord-filter-menu');
+  
+  // Elementos do Modal de Filtros
+  const btnsOpenFilter       = document.querySelectorAll('.btn-filter');
+  const elFilterOverlay      = document.getElementById('filter-overlay');
+  const elFilterSelectChords = document.getElementById('filter-select-chords');
+  const elFilterSelectTime   = document.getElementById('filter-select-time');
+  const elFilterClose        = document.getElementById('filter-close');
+  const elFilterClear        = document.getElementById('filter-clear');
+  const elFilterApply        = document.getElementById('filter-apply');
 
-  //Chaves do localStorage 
+  // Chaves do localStorage 
   const FAVORITES_KEY = 'chordsheets_favorites';
   const THEME_KEY      = 'chordsheets_theme';
   const FONT_KEY       = 'chordsheets_font';
   const CHORD_COLOR_KEY = 'chordsheets_chord_color';
 
-  // Cada opção tem um tom pra tema claro (mais escuro/saturado, legível no branco) e outro
-  // pra tema escuro (mais claro/pastel, legível no fundo escuro) — mesmo padrão que o app já
-  // usa em --info-text-emphasis (#055160 no claro / #6edff6 no escuro).
   const CHORD_COLOR_PRESETS = {
     blue:   { light: '#0d6efd', dark: '#6ea8fe' },
     green:  { light: '#198754', dark: '#4ade80' },
@@ -63,12 +63,10 @@
     purple: { light: '#7c3aed', dark: '#c084fc' }
   };
 
-  //Configurações 
-  const LIMIT_HOME = 7; // quantas músicas mostrar na aba Início antes do "ver todas"
+  const LIMIT_HOME = 7;
 
   // UTILITÁRIOS ==================================================================================
 
-  // Escapa caracteres especiais para evitar bugs ao inserir texto no HTML
   function escapeHtml(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -77,13 +75,11 @@
       .replace(/"/g, '&quot;');
   }
 
-  // Lê a lista de favoritos salva no dispositivo
   function getSavedFavorites() {
     const saved = localStorage.getItem(FAVORITES_KEY);
     return saved ? JSON.parse(saved) : [];
   }
 
-  // Gera o HTML de um card de música (link clicável com título e artista)
   function renderCard(song) {
     const url = '?file=' + encodeURIComponent(song.file)
       + (song.chordCount !== undefined ? '&chords=' + song.chordCount : '');
@@ -97,9 +93,101 @@
       + '</a>';
   }
 
+  // FILTROS AVANÇADOS ============================================================================
+
+  // Aplica todos os filtros ativos combinados sobre uma lista de músicas
+  function applyFilters(songs) {
+    return songs.filter(s => {
+      let matchChords = true;
+      let matchTime = true;
+
+      if (activeFilters.chords !== '') {
+        matchChords = s.chordCount === Number(activeFilters.chords);
+      }
+      if (activeFilters.time !== '') {
+        matchTime = s.time === activeFilters.time;
+      }
+
+      return matchChords && matchTime;
+    });
+  }
+
+  // Preenche os selects do modal apenas com os valores existentes no acervo atual
+  function populateFilterModal(songs) {
+    const uniqueChords = [...new Set(songs.map(s => s.chordCount).filter(c => c !== undefined))].sort((a, b) => a - b);
+    const uniqueTimes = [...new Set(songs.map(s => s.time).filter(t => t))].sort((a, b) => a.localeCompare(b));
+
+    if(elFilterSelectChords) {
+      elFilterSelectChords.innerHTML = '<option value="">Todos</option>' + 
+        uniqueChords.map(c => `<option value="${c}">${c} acorde${c === 1 ? '' : 's'}</option>`).join('');
+      elFilterSelectChords.value = activeFilters.chords;
+    }
+      
+    if(elFilterSelectTime) {
+      elFilterSelectTime.innerHTML = '<option value="">Todas</option>' + 
+        uniqueTimes.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
+      elFilterSelectTime.value = activeFilters.time;
+    }
+  }
+
+  // Controles do Modal de Filtros
+  btnsOpenFilter.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // Verifica se estamos na aba de favoritos ou na home para popular o modal apenas com as opções disponíveis
+      const isFavorites = document.getElementById('favorites-section').style.display !== 'none';
+      const baseSongs = isFavorites ? allSongs.filter(s => getSavedFavorites().includes(s.file)) : allSongs;
+      
+      populateFilterModal(baseSongs);
+      if(elFilterOverlay) elFilterOverlay.style.display = 'flex';
+    });
+  });
+
+  if(elFilterClose) {
+    elFilterClose.addEventListener('click', () => { elFilterOverlay.style.display = 'none'; });
+  }
+
+  if(elFilterOverlay) {
+    elFilterOverlay.addEventListener('click', (e) => { 
+      if (e.target === elFilterOverlay) elFilterOverlay.style.display = 'none'; 
+    });
+  }
+
+  if(elFilterClear) {
+    elFilterClear.addEventListener('click', () => {
+      activeFilters = { chords: '', time: '' };
+      elFilterSelectChords.value = '';
+      elFilterSelectTime.value = '';
+    });
+  }
+
+  if(elFilterApply) {
+    elFilterApply.addEventListener('click', () => {
+      activeFilters.chords = elFilterSelectChords.value;
+      activeFilters.time = elFilterSelectTime.value;
+      elFilterOverlay.style.display = 'none';
+      
+      // Atualiza o destaque do botão de filtro se houver algum ativo
+      const hasActiveFilters = activeFilters.chords !== '' || activeFilters.time !== '';
+      btnsOpenFilter.forEach(btn => btn.classList.toggle('active', hasActiveFilters));
+
+      refreshVisibleFilteredSection();
+    });
+  }
+
+  // Reaplica a busca/lista certa dependendo de qual aba está visível no momento
+  function refreshVisibleFilteredSection() {
+    const isFavoritesTabOpen = document.getElementById('favorites-section').style.display !== 'none';
+
+    if (isFavoritesTabOpen) {
+      renderFavoritesSection();
+    } else {
+      onSearch();
+    }
+  }
+
   // RENDERIZAÇÃO DAS SEÇÕES ======================================================================
 
-  // Mostra as músicas favoritas na aba Favoritos
   function renderFavoritesSection() {
     const saved            = getSavedFavorites();
     const allFavoriteSongs = allSongs.filter(s => saved.includes(s.file));
@@ -110,15 +198,15 @@
     }
 
     favoritesSection.style.display = 'block';
-    populateFavoritesChordFilterMenu();
-    const filtered = applyChordFilter(allFavoriteSongs);
+    
+    // Aplica os filtros combinados antes de renderizar
+    const filtered = applyFilters(allFavoriteSongs);
 
     favoritesList.innerHTML = filtered.length
       ? filtered.map(s => renderCard(s)).join('')
       : '<p style="padding:1rem;color:var(--tertiary-color);text-align:center;">Nenhum favorito com esse filtro.</p>';
   }
 
-  // Mostra a lista de músicas na aba Início (recentes ou resultado de busca)
   function renderList(songs, showLimited = true) {
     if (songs.length === 0) {
       songList.innerHTML = '';
@@ -131,14 +219,12 @@
     noResults.style.display    = 'none';
     allSongsSection.style.display = 'block';
 
-    // Se showLimited=true e ainda não clicamos em "ver todas", mostra só as primeiras
     const toShow = (showLimited && !showingAll && songs.length > LIMIT_HOME)
       ? songs.slice(0, LIMIT_HOME)
       : songs;
 
     songList.innerHTML = toShow.map(s => renderCard(s)).join('');
 
-    // Mostra ou esconde o botão "ver todas as X músicas"
     if (showLimited && !showingAll && songs.length > LIMIT_HOME) {
       btnShowAll.style.display  = 'block';
       btnShowAll.textContent    = `Ver todas as ${songs.length} músicas`;
@@ -147,12 +233,10 @@
     }
   }
 
-  // Monta a lista de artistas (um por linha, em ordem alfabética)
   function renderArtistsSection() {
     const artistsEl = document.getElementById('artists-list');
     const artists   = {};
 
-    // Agrupa músicas por artista. Artistas separados por vírgula contam individualmente
     allSongs.forEach(s => {
       if (!s.artist) return;
       s.artist.split(',').map(a => a.trim()).filter(Boolean).forEach(name => {
@@ -169,13 +253,11 @@
       </div>
     `).join('');
 
-    // Ao clicar num artista, abre a lista de músicas dele
     artistsEl.querySelectorAll('.artist-item').forEach(el => {
       el.addEventListener('click', () => renderArtistSongs(el.dataset.artist));
     });
   }
 
-  // Mostra as músicas de um artista específico, com botão "voltar"
   function renderArtistSongs(artist) {
     const artistsEl = document.getElementById('artists-list');
     const songs     = allSongs.filter(s =>
@@ -195,117 +277,27 @@
     document.getElementById('artist-back').addEventListener('click', renderArtistsSection);
   }
 
-  // Aplica o filtro por quantidade de acordes sobre uma lista de músicas
-  function applyChordFilter(songs) {
-    if (chordFilterValue === '') return songs;
-    const n = Number(chordFilterValue);
-    return songs.filter(s => s.chordCount === n);
-  }
-
-  // Lê os valores reais de chordCount existentes no acervo e popula o <select>
-  // Monta o HTML de um menu de filtro a partir de uma lista de músicas
-  function buildChordFilterHtml(songs) {
-    const counts = [...new Set(songs.map(s => s.chordCount).filter(c => c !== undefined))]
-      .sort((a, b) => a - b);
-
-    return '<button class="dropdown-item chord-filter-item active" data-value="">Todas as músicas</button>'
-      + counts.map(c => `<button class="dropdown-item chord-filter-item" data-value="${c}">${c} acorde${c === 1 ? '' : 's'}</button>`).join('');
-  }
-
-  // Liga os cliques de um menu já preenchido
-  function bindChordFilterMenu(menu) {
-    menu.querySelectorAll('.chord-filter-item').forEach(btn => {
-      btn.addEventListener('click', () => {
-        chordFilterValue = btn.dataset.value;
-        updateChordFilterUI();
-        closeAllChordFilterMenus();
-        refreshVisibleFilteredSection();
-      });
-    });
-  }
-
-  // Popula o menu da Início com os valores de TODO o acervo
-  function populateHomeChordFilterMenu() {
-    const menu = document.getElementById('home-chord-filter-menu');
-    if (!menu) return;
-    menu.innerHTML = buildChordFilterHtml(allSongs);
-    bindChordFilterMenu(menu);
-    updateChordFilterUI();
-  }
-
-  // Popula o menu de Favoritos só com os valores presentes ENTRE os favoritos
-  function populateFavoritesChordFilterMenu() {
-    const menu = document.getElementById('favorites-chord-filter-menu');
-    if (!menu) return;
-    const saved  = getSavedFavorites();
-    const favSongs = allSongs.filter(s => saved.includes(s.file));
-    menu.innerHTML = buildChordFilterHtml(favSongs);
-    bindChordFilterMenu(menu);
-    updateChordFilterUI();
-  }
-
-  // Atualiza o destaque visual do item selecionado e do botão de funil
-  function updateChordFilterUI() {
-    chordFilterMenus.forEach(menu => {
-      menu.querySelectorAll('.chord-filter-item').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.value === chordFilterValue);
-      });
-    });
-    chordFilterBtns.forEach(btn => btn.classList.toggle('active', chordFilterValue !== ''));
-  }
-
-  function closeAllChordFilterMenus() {
-    chordFilterMenus.forEach(menu => menu.classList.remove('open'));
-  }
-
-  // Reaplica a busca/lista certa dependendo de qual aba está visível no momento
-  function refreshVisibleFilteredSection() {
-    const isFavoritesTabOpen = document.getElementById('favorites-section').style.display !== 'none';
-
-    if (isFavoritesTabOpen) {
-      renderFavoritesSection();
-    } else {
-      onSearch();
-    }
-  }
-
-  // Abre/fecha o menu de filtro ao clicar no botão de funil
-  chordFilterBtns.forEach((btn, i) => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const menu    = chordFilterMenus[i];
-      const wasOpen = menu.classList.contains('open');
-      closeAllChordFilterMenus();
-      if (!wasOpen) menu.classList.add('open');
-    });
-  });
-
-  document.addEventListener('click', closeAllChordFilterMenus);
-
   // BUSCA ========================================================================================
 
-  // Chamada toda vez que o usuário digita na barra de pesquisa
   function onSearch() {
     const query = searchInput.value.trim();
     document.getElementById('all-songs-title').textContent = query ? 'Resultados da busca' : showingAll ? 'Todas as músicas' : 'Músicas recentes';
 
     if (!query) {
       showingAll = false;
-      renderList(applyChordFilter(recentSongs), true);
+      renderList(applyFilters(recentSongs), true);
       return;
     }
 
-    // Com texto: executa a busca fuzzy e mostra resultados
     showingAll = false;
-    renderList(applyChordFilter(fuse.search(query).map(r => r.item)), false);
+    renderList(applyFilters(fuse.search(query).map(r => r.item)), false);
   }
 
-  // Chamado ao clicar em "ver todas as X músicas"
   function onShowAll() {
     showingAll = true;
     btnShowAll.style.display = 'none';
     document.getElementById('all-songs-title').textContent = 'Todas as músicas';
-    renderList(applyChordFilter(allSongs), false);
+    renderList(applyFilters(allSongs), false);
     window.scrollTo(0, 0);
   }
 
@@ -332,9 +324,8 @@
   const elEditorClose      = document.getElementById('cho-editor-close');
   const elEditorDelete     = document.getElementById('cho-editor-delete');
 
-  let editingId = null; // id da cifra local em edição; null = criando uma nova
+  let editingId = null;
 
-  // Abre o editor. id = null → cifra nova; id existente → edita o conteúdo salvo
   function openEditor(id) {
     editingId = id || null;
     elEditorError.style.display = 'none';
@@ -360,7 +351,6 @@
     editingId = null;
   }
 
-  // Selecionar um arquivo .cho do aparelho só joga o texto dele no campo — não salva sozinho
   elEditorPickFile.addEventListener('click', () => elEditorFileInput.click());
   elEditorFileInput.addEventListener('change', () => {
     const file = elEditorFileInput.files[0];
@@ -369,7 +359,7 @@
     reader.onload = () => { elEditorTextarea.value = String(reader.result || ''); };
     reader.onerror = () => { elEditorError.textContent = 'Não foi possível ler esse arquivo.'; elEditorError.style.display = 'block'; };
     reader.readAsText(file);
-    elEditorFileInput.value = ''; // permite selecionar o mesmo arquivo de novo depois
+    elEditorFileInput.value = ''; 
   });
 
   elEditorSave.addEventListener('click', () => {
@@ -381,7 +371,6 @@
       return;
     }
 
-    // Valida que pelo menos dá pra fazer o parse ChordPro antes de salvar
     try {
       new ChordSheetJS.ChordProParser().parse(text);
     } catch (e) {
@@ -408,10 +397,8 @@
 
   elBtnAddSong.addEventListener('click', () => openEditor(null));
 
-  // Exposto globalmente para o song.js poder abrir o editor a partir da tela da cifra
   window.openChoEditor = openEditor;
 
-  // Sempre que uma cifra local muda (criada/editada/excluída), refaz o catálogo e a busca
   window.addEventListener('localSongsChanged', () => {
     rebuildCatalog();
     refreshVisibleFilteredSection();
@@ -421,14 +408,12 @@
 
   const navItems = document.querySelectorAll('.bottom-nav-item');
 
-  // Marca a aba clicada como ativa (destaca visualmente)
   function setActiveNav(id) {
     navItems.forEach(i => i.classList.remove('active'));
     const el = document.getElementById(id);
     if (el) el.classList.add('active');
   }
 
-  // Mostra apenas a seção da aba selecionada, esconde todas as outras
   function showTab(tab) {
     document.getElementById('search-section').style.display    = tab === 'inicio'    ? 'block' : 'none';
     document.getElementById('all-songs-section').style.display = tab === 'inicio'    ? 'block' : 'none';
@@ -437,13 +422,11 @@
     document.getElementById('no-results').style.display        = 'none';
   }
 
-  // Clique em "Início"
   document.getElementById('nav-inicio').addEventListener('click', () => {
     window.history.pushState({}, '', '?');
-    syncView(); // syncView já ativa a aba início por padrão
+    syncView();
   });
 
-  // Clique em "Artistas"
   document.getElementById('nav-artistas').addEventListener('click', () => {
     window.history.pushState({}, '', '?');
     syncView();
@@ -452,7 +435,6 @@
     renderArtistsSection();
   });
 
-  // Clique em "Favoritos"
   document.getElementById('nav-favoritos').addEventListener('click', () => {
     window.history.pushState({}, '', '?');
     syncView();
@@ -461,8 +443,6 @@
     renderFavoritesSection();
   });
 
-  // Clique em "Configurações": abre por cima da tela atual (Home ou música), sem navegar
-  // pra Home — assim, ao fechar, você continua exatamente onde estava.
   const elSettingsOverlay = document.getElementById('settings-overlay');
   const elSettingsClose   = document.getElementById('settings-close');
 
@@ -475,9 +455,6 @@
 
   // CONTROLE DE TELA (home vs. cifra aberta) =====================================================
 
-  // Decide qual tela mostrar com base na URL:
-  // - Se tem ?file=... na URL → mostra a tela da cifra
-  // - Se não tem → mostra a tela inicial (home)
   function syncView() {
     const songCountLabel = document.getElementById('song-count');
     const songControls   = document.getElementById('song-controls');
@@ -485,13 +462,11 @@
     const params         = new URLSearchParams(window.location.search);
 
     if (params.has('file')) {
-      // Tela da cifra
       document.getElementById('home-view').style.display = 'none';
       document.getElementById('song-view').style.display = 'block';
       if (songControls)   songControls.style.display   = 'flex';
       if (songCountLabel) songCountLabel.style.display = 'none';
     } else {
-      // Tela inicial
       document.getElementById('home-view').style.display = 'block';
       document.getElementById('song-view').style.display = 'none';
       if (songControls)   songControls.style.display   = 'none';
@@ -503,31 +478,22 @@
     }
   }
 
-  // Junta o acervo oficial com as cifras locais e reconstrói ordenação/índice de busca.
-  // Chamada no carregamento inicial e sempre que uma cifra local é criada/editada/excluída.
   function rebuildCatalog() {
     const merged = officialSongs.concat(window.LocalSongs.list());
 
-    // Ordem alfabética — usada na aba "ver todas"
     allSongs = merged.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
-
-    // Ordem por data de edição — usada na aba Início
     recentSongs = [...merged].sort((a, b) => (b.mtime || 0) - (a.mtime || 0));
 
-    // Configura o Fuse.js para busca por título, artista e letra
     fuse = new Fuse(allSongs, {
       keys: ['title', 'artist', 'lyrics'],
       threshold: 0.35,
       minMatchCharLength: 2,
       ignoreLocation: true
     });
-
-    populateHomeChordFilterMenu();
   }
 
   // INICIALIZAÇÃO ================================================================================
 
-  // Carrega o catálogo de músicas e configura a busca
   async function init() {
     try {
       const res  = await fetch('songs.json');
@@ -541,7 +507,6 @@
     }
   }
 
-  // Debounce simples: só executa a busca depois que o usuário parar de digitar por 150ms
   function debounce(fn, delay) {
     let timer;
     return function (...args) {
@@ -552,21 +517,19 @@
 
   const debouncedSearch = debounce(onSearch, 150);
 
-  //Eventos globais 
   searchInput.addEventListener('input', debouncedSearch);
   btnShowAll.addEventListener('click', onShowAll);
-  window.addEventListener('favoritesChanged', onSearch); // disparado pelo song.js ao favoritar
-  window.addEventListener('popstate', syncView);         // disparado ao usar o botão voltar do browser
+  window.addEventListener('favoritesChanged', () => {
+    // Se estivemos na aba favoritos, renderiza novamente lá. Se não, faz a busca
+    refreshVisibleFilteredSection();
+  });
+  window.addEventListener('popstate', syncView);
 
-  // Fecha o banner só nesta sessão — nada é salvo, então ele volta ao recarregar a página
-  // (a lógica completa do carrossel, incluindo este botão, está em initBannerCarousel())
-
-  // ---------- Tema manual (Configurações > Aparência) ----------
+  // ---------- Tema manual ----------
   const THEME_LIGHT_BG = '#e9ecef';
   const THEME_DARK_BG  = '#343a40';
   const systemDarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
-  // value: 'auto' | 'light' | 'dark' — retorna se o resultado final é escuro
   function isEffectivelyDark(value) {
     if (value === 'dark') return true;
     if (value === 'light') return false;
@@ -597,11 +560,10 @@
       const value = elThemeSelect.value;
       try { localStorage.setItem(THEME_KEY, value); } catch (e) {}
       applyTheme(value);
-      applyChordColor(getSavedChordColor()); // a cor pode depender do tema (claro/escuro)
+      applyChordColor(getSavedChordColor());
     });
   }
 
-  // Em modo "Automático", se o sistema trocar de tema com o app aberto, atualiza a cor da barra de status
   if (systemDarkQuery) {
     systemDarkQuery.addEventListener('change', () => {
       if (getSavedTheme() === 'auto') {
@@ -611,9 +573,7 @@
     });
   }
 
-  // ---------- Fonte (Configurações > Fonte) ----------
-  // Uma única escolha do usuário controla a fonte da interface (--font-ui) e das
-  // cifras (--font-song) ao mesmo tempo, já que ele quer as duas iguais.
+  // ---------- Fonte ----------
   function applyFont(value) {
     document.documentElement.style.setProperty('--font-ui', value);
     document.documentElement.style.setProperty('--font-song', value);
@@ -635,11 +595,7 @@
     });
   }
 
-  // ---------- Cor do acorde (Configurações > Aparência) ----------
-  // "default" remove o override e deixa a cor voltar a seguir o tema (var(--info-text-emphasis));
-  // qualquer outro valor é uma chave de CHORD_COLOR_PRESETS, resolvida pro tom certo (claro/escuro)
-  // conforme o tema efetivo atual — por isso salvamos a CHAVE, não o hex, e reaplicamos sempre
-  // que o tema mudar (inclusive quando "Sistema" muda sozinho com o app aberto).
+  // ---------- Cor do acorde ----------
   function applyChordColor(key) {
     const preset = CHORD_COLOR_PRESETS[key];
     if (!preset) {
@@ -666,9 +622,7 @@
     });
   }
 
-  // ---------- Carrossel de banners (Início) ----------
-  // Monta os slides a partir de HOME_BANNERS, com troca automática, bolinhas indicadoras
-  // clicáveis e arraste/swipe no touch. Pausa o autoplay enquanto o usuário interage.
+  // ---------- Carrossel de banners ----------
   function initBannerCarousel() {
     if (!elBannerSection || !elBannerTrack || !HOME_BANNERS.length) {
       if (elBannerSection) elBannerSection.style.display = 'none';
@@ -678,14 +632,12 @@
     let current      = 0;
     let autoplayTimer = null;
 
-    // Monta um slide (link + imagem) por banner configurado
     elBannerTrack.innerHTML = HOME_BANNERS.map(b => `
       <a href="${b.link}" class="home-banner-slide" target="_blank" rel="noopener">
         <img src="${b.image}" alt="${escapeHtml(b.alt || '')}" class="home-banner-photo" loading="lazy">
       </a>
     `).join('');
 
-    // Só mostra as bolinhas se houver mais de um banner
     const showDots = HOME_BANNERS.length > 1;
     if (elBannerDots) {
       elBannerDots.style.display = showDots ? 'flex' : 'none';
@@ -704,7 +656,7 @@
     }
 
     function startAutoplay() {
-      if (!showDots) return; // com 1 banner só, não tem o que trocar
+      if (!showDots) return;
       stopAutoplay();
       autoplayTimer = setInterval(() => goTo(current + 1), BANNER_AUTOPLAY_MS);
     }
@@ -715,11 +667,10 @@
     dotEls.forEach(dot => {
       dot.addEventListener('click', () => {
         goTo(Number(dot.dataset.index));
-        startAutoplay(); // reinicia a contagem após clique manual
+        startAutoplay(); 
       });
     });
 
-    // Swipe no touch (celular) — arrasta pra esquerda/direita pra trocar o slide
     let touchStartX = null;
     elBannerTrack.addEventListener('touchstart', (e) => {
       touchStartX = e.touches[0].clientX;
@@ -733,11 +684,9 @@
       startAutoplay();
     });
 
-    // Pausa a troca automática enquanto o mouse está sobre o banner (desktop)
     elBannerSection.addEventListener('mouseenter', stopAutoplay);
     elBannerSection.addEventListener('mouseleave', startAutoplay);
 
-    // Fecha o banner só nesta sessão — nada é salvo, então ele volta ao recarregar a página
     if (elBtnBannerClose) {
       elBtnBannerClose.addEventListener('click', () => {
         stopAutoplay();
@@ -752,8 +701,6 @@
   initBannerCarousel();
   init();
 })();
-
-// VERSIONAMENTO — lê a versão do sw.js e exibe na navbar =========================================
 
 async function loadAppVersion() {
   const res   = await fetch('./sw.js');

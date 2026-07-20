@@ -101,6 +101,7 @@ async function main() {
       const song = {
         title: metadata.title || path.basename(filePath, '.cho'),
         artist: metadata.artist || '',
+        time: metadata.time || '',
         file: relativePath,
         lyrics: lyrics,
         chordCount: chordCount,
