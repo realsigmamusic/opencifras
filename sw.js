@@ -1,4 +1,4 @@
-const CACHE_NAME = '2.5.3';
+const CACHE_NAME = '2.5.31';
 const ASSETS = [
   './index.html',
   './manifest.json',
