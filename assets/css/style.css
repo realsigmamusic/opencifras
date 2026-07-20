@@ -483,7 +483,7 @@ button.dropdown-item.chord-filter-item {
 }
 
 /* ---------- Funil dentro do input de busca ---------- */
-.filter-dropdown-inline {
+.btn-filter {
   position: absolute;
   right: 0.4rem;
   top: 50%;
@@ -495,7 +495,7 @@ button.btn-filter {
   border: none;
 }
 
-.filter-dropdown-inline .btn-filter {
+.btn-filter {
   width: 2rem;
   height: 2rem;
   border: none;
