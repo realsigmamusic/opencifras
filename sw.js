@@ -1,9 +1,10 @@
-const CACHE_NAME = '2.5.2';
+const CACHE_NAME = '2.5.3';
 const ASSETS = [
   './index.html',
   './manifest.json',
   './assets/maskable_icon_x512.png',
-  './assets/banner.webp',
+  './assets/banner1.webp',
+  './assets/banner2.webp',
   './assets/css/song.css',
   './assets/css/style.css',
   './assets/js/app.js',
