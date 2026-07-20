@@ -106,3 +106,24 @@ h3.label, .comment {
   color: var(--info-text-emphasis);
   border-bottom-color: var(--info-text-emphasis);
 }
+
+.chord {
+  min-height: calc(1em + 0.75em);
+  height: calc(1em + 0.75em); /* Fixa a altura rigorosamente */
+  padding-right: 0.5em;
+  font-weight: bold;
+  color: var(--chord-color);
+  margin-bottom: -0.5em;
+}
+
+.chord sup {
+  font-size: 0.75em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+.chord sub {
+  font-size: 0.75em;
+  vertical-align: sub;
+  line-height: 0;
+}

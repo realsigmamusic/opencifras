@@ -228,12 +228,67 @@ function renderSheet() {
   const formatter   = new ChordSheetJS.HtmlDivFormatter();
   elSheet.innerHTML = formatter.format(transposed);
 
-  // Ajustes visuais nos acordes
-  elSheet.innerHTML = elSheet.innerHTML.replace(/\.\.\./g, '…'); // reticências tipográficas
-  elSheet.querySelectorAll('.chord').forEach(el => {
-    el.innerHTML = el.innerHTML
-      .replace(/ma7/gi, '7M'); // C7M em vez de Cma7
-      //.replace(/dim/gi,  '°'); // C° em vez de Cdim
+  // Ajustes visuais tipográficos no HTML geral
+  elSheet.innerHTML = elSheet.innerHTML.replace(/\.\.\./g, '…');
+
+  // 1. Extrai todos os acordes originais (já transpostos) diretamente do AST
+  const originalChords = [];
+  transposed.lines.forEach(line => {
+    line.items.forEach(item => {
+      // Garante a extração apenas de itens ChordLyricsPair (que contêm acordes)
+      if ('chords' in item) {
+        originalChords.push(item.chords);
+      }
+    });
+  });
+
+  // 2. Sincroniza o array de acordes limpos com os elementos do DOM
+  elSheet.querySelectorAll('.chord').forEach((el, index) => {
+    const rawChord = originalChords[index];
+    
+    if (rawChord && rawChord.trim() !== '') {
+      try {
+        // Separa internamente usando o parser da biblioteca
+        const parsed = ChordSheetJS.Chord.parse(rawChord.trim());
+        
+        if (parsed) {
+          const rootStr = parsed.root.toString();
+          let suffixStr = parsed.suffix || '';
+          
+          // CORREÇÃO: Remove o "m" duplicado do sufixo se a raiz já o possuir
+          if (rootStr.endsWith('m') && suffixStr.startsWith('m')) {
+            suffixStr = suffixStr.substring(1);
+          }
+          
+          // Trata apenas as qualidades/extensões
+          suffixStr = suffixStr
+            .replace(/ma7/gi, '7M')
+            .replace(/7M/gi, '7M')
+            .replace(/\+/gi, 'aug');
+
+          // Montagem manual higienizada
+          let html = escapeHtml(rootStr);
+          
+          if (suffixStr) {
+            html += `<sup>${escapeHtml(suffixStr)}</sup>`;
+          }
+          
+          // Adiciona o baixo invertido como subscrito
+          if (parsed.bass) {
+          //html += `<sub>/${escapeHtml(parsed.bass.toString())}</sub>`;
+            html += `<span>/${escapeHtml(parsed.bass.toString())}</span>`;
+          }
+          
+          el.innerHTML = html;
+        } else {
+          // Fallback: Parser não identificou a estrutura
+          el.innerHTML = escapeHtml(rawChord.trim());
+        }
+      } catch (e) {
+        // Fallback: Prevenção de quebra do loop
+        el.innerHTML = escapeHtml(rawChord.trim());
+      }
+    }
   });
 
   // Atualiza o contador de semitons (+2, -1 etc.)
@@ -244,7 +299,7 @@ function renderSheet() {
   const txtContent   = txtFormatter.format(transposed);
 
   if (currentTxtBlobUrl) {
-    URL.revokeObjectURL(currentTxtBlobUrl); // libera o blob do .txt anterior
+    URL.revokeObjectURL(currentTxtBlobUrl);
   }
   const txtBlob     = new Blob([txtContent], { type: 'text/plain' });
   currentTxtBlobUrl = URL.createObjectURL(txtBlob);
@@ -254,10 +309,9 @@ function renderSheet() {
   const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
   elBtnDlTxt.download = `${baseName}${transSuffix}.txt`;
 
-  // Link para reportar cifra/letra errada, com os dados da música já preenchidos no WhatsApp
+  // Link para reportar erro e rodapé
   elSheet.appendChild(buildReportErrorLink());
 
-  // Rodapé discreto com a versão da biblioteca
   const footer = document.createElement('div');
   footer.style.cssText = 'margin-top:2rem; padding-top:0.75rem; border-top:1px solid var(--border-color); font-size:0.75rem; color:var(--tertiary-color); text-align:center; margin-bottom:1.25rem;';
   footer.textContent   = `ChordSheetJS v${ChordSheetJS.version}`;
