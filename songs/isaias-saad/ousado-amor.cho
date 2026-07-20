@@ -3,11 +3,11 @@
 {key: F#}
 {time: 6/8}
 
-{start_of_part: Introdução
+{start_of_part: Introdução}
 [|][D#m][|][C#][|][B][|][F#][|][x2]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verso 1}
 [D#m] Antes de eu fal[C#]ar
 Tu cantavas s[B]obre mim
 [D#m] Tu tens sido t[C#]ão
@@ -17,3 +17,32 @@ Sopraste Tua v[B]ida em mim
 [D#m] Tu tens sido t[C#]ão
 Tão bom[B] pra mim
 {end_of_verse}
+
+{start_of_chorus: Refrão}
+Oh, impr[D#m]essionante, [C#]infinito
+E ous[B]ado amor de D[F#]eus
+Oh, que d[D#m]eixa as nov[C#]enta e nove
+[B]Só pra me encon[F#]trar
+Não posso compr[D#m]á-lo,  nem merec[C#]ê-lo
+Mesmo ass[B]im se entreg[F#]ou
+Oh, impr[D#m]essionante, [C#]infinito
+E ous[B]ado amor de D[F#]eus
+{end_of_chorus}
+
+{start_of_verse: Verso 2}
+[D#m] Inimigo eu f[C#]ui
+Mas Teu amor l[B]utou por mim
+[D#m] Tu tens sido t[C#]ão
+Tão bom [B] pra mim
+[D#m] Não tinha val[C#]or
+Mas tudo p[B]agou por mim
+[D#m] Tu tens sido t[C#]ão
+Tão bom [B] pra mim
+{end_of_verse}
+
+{start_of_bridge: Ponte}
+[D#m] Derruba mur[C#]alhas
+Destrói as ment[B]iras, pra me encontr[F#]ar
+[D#m] Traz luz para as s[C#]ombras
+Escala mont[B]anhas, pra me encontr[F#]ar
+{end_of_bridge}
