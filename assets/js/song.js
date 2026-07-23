@@ -263,14 +263,15 @@ function renderSheet() {
           // Trata apenas as qualidades/extensões
           suffixStr = suffixStr
             .replace(/ma7/gi, '7M')
-            .replace(/7M/gi, '7M')
+            .replace(/M7/gi, '7M')
             .replace(/\+/gi, 'aug');
 
           // Montagem manual higienizada
           let html = escapeHtml(rootStr);
           
           if (suffixStr) {
-            html += `<sup>${escapeHtml(suffixStr)}</sup>`;
+          //html += `<sup>${escapeHtml(suffixStr)}</sup>`;
+            html += `<span>${escapeHtml(suffixStr)}</span>`;
           }
           
           // Adiciona o baixo invertido como subscrito
