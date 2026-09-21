@@ -7,29 +7,37 @@
 {time: 4/4}
 {key: C}
 
-{start_of_verse: Verso}
+{start_of_part: Introdução}
+[|][C][|][Am7][|][Dm7][|][G][|][2x]
+{end_of_part}
+
+{start_of_verse: Verso 1}
 [C]Como é preci[Am7]oso, irmão
 Es[Dm7]tar bem junto a [Gsus4]Ti [G]
 E [C]juntos, lado a [Am7]lado
 An[Dm7]darmos com Je[G]sus
+{end_of_verse}
 
+{start_of_verse: Verso 2}
 [E/G#]E expre[Am7]ssarmos o a[Em7]mor
 Que um [F]dia [G]Ele nos [C]deu
 [G/B]Pelo [Am7]sangue no Cal[D/F#]vário
 Sua [Dm7]vida [G]trouxe a [C]nós
 {end_of_verse}
 
-{start_of_part: Pré refrão}
+{start_of_verse: Verso 3}
 [G/B]Ali[Am7]ança no [Em7]Senhor
 Eu [F]tenho [G]com vo[C]cê
 [G/B]Não e[Am7]xistem mais ba[D/F#]rreiras
 Em [Gsus4]meu ser [G]
+{end_of_verse}
 
+{start_of_verse: Verso 4}
 [E/G#]Eu sou [Am7]livre pra te a[Em7]mar
 Pra te [F]aceitar [F#dim7]
 E para [C/G]te pedir
 Per[Dm7]doa-me, ir[Gm7]mão [C7]
-{end_of_part}
+{end_of_verse}
 
 {start_of_chorus: Refrão}
 Eu sou [F]um com vo[E7]cê
