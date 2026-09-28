@@ -242,11 +242,15 @@ function renderSheet() {
   });
 
   // 2. Sincroniza o array de acordes limpos com os elementos do DOM
-  elSheet.querySelectorAll('.chord').forEach((el, index) => {
+  const TOKEN_SELECTOR = '.chord, .rhythm-symbol, .barline, .instruction, .no-chord';
+
+  elSheet.querySelectorAll(TOKEN_SELECTOR).forEach((el, index) => {
+    if (!el.classList.contains('chord')) return;
+
     const rawChord = originalChords[index];
-    
-    if (rawChord && rawChord.trim() !== '') {
-      try {
+    if (!rawChord || rawChord.trim() === '') return;
+
+    try {
         // Separa internamente usando o parser da biblioteca
         const parsed = ChordSheetJS.Chord.parse(rawChord.trim());
         
@@ -284,10 +288,8 @@ function renderSheet() {
           // Fallback: Parser não identificou a estrutura
           el.innerHTML = escapeHtml(rawChord.trim());
         }
-      } catch (e) {
-        // Fallback: Prevenção de quebra do loop
-        el.innerHTML = escapeHtml(rawChord.trim());
-      }
+        } catch (e) {
+      el.innerHTML = escapeHtml(rawChord.trim());
     }
   });
 

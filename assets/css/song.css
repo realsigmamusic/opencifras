@@ -127,3 +127,14 @@ h3.label, .comment {
   vertical-align: sub;
   line-height: 0;
 }
+
+.rhythm-symbol,
+.barline,
+.instruction,
+.no-chord {
+  min-height: calc(1em + 0.75em);
+  height: calc(1em + 0.75em);
+  padding-right: 0.5em;
+  font-weight: bold;
+  margin-bottom: -0.5em;
+}
