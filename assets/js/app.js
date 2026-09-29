@@ -2,12 +2,13 @@
   'use strict';
 
   // Dados carregados do songs.json 
-  let officialSongs    = [];    // só o que veio do songs.json (sem as cifras locais)
-  let allSongs         = [];    // acervo oficial + cifras locais, em ordem alfabética
-  let recentSongs      = [];    // as mesmas músicas, ordenadas pela data de edição
-  let showingAll       = false; // controla se estamos mostrando todas ou só as 5 recentes
+  let officialSongs     = [];    // só o que veio do songs.json (sem as cifras locais)
+  let allSongs          = [];    // acervo oficial + cifras locais, em ordem alfabética
+  let recentSongs       = [];    // as mesmas músicas, ordenadas pela data de edição
+  let showingAll        = false; // controla se estamos mostrando todas ou só as 5 recentes
+  let currentArtist     = null;  // artista aberto na aba Artistas (null = lista de artistas)
   let showingAllArtists = false; // controla se a aba Artistas mostra o Top 7 (por qtd. de músicas) ou todos
-  let fuse             = null;  // motor de busca fuzzy (Fuse.js)
+  let fuse              = null;  // motor de busca fuzzy (Fuse.js)
 
   // Estado dos filtros combinados
   let activeFilters = {
@@ -234,6 +235,7 @@
   }
 
   function renderArtistsSection() {
+    currentArtist = null; // voltou pra lista de artistas
     const artistsEl = document.getElementById('artists-list');
     const titleEl   = document.getElementById('artists-title');
     const showAllBtn = document.getElementById('btn-show-all-artists');
@@ -294,11 +296,29 @@
     window.scrollTo(0, 0);
   }
 
-  function renderArtistSongs(artist) {
-    const artistsEl = document.getElementById('artists-list');
-    const songs     = allSongs.filter(s =>
+  // Botão "Ver todos..." da aba Artistas: expande a lista de artistas ou as músicas do artista aberto
+  function onShowAllButton() {
+    if (currentArtist) {
+      renderArtistSongs(currentArtist, true);
+    } else {
+      onShowAllArtists();
+    }
+  }
+
+  function renderArtistSongs(artist, showAll = false) {
+    currentArtist = artist;
+
+    const artistsEl  = document.getElementById('artists-list');
+    const titleEl    = document.getElementById('artists-title');
+    const showAllBtn = document.getElementById('btn-show-all-artists');
+    const songs      = allSongs.filter(s =>
       s.artist && s.artist.split(',').map(a => a.trim()).includes(artist)
     );
+
+    const limited = !showAll && songs.length > LIMIT_HOME;
+    const toShow  = limited ? songs.slice(0, LIMIT_HOME) : songs;
+
+    titleEl.textContent = artist;
 
     artistsEl.innerHTML = `
       <button class="artist-back-btn" id="artist-back">
@@ -307,10 +327,19 @@
         </svg>
         Artistas
       </button>
-      ${songs.map(s => renderCard(s)).join('')}
+      ${toShow.map(s => renderCard(s)).join('')}
     `;
 
     document.getElementById('artist-back').addEventListener('click', renderArtistsSection);
+
+    if (showAllBtn) {
+      if (limited) {
+        showAllBtn.style.display = 'block';
+        showAllBtn.textContent   = `Ver todas as ${songs.length} músicas`;
+      } else {
+        showAllBtn.style.display = 'none';
+      }
+    }
   }
 
   // BUSCA ========================================================================================
@@ -473,7 +502,7 @@
   });
 
   const elBtnShowAllArtists = document.getElementById('btn-show-all-artists');
-  if (elBtnShowAllArtists) elBtnShowAllArtists.addEventListener('click', onShowAllArtists);
+  if (elBtnShowAllArtists) elBtnShowAllArtists.addEventListener('click', onShowAllButton);
 
   document.getElementById('nav-favoritos').addEventListener('click', () => {
     window.history.pushState({}, '', '?');
