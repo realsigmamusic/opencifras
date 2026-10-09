@@ -10,15 +10,22 @@
 [|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|][(2x)]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verso 1}
 ba[Gm]ruk  Raba  be[Ab]shen Ado[Gm]nai
 bar[Gm]uk Raba  be[Ab]shen Ado[Gm]nai
+{end_of_verse}
+
+{start_of_part: Solo}
+[|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|]
+{end_of_part}
+
+{start_of_verse: Verso 2}
 Ben[Gm]dito é o que vem em nome [Ab]do Sen[Gm]hor
 Ben[Gm]dito é o que vem em nome [Ab]do Sen[Gm]hor
 {end_of_verse}
 
 {start_of_part: Solo}
-[|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|][(2x)]
+[|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|]
 {end_of_part}
 
 {start_of_chorus: Refrão}
