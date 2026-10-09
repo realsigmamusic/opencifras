@@ -1,0 +1,87 @@
+{title: Mais Uma Vez}
+{subtitle: Renato Russo}
+{artist: Renato Russo}
+{composer: Renato Russo, Flávio Venturini}
+{key: A}
+{time: 4/4}
+
+{start_of_part: Introdução}
+[|][A2][|][(2x)]
+{end_of_part}
+
+{start_of_chorus: Refrão}
+Mas é [A2]claro que o sol 
+vai vol[B(11)]tar amanhã
+Mais uma [C#m7]vez, 
+eu [F#m7(11)]sei[B7sus][Esus][E]
+ 
+Escuri[A2]dão já vi pior 
+de endoide[B(11)]cer gente sã
+Espera que o [C#m7]sol 
+já [F#m7(11)]vem[B7sus][Esus][E]
+{end_of_chorus}
+
+{start_of_verse: Verso 1}
+[A2] Tem gente que está do mesmo lado
+que vo[A2]cê mas deveria estar do lado de lá
+[F#m7(11)] Tem gente que machuca os outros
+[D6sus2] Tem gente que não [Bm7(11)]sabe a[E]mar
+
+[A2] Tem gente enganando a gente
+[F#m7(11)] veja nossa vida como está
+[D6sus2] Mas eu sei que um dia 
+a [Bm7(11)]gente a[E]prende
+
+[A2] Se você quiser alguém em quem 
+confi[F#m7(11)]ar Confie em si mesmo 
+[D6sus2] Quem acredita [Bm7(11)]sempre al[E]cança
+{end_of_verse}
+
+{start_of_part: Interlúdio}
+[|][A2][|][(3x)]
+{end_of_part}
+
+{start_of_chorus: Refrão}
+Mas é [A2]claro que o sol 
+vai vol[B(11)]tar amanhã
+Mais uma [C#m7]vez, 
+eu [F#m7(11)]sei[B7sus][Esus][E]
+ 
+Escuri[A2]dão já vi pior[Aaug] 
+de endoide[B(11)]cer gente sã
+Espera que o [C#m7]sol 
+já [F#m7(11)]vem[B7sus][Esus][E]
+{end_of_chorus}
+
+{start_of_verse: Verso 2}
+[A2] Nunca deixe que lhe digam que não vale a
+[A2]pena acreditar no sonho que se tem
+[F#m7(11)] Ou que seus planos nunca vão dar certo
+[D6sus2] Ou que você nunca 
+vai [Bm7(11)]ser al[E]guém
+
+[A2] Tem gente que machuca os outros
+[F#m7(11)] Tem gente que não sabe amar
+[D6sus2] Mais um dia 
+a [Bm7(11)]gente a[E]prende
+
+[A2] Se você quiser alguém em quem 
+confi[F#m7(11)]ar
+Confie em si mesmo [D6sus2] Quem acredita 
+[Bm7(11)]sempre al[E]cança
+{end_of_verse}
+
+{start_of_part: Solo}
+[|][A2][|][%][|][F#m7(11)][|][%][|]
+[|][D6sus2][|][Bm7(11)][E][|]
+{end_of_part}
+
+{start_of_bridge: Ponte}
+[A2] Quem acredita sempre alcança
+[F#m7(11)] Quem acredita sempre alcança
+[D6sus2] Quem acredita [Bm7(11)]sempre al[E]cança
+{end_of_bridge}
+
+{start_of_part: Final}
+[|][A2][|][(5x)]
+{end_of_part}
