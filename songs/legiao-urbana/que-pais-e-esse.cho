@@ -8,7 +8,7 @@
 {time: 4/4}
 
 {start_of_part: Intro}
-[Em] [C] [D] [(12x)]
+[|][Em][|][C][D][|][(12x)]
 {end_of_part}
 
 {start_of_verse: Part 1}
@@ -26,8 +26,8 @@ Que pa[Em]ís é esse?[C][D]
 Que pa[Em]ís é esse?[C][D]
 {end_of_chorus}
 
-{start_of_part: Interlude}
-[Em] [C] [D] [(4x)]
+{start_of_part: Solo}
+[|][Em][|][C][D][|][(4x)]
 {end_of_part}
 
 {start_of_verse: Part 2}
@@ -49,7 +49,7 @@ Que pa[Em]ís é esse?[C][D]
 {end_of_chorus}
 
 {start_of_verse: Solo}
-[Em] [C] [D] [(4x)]
+[|][Em][|][C][D][|][(4x)]
 {end_of_verse}
 
 {start_of_verse: Part 3}
