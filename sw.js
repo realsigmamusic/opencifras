@@ -1,4 +1,8 @@
-const CACHE_NAME = '2.6.8';
+const CACHE_NAME = '2.7.0';
+const STATIC_CACHE = `opencifras-static-${CACHE_NAME}`;
+const SONGS_CACHE = 'opencifras-songs';
+const NETWORK_TIMEOUT = 4000;
+
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -12,130 +16,145 @@ const ASSETS = [
   './assets/js/local-songs.js',
   './assets/vendor/fuse.min.js',
   './assets/vendor/chordsheetjs.min.js',
+  './assets/vendor/jspdf.umd.min.js',
+  './assets/vendor/chordsheetjs-pdf.min.js',
   './songs.json'
 ];
 
-// INSTALAÇÃO: cacheia assets estáticos e faz o pré-cache de todas as músicas
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      // 1. Salva os arquivos estáticos da UI
-      await cache.addAll(ASSETS);
-
-      // 2. Busca o songs.json para descobrir quais são os arquivos .cho
-      try {
-        const response = await fetch('./songs.json', { cache: 'no-store' });
-        if (response.ok) {
-          const songs = await response.json();
-
-          const choUrls = songs
-            .map(song => song.file)
-            .filter(url => url);
-
-          // Cacheia cada música individualmente — se uma falhar, as outras continuam
-          const results = await Promise.allSettled(
-            choUrls.map(async (url) => {
-              const res = await fetch(url, { cache: 'no-store' });
-              if (!res.ok) throw new Error(`HTTP ${res.status}`);
-              await cache.put(url, res);
-            })
-          );
-
-          const failed = results.filter(r => r.status === 'rejected');
-          console.log(`SW: ${choUrls.length - failed.length}/${choUrls.length} músicas cacheadas para uso offline.`);
-          if (failed.length) {
-            console.warn('SW: falha ao cachear algumas músicas:', failed.map(f => f.reason));
-          }
-        }
-      } catch (err) {
-        console.warn('SW: Não foi possível pré-cachear as músicas:', err);
-      }
-    })
-  );
-  self.skipWaiting();
-});
-
-// ATIVAÇÃO: limpa caches antigos
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.map(key => key !== CACHE_NAME && caches.delete(key)))
-    )
-  );
-  self.clients.claim();
-});
-
-// Estratégia: network-first para dados dinâmicos, cache-first para assets estáticos
+// helpers
 function isDataRequest(url) {
-  // songs.json e arquivos .cho são dinâmicos
   return url.pathname.endsWith('songs.json') || url.pathname.endsWith('.cho');
 }
 
-function isStaticAsset(url) {
-  return (
-    url.pathname.match(/\.(js|css|png|jpg|svg|ico|woff2?)$/) ||
-    url.pathname.endsWith('manifest.json')
-  );
+// Network-first com timeout: cai no cache se a rede FALHAR ou DEMORAR demais
+async function networkFirst(request) {
+  const cache = await caches.open(SONGS_CACHE);
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), NETWORK_TIMEOUT);
+  try {
+    const res = await fetch(request, { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(timer);
+    if (res && res.ok) cache.put(request, res.clone());
+    return res;
+  } catch (err) {
+    clearTimeout(timer);
+    const cached = await cache.match(request, { ignoreSearch: true });
+    return cached || new Response('Offline e sem cópia salva.', { status: 503 });
+  }
 }
 
+// Stale-while-revalidate: entrega o cache na hora e atualiza em segundo plano
+async function staleWhileRevalidate(request, event) {
+  const cache = await caches.open(STATIC_CACHE);
+  const cached = await cache.match(request, { ignoreSearch: true });
+  const update = fetch(request)
+    .then(res => {
+      if (res && res.ok) cache.put(request, res.clone());
+      return res;
+    })
+    .catch(() => null); // offline: ignora em silêncio
+  if (cached) {
+    event.waitUntil(update);
+    return cached;
+  }
+  return (await update) || new Response('', { status: 504 });
+}
+
+// Baixa as músicas que AINDA NÃO estão no cache. Roda na instalação e também
+// toda vez que o app abre online, então cifras novas ficam offline sem precisar
+// subir a versão do SW. Falhas individuais não derrubam nada.
+async function syncSongs() {
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 15000);
+    const res = await fetch('./songs.json', { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!res.ok) return;
+
+    const cache = await caches.open(SONGS_CACHE);
+    await cache.put('./songs.json', res.clone());
+    const songs = await res.json();
+
+    const urls = songs.map(s => s.file).filter(Boolean);
+    const missing = [];
+    for (const u of urls) {
+      if (!(await cache.match(u))) missing.push(u);
+    }
+
+    let ok = 0;
+    for (let i = 0; i < missing.length; i += 6) {
+      const batch = missing.slice(i, i + 6);
+      const results = await Promise.allSettled(batch.map(async u => {
+        const r = await fetch(u, { cache: 'no-store' });
+        if (!r.ok) throw new Error(`HTTP ${r.status} em ${u}`);
+        await cache.put(u, r);
+      }));
+      ok += results.filter(r => r.status === 'fulfilled').length;
+    }
+    console.log(`SW: ${urls.length - missing.length + ok}/${urls.length} músicas disponíveis offline.`);
+  } catch (err) {
+    console.warn('SW: não foi possível sincronizar as músicas:', err);
+  }
+}
+
+// ciclo de vida
+self.addEventListener('install', (e) => {
+  e.waitUntil((async () => {
+    const cache = await caches.open(STATIC_CACHE);
+    // addAll é tudo-ou-nada: um único erro derrubaria a instalação inteira
+    const results = await Promise.allSettled(
+      ASSETS.map(url => cache.add(new Request(url, { cache: 'reload' })))
+    );
+    results.forEach((r, i) => {
+      if (r.status === 'rejected') console.warn('SW: falhou ao cachear', ASSETS[i], r.reason);
+    });
+    await syncSongs();
+  })());
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter(k => k !== STATIC_CACHE && k !== SONGS_CACHE)
+        .map(k => caches.delete(k))
+    );
+    await self.clients.claim();
+  })());
+});
+
+// fetch
+let songsTopUpStarted = false; // uma sincronização por "vida" do SW
+
 self.addEventListener('fetch', (e) => {
-  if (e.request.method !== 'GET' || !e.request.url.startsWith('http')) return;
+  const req = e.request;
+  if (req.method !== 'GET' || !req.url.startsWith('http')) return;
 
-  const url = new URL(e.request.url);
+  const url = new URL(req.url);
 
-  // Navegação SPA → sempre entrega o index.html do cache
-  if (e.request.mode === 'navigate') {
-    e.respondWith(
-      caches.match('./index.html').then(r => r || fetch(e.request))
-    );
+  // Navegação (start_url, ?file=..., etc.): sempre o index.html do cache
+  if (req.mode === 'navigate') {
+    e.respondWith((async () => {
+      const cached = await caches.match('./index.html', { ignoreSearch: true });
+      if (cached) return cached;
+      try { return await fetch(req); }
+      catch { return new Response('Offline', { status: 503 }); }
+    })());
     return;
   }
 
-  // DADOS DINÂMICOS (songs.json, .cho): network-first, cache como fallback
+  // songs.json e .cho
   if (isDataRequest(url)) {
-    e.respondWith(
-      fetch(e.request, { cache: 'no-store' })
-        .then(networkResponse => {
-          // Atualiza o cache com a versão mais recente
-          if (networkResponse && networkResponse.status === 200) {
-            const clone = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-          }
-          return networkResponse;
-        })
-        .catch(() => {
-          // Sem internet → usa o que está no cache
-          return caches.match(e.request).then(r => {
-            if (r) return r;
-            console.warn('SW: sem cache para', url.pathname);
-          });
-        })
-    );
+    if (!songsTopUpStarted && url.pathname.endsWith('songs.json')) {
+      songsTopUpStarted = true;
+      e.waitUntil(syncSongs()); // completa o que faltar, em segundo plano
+    }
+    e.respondWith(networkFirst(req));
     return;
   }
 
-  // ASSETS ESTÁTICOS (js, css, imagens): cache-first, atualiza em background
-  if (isStaticAsset(url)) {
-    e.respondWith(
-      caches.match(e.request).then(cached => {
-        const fetchPromise = fetch(e.request).then(networkResponse => {
-          if (networkResponse && networkResponse.status === 200) {
-            const clone = networkResponse.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-          }
-          return networkResponse;
-        });
-        // Entrega o cache imediatamente, mas já atualiza em background
-        return cached || fetchPromise;
-      })
-    );
-    return;
-  }
-
-  // Qualquer outro recurso: tenta rede, cai no cache
-  e.respondWith(
-    fetch(e.request)
-      .then(r => r)
-      .catch(() => caches.match(e.request))
-  );
+  // Todo o resto (js, css, imagens, webp...): stale-while-revalidate
+  e.respondWith(staleWhileRevalidate(req, e));
 });
