@@ -7,12 +7,12 @@
 {key: Am}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [Am]Lailailailai! [G]Lailailailai! 
 [F]Lailailailai! [E]Lailailailai!
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [Am]Abram-se ó portais, [Dm]abram-se ó portas an[Am]tigas
 [Am]Pra que O [C/G]Rei da [D/F#]Glória [Am/E]entre
 [Am]Pra que O [C/G]Rei da [D/F#]Glória [Am/E]entre
@@ -23,19 +23,19 @@
 [F]Lailailailai! [E]Lailailailai!
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [Am]Abram-[G]se [Am]ó   [G]por[Am]tais, [F]abram-se ó [G]portas an[Am]tigas
 [Am]Pra que O [C/G]Rei da [D/F#]Glória [Am/E]entre
 [Am]Quem é [Am/G]esse [D/F#]Rei da Glór[Am/E]ia
 [Dm]O [C/E] [F] Senhor dos e[G]xérci[E]tos
 {end_of_bridge}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Ele é o Rei da [Am]Glória! da [G]Glória! 
 da [F]Glória! da [E]Glória!
 {end_of_chorus}
 
-{comment: Final}
+{comment: End}
 [Am]Que entre O Rei da Glória!
 [G]Que entre O Rei da Glória!
 [F]Que entre O Rei da Glóriaa[E]a!

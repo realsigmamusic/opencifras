@@ -8,11 +8,11 @@
 {time: 4/4}
 {tempo: 62,2}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F#m][|][A][|][E][|][B][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Tão lindo [F#m]é cada momento[A]
 Que me visi[E]ta e faz de mim o Teu al[B]tar
 Quero ir con[F#m]tigo mais profundo[A]
@@ -20,7 +20,7 @@ Segura a [E]minha mão, eu sei
 Nunca vai sol[B]tar
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Leva-me a um lu[F#m]gar[A]
 Onde só você e [E]eu
 Desfrutamos o mo[B]mento
@@ -29,7 +29,7 @@ Eu dependo desse a[E]mor
 E sem Ti eu sei que [B]morro
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Me enxer[F#m]gou na minha tormenta
 Me li[A]vrou em meus problemas
 Transfor[E]mou minha tristeza

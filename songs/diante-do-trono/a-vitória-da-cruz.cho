@@ -7,11 +7,11 @@
 {key: Am}
 {time: 4/4}
 
-{start_of_part: Introdução x4}
+{start_of_part: Intro x4}
 [|][Am][Am/G][|][D/F#][F][E][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 Como um [Am]leão que ruge
 O di[G/A]abo quer nos devor[Am]ar[G/A]
 Está bus[Am]cando brechas
@@ -21,11 +21,11 @@ Mai[E]or é Jes[E/G#]us em nós [E/B]vem nos
 Defend[Esus]er![E]
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 O sangue [Am]derramado lá na [G/A]cruz
 Foi para me salv[Am]ar[G/A]
 O meu pe[Am]cado e dor Jesus le[Dm]vou sofreu
@@ -34,7 +34,7 @@ A minha [Dm]dívida pagou para eu [Dm7]livre ser
 [E]Cristo morr[E/G#]eu por mim [E/B]posso viv[Esus]er[E]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Am]Hoje eu sou [G/A]livre [Am]para amar a Deus[G/A]
 Vi[Am]ver vitori[G/A]oso [Am]como um filho seu
 [Bm]Hoje eu sou [A/G]livre [Bm]para celebrar
@@ -42,11 +42,11 @@ O pe[E]cado não pode mais
 Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 3}
+{start_of_verse: Verse 3}
 Jesus cru[Am]cificado e o in[G/A]ferno em festa
 Se alegr[Am]ou[G/A]
 Pensavam [Am]ter vencido e derro[Dm]tado
@@ -61,7 +61,7 @@ Que ma[E/B]tou Je[Esus]sus[E]
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 4}
+{start_of_verse: Verse 4}
 O dia [Am]fez-se em trevas
 E o univ[G/A]erso inteiro estreme[Am]ceu[G/A]
 A multi[Am]dão perdida viu que a[Dm]quele
@@ -71,7 +71,7 @@ E hoje eu [Dm7]posso entrar
 No [E]Santo dos S[E/G#]antos [E/B]venho ado[Esus]rar[E]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Am]Hoje eu sou [G/A]livre [Am]para amar a Deus[G/A]
 Vi[Am]ver vitori[G/A]oso [Am]como um filho seu
 [Bm]Hoje eu sou [A/G]livre [Bm]para celebrar
@@ -79,11 +79,11 @@ O pe[E]cado não pode mais
 Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 5}
+{start_of_verse: Verse 5}
 Bem no [Am]meio da festa
 O di[G/A]abo começou a ouvir[Am][G/A]
 Passos [Am]fortes que tremiam toda a [Dm]terra
@@ -94,13 +94,13 @@ E [E]como um le[E/G#]ão
 Jes[E/B]us rug[Esus]iu[E]
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {transpose: 1}
 
-{start_of_verse: Verso 6}
+{start_of_verse: Verse 6}
 Caiu co[Am]mo serpente
 E todo p[G/A]rincipado se pros[Am]trou[G/A]
 O le[Am]ão de Judá pisou bem [Dm]forte
@@ -109,7 +109,7 @@ Tomou a [Dm]chaves das mãos do di[Dm7]abo
 A[E]briu minhas ca[E/G#]deias e me resga[Esus]tou[E]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Am]Hoje eu sou [G/A]livre [Am]para amar a Deus[G/A]
 Vi[Am]ver vitori[G/A]oso [Am]como um filho seu
 [Bm]Hoje eu sou [A/G]livre [Bm]para celebrar
@@ -117,13 +117,13 @@ O pe[E]cado não pode mais
 Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
 {transpose: 2}
 
-{start_of_verse: Verso 7}
+{start_of_verse: Verse 7}
 No ter[Am]ceiro dia a pedra [G/A]do sepulcro ro[Am]lou[G/A]
 Lá che[Am]gou Maria mas o [Dm]corpo não encon[Am]trou
 O anjo [Dm]lhe falou que ele [Dm7]não estava lá
@@ -131,11 +131,11 @@ O anjo [Dm]lhe falou que ele [Dm7]não estava lá
 Não de[E/B]via procu[Esus]rar[E]
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 8}
+{start_of_verse: Verse 8}
 Viu [Am]o jardineiro e pergun[G/A]tou
 "Onde está o meu Sen[Am]hor?"[G/A]
 Ol[Am]hou nos seus olhos
@@ -144,7 +144,7 @@ Ela re[Dm]conheceu a voz do [Dm7]mestre
 Ra[E]boni! [E/G#]Meu Jesus ressusci[Esus]tou[E]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Am]Hoje eu sou [G/A]livre [Am]para amar a Deus[G/A]
 Vi[Am]ver vitori[G/A]oso [Am]como um filho seu
 [Bm]Hoje eu sou [A/G]livre [Bm]para celebrar
@@ -152,11 +152,11 @@ O pe[E]cado não pode mais
 Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Am][G/A][|][Am][G/A][|]
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Ele [Am]vive [G/A] (ele [Am]vive)[G/A]
 Ele [Am]reina [G/A] (ele r[Am]eina)[G/A]
 Ressusci[E]tou [Esus] (ressusci[E]tou)[Esus]
@@ -167,7 +167,7 @@ Só ele é [Esus]digno[E] (só ele é d[Esus]igno)[E]
 De todo lou[Dm]vor (de todo lou[G#dim]vor)
 {end_of_bridge}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Am]Hoje eu sou [G/A]livre [Am]para amar a Deus[G/A]
 Vi[Am]ver vitori[G/A]oso [Am]como um filho seu
 [Bm]Hoje eu sou [A/G]livre [Bm]para celebrar
@@ -175,6 +175,6 @@ O pe[E]cado não pode mais
 Me d[Bdim]omi[E]nar[E/G#]
 {end_of_chorus}
 
-{start_of_part: Final}
+{start_of_part: End}
 [|][Am][Am/G][|][D/F#][F][E][|]
 {end_of_part}

@@ -7,25 +7,25 @@
 {key: A}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A2][|][Asus][|][A2][|][Asus][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 Ao [A]rei dos reis con[E/G#]sagro 
 [Em/G]tudo o que [D/F#]sou
 De [Dm/F]gratos louvores trans[A/E]borda
 O meu [E]coração[E][D/F#][E/G#]
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 A [A]minha vida [E/G#]eu entrego 
 [Em/G]nas Tuas mãos meu Se[D/F#]nhor
 [Dm9/F]Pra Te exal[A/E]tar 
 com todo [E]meu amor[E][D/F#][E/G#]
 {end_of_verse}
 
-{start_of_verse: Verso 3}
+{start_of_verse: Verse 3}
 [A]Eu Te louva[E/G#]rei conforme 
 a [Em/G]Tua jus[D/F#]tiça
 E [Dm/F]cantarei louv[A/E]ores,
@@ -41,7 +41,7 @@ Canta[D]rei e conta[E]rei as Tuas [A]obras
 [E]Que neles [F#sus]há[F#]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Toda [Bm]Terra celebra a [E]Ti
 Com [A]cânti[E/G#]cos de [F#m]júbilo
 [E]Pois Tu [D]és o [E]Deus cria[F#sus]dor[F#]
@@ -59,7 +59,7 @@ Canta[D]rei e conta[E]rei as Tuas [A]obras
 [E]Que neles [F#sus]há[F#]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Toda [Bm]Terra celebra a [E]Ti
 Com [A]cânti[E/G#]cos de [F#m]júbilo
 [E]Pois Tu [D]és o [E]Deus cria[F#sus]dor[F#]
@@ -68,7 +68,7 @@ Com [A]cânti[E/G#]cos de [F#m]júbilo
 [E]Pois Tu [D]és o [E]Deus cria[A]dor
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [F#m] Pois Tu [D]és o [E]Deus cria[F#m]dor
 [B7] Pois Tu [D]és o [E]Deus cria[A]dor[Asus][A][Asus]
 {end_of_bridge}

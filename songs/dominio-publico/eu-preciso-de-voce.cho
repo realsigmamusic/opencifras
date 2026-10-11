@@ -5,18 +5,18 @@
 {time: 4/4}
 {key: D}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][D][|][F#m][|][G][|][A][|][(2x)]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [D]Eu preciso de vo[F#m]cê, 
 vo[G]cê precisa de [A]mim
 [D]Nós precisamos de [F#m]Cristo 
 a[G]té o [A]fim
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Sem ces[D]sar, sem parar, sem vaci[F#m]lar, 
 sem tre[G]mer, sem cho[A]rar.
 {end_of_chorus}

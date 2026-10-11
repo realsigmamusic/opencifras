@@ -8,11 +8,11 @@
 {time: 4/4}
 {tempo: 123}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [E][Esus][E][Esus]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [E]Chove, chove chuva
 [E/G#] [A]Chuva de po[B]der
 Chove a[C#m]qui na minha vida
@@ -23,17 +23,17 @@ Chove [E] na minha [A]vida
 Chove [C#m] na vida [B]do meu irmão[E]
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [E][Esus][E][Esus]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [E] Meu Deus eu quero te di[A]zer [B]muito obri[E]gado
 [E] (Meu Deus eu quero te di[A]zer [B]muito obri[E]gado)
 [E] Por essa chuva que [A]tens[B] derra[E]mado
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [E] As tuas águas têm [A]me [B]purifi[E]cado
 [E] (As tuas águas têm [A]me [B]purifi[C#m]cado)
 [C#m] Por tua graça eu so[A]u sa[B]ntifica[E]do

@@ -5,18 +5,18 @@
 {key: F#}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F#][|][A#m][B][|][F#][|][A#m][B][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [F#] Tentaram me parar
 [D#m] Me fazer desistir
 [G#m] Mas eu não vou negar
 [C#sus] A fé [C#]que há em mim
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [F#] Eu tenho a missão
 [D#m] Eu vou seguir Jesus
 [G#m] Porque eu não abro mão
@@ -34,7 +34,7 @@ Que es[D#m]tá em mim
 Sempre [C#sus]vou me [C#]levantar
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F#] Eu olho pra Jesus
 [D#m] Pro amor de Deus na cruz
 [G#m] Eu clamo Aba Pai
@@ -45,7 +45,7 @@ Sempre [C#sus]vou me [C#]levantar
 [C#sus] O autor da [C#]vida
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [D#m] Pode o silêncio até
 [B] Gritar que Deus
 me abandon[F#]ou [A#m]
@@ -54,7 +54,7 @@ me abandon[F#]ou [A#m]
 Que estende a [F#]mão pra me levantar[A#m]
 {end_of_bridge}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [D#m]Sei em quem eu tenho [B]crido
 E que é pode[F#]roso pra fazer a[A#m]lém
 E [D#m]essa é a hora
@@ -62,7 +62,7 @@ Deus [B]toca, renova, trans[F#]forma
 Tenho vida em [A#m]Deus
 {end_of_bridge}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Vida em [B]Deus [Bsus(#11)] [B]
 Tenho força em [C#]Deus [C#sus] [C#]
 Esperança em [B]Deus [Bsus(#11)] [B]

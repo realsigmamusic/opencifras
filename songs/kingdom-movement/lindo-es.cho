@@ -6,11 +6,11 @@
 {key: F#m}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F#m][|][D][|][A][|][C#m][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [F#m] Desde o principio era o [D]verbo
 Aquele que vemos e ou[A]vimos
 O Filho unigênito do [E]Pai
@@ -19,17 +19,17 @@ Não o meu querer mas sim o [A]Teu
 Maravilhados nos ren[E]demos
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F#m] Lindo, lindo, lindo [D]és
 Glória, glória eu Te dou[A]
 Jesus, [E]Jesus
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][F#m][|][D][|][A][|][C#m][|]
 {end_of_part}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [F#m] Quem pode crer? Quem pode ou[D]vir?
 O servo de todos é o R[A]ei
 Mesmo desprezado nos a[E]mou
@@ -38,13 +38,13 @@ Por Suas feridas nos cu[A]rou
 Todas os povos se prostra[E]rão
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F#m] Lindo, lindo, lindo [D]és
 Glória, glória eu Te dou[A]
 Jesus, [E]Jesus
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Me [F#m]leva à sala do [D]trono
 Mostra Tua be[A]leza
 Quero ver Tua [E]face, Deus!

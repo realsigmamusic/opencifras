@@ -7,13 +7,13 @@
 {key: A}
 {time: 3/8}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A2][|][D/A][|][E/A][|][D7M][A/C#][Bm7][|]
 [|][A2][Abdim][|][F#m7][Fdim][|]
 [|][D7M][A/C#][Bm7][|][A2][|][D/A][|][E/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [A2]Você [D/A]lembra, [E/A]lembra
 [D7M]Da[A/C#]que[Bm7]le [A2]tempo
 [Abdim]Eu [F#m7]ti[Fdim]nha es[F#m7]trelas nos[B/A] olhos
@@ -22,11 +22,11 @@ Um [Abm7]jeito de he[C#m7]rói
 Que [Abdim]qualquer mo[F#m7]cinho [Dm/F]de Cow[A2]boy...
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][A2][|][D/A][|][E/A][|][D/A][|]
 {end_of_part}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [A2]Você [D/A]lembra, [E/A]lembra
 [D7M]Eu [A/C#]cos[Bm7]tu[A]ma[Abdim]va an[F#m7]dar
 [Fdim]Bem [F#m7]mais de mil [B/A]léguas
@@ -35,7 +35,7 @@ Pra [Abm7]poder bus[C#m7]car
 E [Abdim]os seus ca[F#m7]belos [Dm/F]enfei[A2]tar...
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][A2][|][D/A][|][E/A][|][G/A][|]
 {end_of_part}
 
@@ -54,7 +54,7 @@ Rou[Gm7]bar da man[C7sus]hã[C7]
 [Bbm7]Como os he[Eb9]róis; [Bm7]É [E9]talvez eu...
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 ...[A2]Seja [D/A]simples[E/A]mente
 [D7M]Como [A/C#]um [Bm7]sa[A]pa[Abdim]to [F#m7]ve[Fdim]lho
 [F#m7]Mas ainda [B/A]sirvo
@@ -63,7 +63,7 @@ Se [Abm7]você qui[C#m7]ser
 Que eu [Abdim]aqueço o [F#m7]frio [Dm/F]dos seus [A2]pés
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][A2][|][D/A][|][E/A][|][G/A][|]
 {end_of_part}
 
@@ -82,7 +82,7 @@ Rou[Gm7]bar da man[C7sus]hã[C7]
 [Bbm7]Como os he[Eb9]róis; [Bm7]É [E9]talvez eu...
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 ...[A2]Seja [D/A]simples[E/A]mente
 [D7M]Como [A/C#]um [Bm7]sa[A]pa[Abdim]to [F#m7]ve[Fdim]lho
 [F#m7]Mas ainda [B/A]sirvo
@@ -92,7 +92,7 @@ Que eu [Abdim]aqueço o [F#m7]frio
 [Dm/F]dos seus [A2]pés, [E9]talvez eu...
 {end_of_chorus}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 ...[A2]Seja [D/A]simples[E/A]mente
 [D7M]Como [A/C#]um [Bm7]sa[A]pa[Abdim]to [F#m7]ve[Fdim]lho
 [F#m7]Mas ainda [B/A]sirvo
@@ -101,6 +101,6 @@ Se [Abm7]você qui[C#m7]ser
 Que eu [Abdim]aqueço o [F#m7]frio [Dm/F]dos seus [A2]pés
 {end_of_chorus}
 
-{start_of_part: Final}
+{start_of_part: End}
 [|][A2][|][D/A][|][E/A][|][D/A][|]
 {end_of_part}

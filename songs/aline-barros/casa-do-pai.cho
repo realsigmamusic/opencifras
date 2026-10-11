@@ -4,16 +4,16 @@
 {key: Ab}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Ab][Dbm][|][Ab][Dbm][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [Ab] Me conheces[Eb/G] sabes tudo o eu
 Pre[Fm]ciso antes [Eb]mesmo de fa[Db]lar
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [Ab] Me amas[Eb/G] teu amor é bem
 Mai[Fm]or do que eu [Eb]possa imagi[Db]nar
 {end_of_verse}
@@ -25,7 +25,7 @@ Eu venho a Ti[Eb] como um filho que Te [Db]ama
 Tudo o que eu [Bbm]quero é es[Db]tar perto de [Eb]Ti
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Fm] Nos Teus [Eb]braços eu
 [Db] quero descan[Eb]sar
 [Fm] Corren[Eb]do irei

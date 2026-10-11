@@ -8,11 +8,11 @@
 {time: 4/4}
 {tempo: 63}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Db][|][Bbm][|][Ab][|][Gb7M][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [Db] Tudo é perda se não [Bbm]tenho a Ti
 [Ab] A Tua graça é o que me [Gb7M]basta
 [Db] Sem Você, não sei pra [Bbm]onde ir
@@ -30,14 +30,14 @@ Eu juntar os [Ab]meus tesouros
 Daquele [Gb7M]que me amou?
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Se eu não tenho a [Ebm]Ti, não [Db]tenho [Ab]nada
 Nada eu se[Db/F]rei sem Ti, Sen[Gb7M]hor
 Só Tua pre[Ebm]sença é o que[Db] me [Ab]basta
 Eu te leva[Db/F]rei por onde eu [Gb7M]for
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Tua pre[Ebm]sença é o que me [Ab]basta 
 [Db/F]Quem sou eu sem Teu amor, Sen[Gb7M]hor?
 {end_of_bridge}

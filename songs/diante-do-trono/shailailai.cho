@@ -7,7 +7,7 @@
 {key: F#m}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [F#m]Shailai lai lai lai lai lai lai
 Shailai lai lai [F#m]lai [F#m]lai 
 
@@ -20,19 +20,19 @@ Shailai lai lai [F#m]lai [F#m]lai
 {start_of_part: Solo}
 [|][F#m][|][%][|][%][|][E][|][(x4)]     
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F#m] Só o Senhor é Deus
 [E] Só o Senhor é Deus
 [C#] Só o Senhor é Deus
 [C#]Não há outro igual ao nosso [F#m]Deus
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [F#m] Adorai, Adorai ao Deus E[E]terno
 [F#m] Adorai ao Autor da Cria[C#]ção
 [F#m] Adorai, Adorai o que é pra [E]sempre
 [C#]Ontem, hoje, eternamente
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [F#m] Mashíach, Mashíach, Mashíach, Mas[E]híach
 [C#] Mashíach, Mashíach, Mashíach, Mashíach
 

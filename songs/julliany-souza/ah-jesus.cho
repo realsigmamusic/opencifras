@@ -7,11 +7,11 @@
 {time: 4/4}
 {tempo: 64}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][CM7][|][%][|][Bm7][|][%][|][Am7][|][%]
 {end_of_part}
 
-{start_of_verse: Parte 1}
+{start_of_verse: Part 1}
 [G]Quem foi muito perdoado 
 Deveria saber o valor de ser am[Em7]ado mas por outro lado
 o bem que eu quero fazer de fato eu não [Am7]faço
@@ -20,7 +20,7 @@ Eu nem me sinto incomod[C]ado
 Então esbarro na Tua pa[Cm]lavra e sou confrontado
 {end_of_verse}
 
-{start_of_verse: Parte 2}
+{start_of_verse: Part 2}
 [C] Não adianta fingir
 [D] Que está tudo bem
 [Em7] Se de Ti eu recebi 
@@ -39,7 +39,7 @@ Em [C]pele de ovelha a[D]gindo como um lobo
 Me [Bm7]esqueci do reino jun[Em7]tando os meus tesouros
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [CM7]Ah, Jesus! quebra o meu orgulho
 E faz-me o[Bm7]lhar pra cruz
 Tira a dureza do meu [Am7]coração

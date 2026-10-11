@@ -7,7 +7,7 @@
 {key: A}
 {time: 3/8}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [A]Quero voltar ao i[AM7]nício de tudo
 Encon[A7]trar-me contigo, Sen[D/A]hor
 [Bm9]Quero rever meus con[Bm7M]ceitos, valores
@@ -19,7 +19,7 @@ Me arrependo, Sen[Bm7]hor
 Me arrependo, Sen[E4]hor[E]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Eu [A]quero [Bm7]vol[A]tar
 Ao pri[A]mei[E/B]ro [F#m7]a[E]mor
 Ao pri[Fdim]meiro a[F#m7]mor

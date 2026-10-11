@@ -7,30 +7,30 @@
 {key: C}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F][|][C][|][Em][|][Am][|]
 [|][F][|][C][|][G][|][%][|]
 [|][F][|][C][|][Em][|][Am][|]
 [|][F][|][C][|][G][|][%][|]
 {end_of_part}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][C][|][(8x)]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [C] Na presença dos homens
 Na pre[C]sença dos anjos
 Sempre eu Te [F]lou[Em]va[Am]rei, Te [Dm]lou[Em]va[F]rei
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [C] Mesmo estando em guerra
 Vou ce[C]lebrando minha vitória
 Eu te [F]lou[Em]va[Am]rei, Te [Dm]lou[Em]va[F]rei
 {end_of_verse}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Sobre [G]toda [C]terra, novo [F]som se o[G]uvirá[C]
 Tua [G]alegr[C]ia, força [F]pra cont[G]inuar[C]
 Deus de [G]mara[C]vilhas, que [A]mara[Dm]vilha
@@ -50,7 +50,7 @@ Mil graus de un[Em]ção[Am]
 Mil graus de un[Em]ção![Am]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 O som da [F]festa vai subir[C]
 Sua [Em]glória descerá[Am]
 Se ouvi[F]rá um novo som[C]

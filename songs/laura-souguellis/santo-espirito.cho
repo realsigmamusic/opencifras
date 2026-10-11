@@ -8,7 +8,7 @@
 {time: 4/4}
 {tempo: 72}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [E]Santo Espírito, és bem-vindo aqui
 Vem [A7M]inundar, encher es[F#m7(11)]se lugar
 É [E]o desejo do meu coração
@@ -19,7 +19,7 @@ Sermos [A7M]inundados por Tua [F#m7(11)]glória
 Senhor, [E] ta presença[A7M]... [F#m7(11)]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [E] Não há nada igual
 [E] Não há nada me[A7M]lhor
 A que se compara [A7M] 
@@ -27,7 +27,7 @@ A que se compara [A7M]
 [E] Tua presen[A7M]ça
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [E] Eu provei e vi
 [E] O mais doce a[A7M]mor
 Que liberta o meu [A7M]ser
@@ -35,7 +35,7 @@ E a vergonha d[E]esfaz
 [E] Tua presenç[A7M]a
 {end_of_verse}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [A7M] Vamos pro[E/G#]var 
 o quão re[F#m7(11)]al é Tua pre[E/G#]sença
 [A7M] Vamos pro[E/G#]var 

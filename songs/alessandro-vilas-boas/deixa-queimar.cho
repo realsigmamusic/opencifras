@@ -8,16 +8,16 @@
 {time: 4/4}
 {tempo: 67}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A][|][E][|][F#m][|][D][|][(2x)]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [A] Ouvi o meu[E] Senhor bater[F#m] na porta
 E o meu[D] coração queimou[A]
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [A] Eu não vou parar[E]
 Gastarei[F#m] minha vida aos teus pés[D]
 {end_of_verse}
@@ -33,7 +33,7 @@ Gastarei[F#m] minha vida aos teus pés[D]
 Que não me dá desc[F#m]anso eu não tenho desc[D]anso
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [A] Deixa queimar, deixa queimar
 [E] Deixa queimar, deixa queimar
 [F#m] Deixa queimar, deixa queimar[D]

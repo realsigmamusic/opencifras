@@ -7,11 +7,11 @@
 {key: C}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][C][|][G][|][Am][|][F][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [C]  O universo [G]chora, o sol se apa[Am]gou
 Ali estava [F]morto o salvador
 [C] Seu corpo lá na [G]cruz, seu sangue derra[Am]mou
@@ -19,7 +19,7 @@ O peso do pe[F]cado ele le[C]vou
 Le[G]vou, [Dm]levou[F]
 {end_of_verse}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [C]  Deus pai o abando[G]nou, cessou seu respi[Am]rar
 Em trevas se encon[F]trou o filho
 [C] A guerra come[G]çou, a morte enfren[Am]tou
@@ -33,7 +33,7 @@ E nada vence[F]rá, seu grande amor
 Ele venceu pra [F]sempre!
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Pra [C]sempre exal[G]tado é
 Pra [Am]sempre ado[F]rado é
 Pra [C]sempre ele [G]vive
@@ -44,7 +44,7 @@ Ressusci[Am]tou, ressuscitou[F]
 [|][C][|][G][|][Am][|][F][|]
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [C]  Cantamos ale[G]luia, cantamos ale[Am]luia
 Cantamos ale[F]luia, o cordeiro ven[C]ceu
 Cantamos ale[G]luia, cantamos ale[Am]luia

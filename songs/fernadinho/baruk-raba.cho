@@ -6,11 +6,11 @@
 {year: 2003}
 {key: Gm}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|][(2x)]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 ba[Gm]ruk  Raba  be[Ab]shen Ado[Gm]nai
 bar[Gm]uk Raba  be[Ab]shen Ado[Gm]nai
 {end_of_verse}
@@ -19,7 +19,7 @@ bar[Gm]uk Raba  be[Ab]shen Ado[Gm]nai
 [|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|]
 {end_of_part}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 Ben[Gm]dito é o que vem em nome [Ab]do Sen[Gm]hor
 Ben[Gm]dito é o que vem em nome [Ab]do Sen[Gm]hor
 {end_of_verse}
@@ -28,7 +28,7 @@ Ben[Gm]dito é o que vem em nome [Ab]do Sen[Gm]hor
 [|][Gm][|][%][|][%][|][Gm][(][Gm][Ab][Gm][)][|]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Cante ale[Gm]luia, Daí glória a [Cm]Deus
 Salmodi[Ab]ai, dan[Cm]çai a Yes[Gm]hua Hamas[D]hia
 {end_of_chorus}

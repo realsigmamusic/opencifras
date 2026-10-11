@@ -7,14 +7,14 @@
 {key: D}
 {time: 4/4}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Ren[D]ova-[G/D]me, Sen[A/C#]hor Je[D]sus
 [G] Já não [D/F#]quero ser [Asus]igual[A]
 Re[D]nova-[G/D]me, Sen[A/C#]hor Je[D2]sus
 [G] Põe em [D/F#]mim teu coraç[Asus]ão[A]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Porque [D]tudo que [A/C#]há
 Den[Bm]tro de [D/A]mim
 [G] Neces[D/F#]sita ser mu[Em]dado, Sen[Asus]hor[A]
@@ -23,14 +23,14 @@ Dentro do [Bm]meu cora[D/A]ção
 [G] Neces[Em]sita [A7]mais de [D2]Ti[Asus][A]
 {end_of_chorus}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Ren[D]ova-[G/D]me, Sen[A/C#]hor Je[D]sus
 [G] Já não [D/F#]quero ser [Asus]igual[A]
 Re[D]nova-[G/D]me, Sen[A/C#]hor Je[D2]sus
 [G] Põe em [D/F#]mim teu coraç[Asus]ão[A]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Porque [D]tudo que [A/C#]há
 Den[Bm]tro de [D/A]mim
 [G] Neces[D/F#]sita ser mu[Em]dado, Sen[Asus]hor[A]
@@ -39,7 +39,7 @@ Dentro do [Bm]meu cora[D/A]ção
 [G] Neces[Em]sita [A7]mais de [D2]Ti[Bm(11)]
 {end_of_chorus}
 
-{start_of_part: Final}
+{start_of_part: End}
 [Em] Neces[A7]sita mais de [D2]Ti[Bm(11)]
 [Em] Necess[A7]ita mais
 De ti[D][D4][D]

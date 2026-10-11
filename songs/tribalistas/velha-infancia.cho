@@ -7,11 +7,11 @@
 {key: F#m}
 {time: 6/8}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F#m][|][Bm][|][E][|][F#m][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [F#m] Você é assim
 [Bm] Um sonho pra mim
 [E] E quando eu não te [F#m]vejo
@@ -20,7 +20,7 @@
 [E] Até quando eu me [F#m]deito
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F#m] Eu gosto [Bm]de você
 [E] E gosto [F#m]de ficar com você
 [F#m] Meu riso é [Bm]tão feliz contigo
@@ -37,7 +37,7 @@
 [E] Eu sigo e [F#m]nunca me sinto só
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [F#m] Você é assim
 [Bm] Um sonho pra mim[E]
 [E] Você é assim[F#m]

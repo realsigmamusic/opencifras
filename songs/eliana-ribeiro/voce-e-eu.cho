@@ -4,11 +4,11 @@
 {key: G}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [G7M][C7M][G7M][C7M]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [G7M]   Quero est[C7M]ar
 Com voc[Bm7]ê. Lembrar[E7][E/G#]
 de cada mo[Am7]mento bom. [Am7]Re  [Bm7]vi  [Cm7]ver
@@ -18,7 +18,7 @@ Foi De[Bm7]us. Para fazer[E][E/G#]
 um [Am7]só, [D7]  você e eu[G7M][D7]
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [G7M]   Quero est[C7M]ar
 Com voc[Bm7]ê. Lembrar[E7][E/G#]
 De cada mo[Am7]mento bom. [Am7]Re  [Bm7]vi  [Cm7]ver
@@ -28,7 +28,7 @@ Foi De[Bm7]us. Para fazer[E][E/G#]
 um [Am7]só, [D7]  você e eu[G7M][F#m7(b5)][B7]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 A[Em7]gora somos um do [Bm7]outro [Bm7]Nos [C#m7]so
 A[Dm7]mor foi cre[G7]scendo aos [C7M]poucos
 Provado na [Cm7]dor. Como o [Bm7]ouro
@@ -39,7 +39,7 @@ tão raro no [E7]mundo. [E/G#]    Sacra[Am7]mento
 selado por [D7]Deus, você e [G7M]Eu[F#m7(b5)][B7]
 {end_of_chorus}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 A[Em7]gora somos um do [Bm7]outro [Bm7]Nos [C#m7]so
 A[Dm7]mor foi cre[G7]scendo aos [C7M]poucos
 Provado na [Cm7]dor. Como o [Bm7]ouro

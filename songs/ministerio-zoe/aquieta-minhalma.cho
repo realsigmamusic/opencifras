@@ -7,18 +7,18 @@
 {key: A}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A][|][E][|][F#m][|][D][|]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [A] Aquieta minh'alma
 [E] Faz meu coração ouvir tua voz[F#m][D]
 [A] Me chama pra perto
 [E] Só assim eu não me sinto só[F#m][D]
 {end_of_chorus}
 
-{start_of_verse: Parte 1}
+{start_of_verse: Part 1}
 Porque, na ver[A]dade, eu descobri que 
 Tudo o que eu preciso está[E] em Ti
 Mas meu cora[F#m]ção 
@@ -29,7 +29,7 @@ Mas eu preciso acreditar e [F#m]confiar
 No que Você me [D]diz
 {end_of_verse}
 
-{start_of_verse: Parte 2}
+{start_of_verse: Part 2}
 Eu sei que, [A]mesmo sem entender
 Você está no cont[E]role então
 Me esconda no Teu cora[F#m]ção
@@ -40,7 +40,7 @@ Eu sei que vai ser di[F#m]fícil
 Mas Você estará sempre co[D]migo
 {end_of_verse}
 
-{start_of_verse: Parte 3}
+{start_of_verse: Part 3}
 E [A]mesmo que minh'alma grite
 E [E]tente me fazer voltar atrás
 Eu vou [F#m]confiar, eu vou descansar
@@ -48,14 +48,14 @@ Me lan[D]çar no Teu a[A]mor[E]
 No Teu a[F#m]mor, Senhor[D]
 {end_of_verse}
 
-{start_of_verse: Parte 4}
+{start_of_verse: Part 4}
 O [A]tempo não pode apagar
 As muitas águas nunca levar[E]ão o amor
 Que Você sente por [F#m]mim
 Eu sei que tudo vai se cum[D]prir
 {end_of_verse}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [A]Vai ser difícil, eu sei. [E]Largar tudo por Você
 [F#m]Mas eu sei que quando eu pensar em [D]desistir
 Você esta[A]rá ao meu lado

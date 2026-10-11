@@ -7,11 +7,11 @@
 {key: A}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A][Bm][|][C#m][Bm][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 A[A]quele que[Bm] está fe[C#m]liz
 [Bm]Diga: a[A]mém![Bm][C#m][Bm]
 
@@ -25,21 +25,21 @@ A[A]quele que[Bm] está fe[C#m]liz
 Dan[Bm]ce co[A]migo assim
 {end_of_verse}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [F#m] Com Jesus no coração
 A gente [C#m]é feliz
 [D] Com Jesus na condu[Bm]ção
 Tudo é muito [E]bom!
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Jesus é [A]alegria, [F#m]euforia
 [D]Companhia [Bm]todo dia!
 [E] Jesus é o motivo
 Da nossa ale[A]gria!
 {end_of_chorus}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [E] Jesus é o motivo
 Da nossa ale[A]gria![F#m][Bm]
 Jesus é o mot[E]ivo

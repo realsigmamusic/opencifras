@@ -6,11 +6,11 @@
 {key: F#}
 {time: 6/8}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F#][|][C#/F][D#m][C#][B][|][F#/A#][|][B2][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [F#] Pela graça estou sendo curado
 [D#m] Pouco a pouco sendo transformado
 [B2] Perfeito não sou, contudo, s[F#]ou grato
@@ -29,7 +29,7 @@ O [C#/F]que [D#m]pos[C#2]so [B2]di[F#/A#]zer
 Senão [B2]ale[B/C#]luia?
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Sou [F#]grato, [C#2]Cristo
 Sou [D#m]grato, [B2]Cristo
 Sou [F#/C#]grato, Cr[A#m]is[D#m]to
@@ -37,7 +37,7 @@ Novo [C#/F]di[D#m]a [C#2]re[B2]ce[F#/A#]bi
 [B2] [B/C#]Rece[F#]bi[B/C#]
 {end_of_chorus}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [F#] Quando a noite se aproximava
 [D#m] Quase sem esperança eu estava
 [B2] Minha mão segurou, por isso s[F#]ou grato
@@ -56,20 +56,20 @@ O [C#/F]que [D#m]pos[C#2]so [B2]di[F#/A#]zer
 Senão [B2]ale[B/C#]luia?
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Sou [F#]grato, [C#2]Cristo
 Sou [D#m]grato, [B2]Cristo
 Sou [F#/C#]grato, Cr[A#m]is[D#m]to
 Novo [C#/F]di[D#m]a [C#2]re[B2]ce[F#/A#]bi
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [B] Re[F#/A#]cebi
 [B] Re[F#/A#]cebi
 [B2] [B/C#]Rece[F#]bi
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [B/D#]Meu [C#/F]Sen[B]hor, eu só quero ado[F#]rá-Lo[C#2]
 Você é [B2]tudo, é tudo, é tudo para [F#]mim[C#2]
 [B2]Meu  Senhor, eu só quero ado[F#]rá-Lo[C#2]

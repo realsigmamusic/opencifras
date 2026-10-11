@@ -6,12 +6,12 @@
 {key: F}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Gm][|][Csus][|][F][C/E][|][Dm][|]
 [|][Gm][|][Csus][|][F][Fsus][|][F][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [F] Não há Deus mai[Gm]or
 [Csus] Não há Deus mel[F]hor[C/E]
 [Dm] Não há Deus tão [Gm]grande
@@ -31,7 +31,7 @@
 [Gm]Tudo for[Csus]mou
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Bb] Para o [Csus]seu lou[F]vor
 [Bb] Para o [Csus]seu lou[F]vor
 [Bb] Para o [C]seu [Am] Para o [Dm]seu

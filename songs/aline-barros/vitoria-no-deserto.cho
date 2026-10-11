@@ -8,11 +8,11 @@
 {time: 4/4}
 {tempo: 142}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][G][|][D][|][Em][|][C][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [G] Quando a noite [D]fria 
 Cair sobre [Em]mim[C]
 [G] E num de[D]serto eu me encon[Em]trar[C]
@@ -30,14 +30,14 @@ Cairá sobre [Em]mim[C]
 [G] E me leva[D]rá a em ti confi[Em]ar[C]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Então eu direi,[G] oh [D]oh
 Abra-se o [Em]mar[C]
 E eu passa[G]rei pulando e dan[D]çando
 Em sua pre[Em]sença[C]
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Por isso eu [G]pulo, pulo, pulo
 Pulo, [D]pulo na presença do [Em]rei[C]
 Por isso eu [G]danço, danço, danço 

@@ -7,11 +7,11 @@
 {key: A}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A][E/A][|][D/A][E/A][|][A][E/B][|][D/C#][D/E][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Em Es[A]pírito, em ver[E/A]dade
 Te ado[D/A]ramos, Te ado[A]ramos[D/E]
 Em Es[A]pírito, em ver[E/A]dade
@@ -25,7 +25,7 @@ Rei do [F#m]reis [F#m7M/E#] e Sen[F#m7/E]hor[D#m7b5]
 Te entre[D]gamos [Bm7]nosso vi[E]ver
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Pra Te ado[D]rar, oh rei dos [E]reis
 Foi que eu nas[D/F#]ci, ó rei Je[E/G#]sus
 Meu pra[C#7]zer é te lou[F#m7]var
@@ -40,7 +40,7 @@ Onde [E]flui o a[A]mor
 [|][A][E/A][D/A][|][A][E/A][D/A][|]
 {end_of_part}
 
-{start_of_part: Final}
+{start_of_part: End}
 Minis[D/E]trando o lou[A]vor[C#m7][Bm7]
 Minis[D/E]trando o lou[A]vor[C#m7][Bm7]
 Minis[D/E]trando o lou[A]vor[C#m7][Bm7]

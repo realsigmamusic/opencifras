@@ -7,12 +7,12 @@
 {key: A}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][D][A][|][D][F#m][|][Bm][E][|]
 [|][A][D/A][|][A][D/E][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Cada [A]vez que a minha fé é pro[D/A]vada
 Tu me [E]dás a chance
 De crescer um [A]pouco mais
@@ -30,7 +30,7 @@ Deus vai [Bm]me fazer
 An[E]dar por sobre as [A]águas
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [D/E]Rompendo em [A]fé[C#m]
 Minha [D]vida se re[E]vestirá 
 Do [A]Teu poder

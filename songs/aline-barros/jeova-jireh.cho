@@ -7,18 +7,18 @@
 {key: G}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][C][|][Am][|][Em][|][D][|]
 {end_of_part}
 
-{start_of_verse: verso 1}
+{start_of_verse: Verse 1}
 O fogo não me [G]queima
 Nas águas não vou [G]afundar
 Pois es[C]tás comigo
 Não es[C]tou sozinho
 {end_of_verse}
 
-{start_of_verse: verso 2}
+{start_of_verse: Verse 2}
 Eu estou guar[G]dado
 No esconde[G]rijo
 Não es[C]tou sozinho
@@ -32,7 +32,7 @@ Tu es[C]tás comigo
 Irás pro[G]ver de novo, eu creio em Ti
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [C]Haja o que houver [D]Venha o que vier
 Irás pro[G]ver de novo eu creio em Ti
 Eu não [C]vivo do que vejo
@@ -40,7 +40,7 @@ Eu não [C]vivo do que vejo
 Irás pro[G]ver de novo eu creio em Ti
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [C] A tempestade[D] E o Vento Forte
 [Em] Não vão roubar a minha [Bm]fé em ti meu Deus
 {end_of_bridge}

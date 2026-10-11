@@ -7,11 +7,11 @@
 {key: F}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F][|][C][|][Gm][|][Bb][|][(4x)]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [F] Já and[C]ei perdido,
 [Gm] dentro [Bb]do meu coração.
 [F] fui a[C]chado por ti.[Gm][Bb]
@@ -19,14 +19,14 @@
 [F] que pra [C]sempre eu[Gm] sou todo teu[Bb]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F]lá vou eu, [C]lá vou eu
 [Gm]conquistar o [Bb]meu lugar
 [F]lá vou eu, [C]lá vou eu
 [Gm]com meu Rei, [Bb]com meu Rei
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [F] Tudo [C]novo se fez[Gm][Bb]
 [F] tudo [C]novo se fez[Gm][Bb]
 {end_of_bridge}

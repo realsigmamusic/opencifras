@@ -7,11 +7,11 @@
 {key: Bm}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Bm7][|][Em7][F#m7][|][(4x)]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [Bm7]Pedra na mão,gigante na mira
 [Em7] Poder de Deus é minha ar[F#m7]tilharia
 {end_of_verse}
@@ -23,11 +23,11 @@ Vou [Bm7]derrubar es[A]se gigante[Em7]
 [F#7alt]Pow   
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Bm7]Ooooo[Em7]ooh[F#m7]
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [G]Ooo[A]ooo[Bm]oh[DM7]
 {end_of_bridge}
 

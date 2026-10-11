@@ -7,12 +7,12 @@
 {key: C}
 {time: 2/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F][|][C/E][|][Dm7][|][G][|]
 [|][F][|][C/E][|][Dm7][|][G][|][%][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [Dm7] Sei que os Teus [G/B]olhos
 Sempre a[C/E]tentos permanecem em mim[F]
 [Dm7] E os Teus ou[G/B]vidos
@@ -27,7 +27,7 @@ Mas alegr[C]ia vem[G/B] de manhã[Am7]
 [Dm7]Tu és fi[Bb]el![F/A][Gsus][G]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Deus de ali[C/E]ança
 Deus de pro[Am7]messas
 Deus que não é [Dm7]homem pra mentir[Gsus][G]
@@ -35,7 +35,7 @@ Tudo po[C/E]de passar, tudo po[Am7]de mudar
 Mas tua pa[Dm7]lavra vai se cumprir[Gsus][G]
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [Am7] Posso enfren[G]tar o que for[F]
 Eu sei quem [G]luta por mim[Am7]
 Seus planos [G]não podem ser[F] frustrados[G]

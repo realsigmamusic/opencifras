@@ -5,11 +5,11 @@
 {key: D}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [D][D/F#][G][D][D/F#][G]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Somente em ti[D] construirei[D/F#]
 A minha ca[G]sa
 Somente em ti[D] colocarei[D/F#]
@@ -25,7 +25,7 @@ Minh'alma achou des[A]canso[D/F#]
 Só em [G]ti eu [A]pude respi[D]rar[D/F#]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 O meu cora[G]ção deseja te encon[A]trar
 Como a terra [F#m]seca anseia pela chuva[Bm]
 Vem me saci[Em]ar pois eu desco[A]bri

@@ -7,18 +7,18 @@
 {key: Am}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Am][|][F][|][C][|][G][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Eu [Am]vejo uma pequena núvem
 Do ta[F]manho da mão de um homem
 Mas [C]este é o sinal
 Que a tua [G]chuva vai descer
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Faz cho[Am]ver, faz cho[F]ver
 [C]Abre as comportas dos [G]céus
 {end_of_chorus}
@@ -27,7 +27,7 @@ Faz cho[Am]ver, faz cho[F]ver
 [|][Am][|][F][|][C][|][G][|]
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Se pe[Am]dirmos Jesus vi[F]rá
 Como [C]chuva desce[G]rá
 Se pe[Am]dirmos Jesus vi[F]rá

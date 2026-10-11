@@ -7,11 +7,11 @@
 {key: A}
 {time: 6/8}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A][|][%][|][D/F#][|][%][|][E][|][%][|][D][|][%][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [A]Tem ciumes de mim
 [D/F#]O Seu amor é como um furacão
 E [E]eu me rendo ao vento de Sua miseri[D]córdia
@@ -26,14 +26,14 @@ E o [D]tanto que Ele me quer
 Ele me a[D]mou
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Me [A]ama
 Ele me [D/F#]ama
 Ele me [E]ama
 Ele me [D]ama
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [A]Somos Sua herança e Ele o nosso galardão
 [D/F#]Seu olhar de graça nos atrai à redenção
 Se a [E]graça é um oceano estamos a[D]fogando

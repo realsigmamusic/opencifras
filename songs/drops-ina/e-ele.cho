@@ -5,12 +5,12 @@
 {key: Bb}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Eb][|][F][|][Gm][|][Dm7][|]
 [|][Eb][|][F][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [Bb] Estou preparando um caminho
 [Gm] Endirei[Eb]tando as ve[Bb]redas
 [Bb] E cada vez mais diminuindo
@@ -27,7 +27,7 @@ E eu caminho com a cer[Bb]teza
 de que Ele vi[F]rá
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 E é [Eb]Ele, por [F]Ele que eu estou
 Gastando a minha [Gm]vida
 Perdendo [Dm7]tudo por amor
@@ -35,7 +35,7 @@ E com aleg[Eb]ria
 Dono dos meus [F]dias
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 E Ele vi[Bb]rá sobe[Bb7]rano em poder
 Ele vi[Gm]rá e o governo está Nele
 [Eb]Vejam, Ele traz con[F]sigo a sua recompensa

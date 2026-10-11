@@ -7,7 +7,7 @@
 {key: Em}
 {time: 4/4}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [Em]Lindo! Lindo coral! (x4)
 {end_of_bridge}
 
@@ -16,7 +16,7 @@
 [|][C][|][%][|][Esus][|][E][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 Ar[Em]canjos, serafins,
 [Em]todos
 Jesus re[Em]gendo  esse grande co[F#m7b5]ral
@@ -25,7 +25,7 @@ Estou ensai[B7]ando, me preparando
 Para cantar [Em]lá[B7]
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [Em]Eu! (eu!) Você! (Você!)
 [Em]Todos! (Todos!)
 Cantando [Em]juntos  uma só can[F#m7b5]ção
@@ -34,7 +34,7 @@ Estou ensai[B7]ando, me preparando
 Pra cantar [Em]lá[B7]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Eu vou can[C]tar naquele lindo co[D]ral
 Quem é que [Bm]vai cantar naquele co[Em]ral?
 Eu vou can[C]tar naquele lindo co[D]ral

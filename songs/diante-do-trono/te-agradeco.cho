@@ -8,11 +8,11 @@
 {time: 12/8}
 {tempo: 48}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Ab][|][Eb][|][Ab][|][Eb][Bb][Eb][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Por [Eb]tudo o que tens [Ab]feito
 Por [Eb]tudo o que vais fa[Bb]zer
 Por [Eb]Tuas pro[Eb7/Db]messas e [Ab/C]tudo o que és
@@ -25,7 +25,7 @@ Te agra[Ab]deço, meu Sen[Eb]hor
 Te agra[Ab]deço, meu Sen[Eb]hor
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Te agra[Eb]deço por me liber[Eb7/Db]tar e salvar
 [Ab/C]Por ter morrido [Adim]em meu lugar
 Te agra[Eb]de[Eb/G]ço.[Ab]

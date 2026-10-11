@@ -6,11 +6,11 @@
 {time: 4/4}
 {tempo: 66}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F7M][|][%][|][Am][|][C][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Mística su[F7M]blime, Te receber
 Ter comunhão[Am][C]
 Ter correndo em [F7M]mim Teu sangue, Deus
@@ -24,7 +24,7 @@ O que os meus [F7M]olhos veem não é o que
 minh'[Am]alma diz[C]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Já não é mais [F7M]vinho, não
 É o sangue do meu Deus[Am][C]
 Já não é mais [F7M]pão aqui
@@ -37,7 +37,7 @@ Que estás dentro de mim[Am]
 E eu dentro de você[C]
 {end_of_chorus}
 
-{start_of_part: Ponte}
+{start_of_part: Bridge}
 E eu dentro de você[F7M]
 E eu dentro de você
 E eu dentro de você[Am]

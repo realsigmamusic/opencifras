@@ -5,11 +5,11 @@
 {key: A}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][A2][|][(2x)]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Mas é [A2]claro que o sol 
 vai vol[B(11)]tar amanhã
 Mais uma [C#m7]vez, 
@@ -21,7 +21,7 @@ Espera que o [C#m7]sol
 já [F#m7(11)]vem[B7sus][Esus][E]
 {end_of_chorus}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [A2] Tem gente que está do mesmo lado
 que vo[A2]cê mas deveria estar do lado de lá
 [F#m7(11)] Tem gente que machuca os outros
@@ -37,11 +37,11 @@ confi[F#m7(11)]ar Confie em si mesmo
 [D6sus2] Quem acredita [Bm7(11)]sempre al[E]cança
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][A2][|][(3x)]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Mas é [A2]claro que o sol 
 vai vol[B(11)]tar amanhã
 Mais uma [C#m7]vez, 
@@ -53,7 +53,7 @@ Espera que o [C#m7]sol
 já [F#m7(11)]vem[B7sus][Esus][E]
 {end_of_chorus}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [A2] Nunca deixe que lhe digam que não vale a
 [A2]pena acreditar no sonho que se tem
 [F#m7(11)] Ou que seus planos nunca vão dar certo
@@ -76,12 +76,12 @@ Confie em si mesmo [D6sus2] Quem acredita
 [|][D6sus2][|][Bm7(11)][E][|]
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [A2] Quem acredita sempre alcança
 [F#m7(11)] Quem acredita sempre alcança
 [D6sus2] Quem acredita [Bm7(11)]sempre al[E]cança
 {end_of_bridge}
 
-{start_of_part: Final}
+{start_of_part: End}
 [|][A2][|][(5x)]
 {end_of_part}

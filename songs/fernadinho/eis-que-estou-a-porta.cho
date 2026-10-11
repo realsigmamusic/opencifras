@@ -8,11 +8,11 @@
 {time: 4/4}
 {tempo: 142}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Gm][|][%][|][Bb][|][%][|][F][|][%][|][Cm][|][%][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Eu sou[Gm] aquele que te amou pri[Dm]meiro
 Eu sou[F] aquele que te viu
 Em [Cm]terra muito seca 
@@ -24,18 +24,18 @@ E se entregou[Dm] foi por amor[Eb]
 Foi por a[Cm]mor.[F] Foi por a[Dm]mor[Eb]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Eb]Eis que estou a porta e bato
 Se[F] alguém ouvir minha voz e abrir
 eu [Bb]e[F/A]entrarei[Gm]
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][Eb][|][%][|][Gm][|][%][|]
 [|][Cm][|][Gm][|][F][|][%][|]
 {end_of_part}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Aos can[Eb]sados e todos oprimidos
 [Gm]Sobrecarregados e aflitos
 [Cm]Venham, [Gm]venham a mim[F]

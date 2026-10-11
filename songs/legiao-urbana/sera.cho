@@ -4,11 +4,11 @@
 {artist: Legião Urbana}
 {album: Legião Urbana (1985)}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][C][|][G][|][Am][|][F][|][(2x)]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [C] Tire suas [G]mãos de mim 
 [Am] eu não per[F]tenço a você
 [C] Não é me domi[G]nando assim 
@@ -19,11 +19,11 @@
 [F] acho que isso não [G]é amor
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][C][F][G][|][(4x)]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [G]Será só imagina[Dm]ção
 [G]Será que nada vai a[Dm]contecer
 [G]Será que é tudo isso em [Dm]vão
@@ -31,11 +31,11 @@
 ô[F]ôôôô[G]ô
 {end_of_chorus}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][C][F][G][|][(4x)]
 {end_of_part}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [C] Nos perderemos entre [G]monstros 
 [Am] da nossa própria [F]criação
 [C] Serão noites in[G]teiras 
@@ -46,11 +46,11 @@
 [F] não destrua nosso [G]coração
 {end_of_verse}
 
-{start_of_part: Interlúdio}
+{start_of_part: Interlude}
 [|][C][F][G][|][(4x)]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [G]Será só imagina[Dm]ção
 [G]Será que nada vai a[Dm]contecer
 [G]Será que é tudo isso em [Dm]vão
@@ -65,7 +65,7 @@ Se[C]rá que vamos ter que [G/B]responder
 Pelos [Bb]erros a mais [Dm]Eu e você
 {end_of_bridge}
 
-{start_of_part: Final}
+{start_of_part: End}
 [|][G][F][|][(4x)]
 [|][F][|]
 {end_of_part}

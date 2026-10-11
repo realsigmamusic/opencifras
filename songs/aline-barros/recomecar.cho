@@ -7,18 +7,18 @@
 {key: F}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][F][|][C/E][|][Eb][|][Bb/D][|][Bbm/Db][|]
 [|][F][C/E][Dm][C][|][Bb][|][Csus][C][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [F]Pai[Fsus], tá di[F2]fícil man[F]ter o cam[C/E]inho
 Tenho andado em meio a esp[Bb/D]inhos
 Nem [Bbm/Db]sempre é tão fácil acert[F]ar[Csus][C]
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [F]Pai[Fsus], emo[F2]ções descal[F]çam os meus [C/E]pés
 Me roubando em meio a cord[Bb/D]éis
 Me en[Bbm/Db]laçam em minhas fraq[F]uez[Csus]as[C]
@@ -30,7 +30,7 @@ Mas, eu [F]quero recom[Eb6]eçar[Bb/D][Gm7(11)]
 Me a[Csus]juda [C]nesse instante[F]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F] Preciso da Tua mão[C/E], 
 vem me levantar[Cm/Eb]
 Faz-me Teu servo Senhor[Bb/D], 

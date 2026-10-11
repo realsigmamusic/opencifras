@@ -6,29 +6,29 @@
 {key: Dm}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Dm][|][%][|][Dm][C][Bb][|][Dm][|][%][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [Dm] Quem sabe eu ainda sou uma garoti[C]nha
 [Gm] Esperando o ônibus
 Da es[Dm]cola sozinha
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [Dm] Cansada com minhas meias três [C]quartos
 [Gm] Rezando baixo pelos [Dm]cantos
 Por [C]ser uma menina má[Bb]
 {end_of_verse}
 
-{start_of_verse: Verso 3}
+{start_of_verse: Verse 3}
 [Dm] Quem sabe o príncipe virou um cha[C]to
 [Gm] Que vive dando no meu [Dm]saco
 Quem [C]sabe a vida é não sonhar[Bb]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Dm] Eu só peço a [C]Deus
 Um pouco [F]de malan[G]dragem
 [Dm] Pois sou cri[C]ança
@@ -37,7 +37,7 @@ E não con[F]heço a ver[G]dade
 [Bb] Eu sou po[C]eta e não aprendi a a[Dm]mar
 {end_of_chorus}
 
-{start_of_verse: Verso 4}
+{start_of_verse: Verse 4}
 [Dm] Bobeira é não viver a realida[C]de
 [Gm] E eu ainda tenho
 Uma tarde in[Dm]teira
@@ -52,7 +52,7 @@ Uma tarde in[Dm]teira
 [Bb] E ainda tenho tempo pra can[Dm]tar
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Dm] Eu só peço a [C]Deus
 Um pouco [F]de malan[G]dragem
 [Dm] Pois sou cri[C]ança
@@ -74,7 +74,7 @@ E não con[F]heço a ver[G]dade
 [Bb] E ainda tenho tempo pra can[Dm]tar
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Dm] Eu só peço a [C]Deus
 Um pouco [F]de malan[G]dragem
 [Dm] Pois sou cri[C]ança
@@ -83,6 +83,6 @@ E não con[F]heço a ver[G]dade
 [Bb] Eu sou po[C]eta e não aprendi a a[Dm]mar
 {end_of_chorus}
 
-{start_of_part: Final}
+{start_of_part: End}
 Quem sabe ainda sou uma garotinha[Dm]
 {end_of_part}

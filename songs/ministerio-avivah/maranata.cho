@@ -7,11 +7,11 @@
 {key: Cm}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Cm][|][Ab][|][Eb][|][Bb][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [Cm] Tu és a minha luz
 [Ab] A minha salvação
 E a [Eb]Ti me render[Bb]ei
@@ -25,7 +25,7 @@ Eu [Eb]nada temer[Bb]ei
 [Ab]Ôo, [Bb]Ôo, [Cm]Ôo, Tu és d[Eb]igno de louvo[Bb]r
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [Ab]Só em Ti confia[Eb]rei
 Eu nada teme[Cm]rei
 Em frente eu ir[Bb]ei. Pois eu sei que vivo 
@@ -34,12 +34,12 @@ Do céu pra nos busc[Eb]ar
 Pra sempre reinar[Bb]ás, aleluia
 {end_of_chorus}
 
-{start_of_bridge: Interlúdio}
+{start_of_bridge: Interlude}
 [Eb]Ôoo, [Ab]Ôoo,
 [Eb]Ôoo, [Bb]Ô
 {end_of_bridge}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 Vem Jes[Eb]us, vem Jes[Ab]us
 Maran[Eb]ata ora, vem Senhor Jes[Bb]us
 Vem Jes[Eb]us, vem Jes[Ab]us

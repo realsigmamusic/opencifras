@@ -9,17 +9,17 @@
 {time: 4/4}
 {tempo: 67}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Bb2][|][C2][|][Dm][|][Am][|]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 Ben[F]dita Será nossa casa 
 Ben[Dm]ditos Serão nossos filhos 
 E [Bb9]nós glorificaremos ao Sen[F]hor
 {end_of_verse}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 Minha [F]casa Não será abalada
 Em [Dm]Cristo está alicerçada 
 E [Bb]nós glorificaremos ao [F]Senhor
@@ -32,7 +32,7 @@ O a[Bb2]mor que alcançou a minha [C2]casa
 É Ele, [Dm] é Ele[Am]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F]Meu Jesus Eu Te entrego minha [C2]vida
 Te dou meu lar, minha fa[Dm]mília
 Eu e minha casa, Sen[Bb]hor Te serviremos com amor

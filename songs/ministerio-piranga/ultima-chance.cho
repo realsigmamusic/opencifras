@@ -7,11 +7,11 @@
 {time: 4/4}
 {key: F}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [Gm][F/A][Bb][Bbm]         
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [F] Uma chance igual a [C/E]esta
 Talvez eu não [Bb]tenha mais
 [F] Quero estar em tua pre[C/E]sença
@@ -25,7 +25,7 @@ Nem que seja a [Bb]última vez
 As[Bb]sim o farei, me [Bbm]dá mais uma chance
 {end_of_parte}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [F] Eu quero nascer[C/E] do Teu espírito-o
 [Dm] Eu quero matar[Bb] minha [Bbm]carne
 [F/A] Fazer Tua von[C/E]tade doce espírito

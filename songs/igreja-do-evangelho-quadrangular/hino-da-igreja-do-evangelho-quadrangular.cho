@@ -6,7 +6,7 @@
 {time: 4/4}
 {tempo: 120}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][G][|][%][|][%][|][%][|]
 [|][G][|][Ab][Bb][Ab][|][G][|][%][|][%][|]
 {end_of_part}
@@ -16,7 +16,7 @@
 [|][G][Bb7M][|][Eb7M][D7][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [G]Eia, salvos avançai,
 [G]nada de te[D7]mer
 [Am7]Vamos firmes [D7]batalhar,
@@ -27,7 +27,7 @@
 [A7]pe [D7]la [G]cruz
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Avante, [B7]pois, e sem pa[Em7]rar,
 o Evan[B7]gelho anunci[Em7]ai
 O Evan[A7]gelho Quadrangu[D]lar
@@ -46,7 +46,7 @@ do céu vi[G7]rá pra nos le[C]var.
 [|][G][Bb7M][|][Eb7M][D7][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 [G]Vamos templos levantar
 [G]por todo o Bra[D7]sil
 [Am7]A pregar, sem [D7]descansar,
@@ -57,7 +57,7 @@ do céu vi[G7]rá pra nos le[C]var.
 [A7]Deus [D7]a  [G]voz
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Avante, [B7]pois, e sem pa[Em7]rar,
 o Evan[B7]gelho anunci[Em7]ai
 O Evan[A7]gelho Quadrangu[D]lar
@@ -72,7 +72,7 @@ do céu vi[G7]rá pra nos le[C]var.
 [A7]de [D7]rei[G]nar
 {end_of_chorus}
 
-{start_of_part: Final}
+{start_of_part: End}
 [C]E, com [C#dim]ele, nós ha[G]vemos [E7+]sem [E7]pre
 [A7]de [D7]rei[G]nar[C][G][D][G]
 {end_of_part}

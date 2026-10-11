@@ -8,12 +8,12 @@
 {time: 4/4}
 {tempo: 98}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][E][|][E+][|][A][E/G#][|][F#m][A/B][|]
 [|][E][|][E+][|][A][E/G#][|][F#m][A/B][|][E][|][A/B][|]
 {end_of_part}
 
-{start_of_verse: Parte 1}
+{start_of_verse: Part 1}
 Quando eu [E]digo que deixei de te a[B/D#]mar
 É porque eu te [C#m7]amo[(][E9][E6][E7][)]
 Quando eu [A]digo que não quero mais vo[C#7]cê
@@ -25,7 +25,7 @@ o que vai [F#/A#]ser de mim
 Se eu te per[B]der um dia[(][A/C#][B/D#][)]
 {end_of_verse}
 
-{start_of_verse: Parte 2}
+{start_of_verse: Part 2}
 Eu me a[E]fasto e me defendo de vo[B/D#]cê
 Mas depois me en[C#m]trego[(][E9][E6][E7][)]
 Faço [A]tipo, falo coisas que eu [C#7]não sou
@@ -36,7 +36,7 @@ Eu pre[E]ciso aceitar que não dá [A/B]mais
 Pra separar as [E]nossas vidas[(][E4][E][A/B][)]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [E]E nessa loucura
 De di[E]zer que não te quero
 Vou ne[G#]gando as aparências
@@ -54,7 +54,7 @@ Pra vo[F#m]cê fazer o que quiser de [B7]mim
 Só [F#m]quero ouvir vo[B7]cê dizer que [E]sim...
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 ...Diz que é ver[E+]dade que tem sau[A]dade[E/G#]
 Que a[F#m]inda você [B7]pensa muito em [E]mim
 Diz que é ver[E+]dade que tem sau[A]dade[E/G#]
@@ -66,7 +66,7 @@ Que a[F#m]inda você [B7]quer viver pra mim[C#m]
 [|][Am][|][A/B][|]
 {end_of_part}
 
-{start_of_verse: Parte 2}
+{start_of_verse: Part 2}
 Eu me a[E]fasto e me defendo de vo[B/D#]cê
 Mas depois me en[C#m]trego[(][E9][E6][E7][)]
 Faço [A]tipo, falo coisas que eu [C#7]não sou
@@ -77,7 +77,7 @@ Eu pre[E]ciso aceitar que não dá [A/B]mais
 Pra separar as [E]nossas vidas[(][E4][E][A/B][)]
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [E]E nessa loucura
 De di[E]zer que não te quero
 Vou ne[G#]gando as aparências
@@ -95,7 +95,7 @@ Pra vo[F#m]cê fazer o que quiser de [B7]mim
 Só [F#m]quero ouvir vo[B7]cê dizer que [E]sim...
 {end_of_chorus}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 ...Diz que é ver[E+]dade que tem sau[A]dade[E/G#]
 Que a[F#m]inda você [B7]pensa muito em [E]mim
 Diz que é ver[E+]dade que tem sau[A]dade[E/G#]

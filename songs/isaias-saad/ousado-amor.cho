@@ -6,11 +6,11 @@
 {key: F#}
 {time: 6/8}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][D#m][|][C#][|][B][|][F#][|][(2x)]
 {end_of_part}
 
-{start_of_verse: Verso 1}
+{start_of_verse: Verse 1}
 [D#m] Antes de eu fal[C#]ar
 Tu cantavas s[B]obre mim
 [D#m] Tu tens sido t[C#]ão
@@ -21,7 +21,7 @@ Sopraste Tua v[B]ida em mim
 Tão bom[B] pra mim
 {end_of_verse}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 Oh, impr[D#m]essionante, [C#]infinito
 E ous[B]ado amor de D[F#]eus
 Oh, que d[D#m]eixa as nov[C#]enta e nove
@@ -32,7 +32,7 @@ Oh, impr[D#m]essionante, [C#]infinito
 E ous[B]ado amor de D[F#]eus
 {end_of_chorus}
 
-{start_of_verse: Verso 2}
+{start_of_verse: Verse 2}
 [D#m] Inimigo eu f[C#]ui
 Mas Teu amor l[B]utou por mim
 [D#m] Tu tens sido t[C#]ão
@@ -43,7 +43,7 @@ Mas tudo p[B]agou por mim
 Tão bom [B] pra mim
 {end_of_verse}
 
-{start_of_bridge: Ponte}
+{start_of_bridge: Bridge}
 [D#m] Derruba mur[C#]alhas
 Destrói as ment[B]iras, pra me encontr[F#]ar
 [D#m] Traz luz para as s[C#]ombras

@@ -7,12 +7,12 @@
 {key: Am}
 {time: 4/4}
 
-{start_of_part: Introdução}
+{start_of_part: Intro}
 [|][Am][|][F][|][G][|][C][(][Bm7b5][E][)][|]
 [|][Am][|][F][|][G][|][C][|]
 {end_of_part}
 
-{start_of_verse: Verso}
+{start_of_verse: Verse}
 Eu não [Am]sei o que Ele viu em [Dm]mim
 Não en[G]tendo por que me a[C]mou[(][Bm7b5][E][)]
 Eu não [Am]sou o que devia [Dm]ser
@@ -26,7 +26,7 @@ O que eu [Dm]deveria era mor[F]rer
 Mas E[Dm]le me promet[F]eu o [Gsus]céu[G][F/A][G/B]
 {end_of_part}
 
-{start_of_chorus: Refrão}
+{start_of_chorus: Chorus}
 [C] Eu só quero adorar[G] Por isso estou aqui[Dm]
 E se eu não adorar[F] Falta [G]algo em mim[C]
 Eu jamais saberei[G] Por que me escolheu[Dm]
