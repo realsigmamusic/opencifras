@@ -258,6 +258,12 @@ section button {
   font-size: 1rem;
 }
 
+/* Cifra fora do tom original: destaca o contador de semitons */
+.transpose-value.is-transposed {
+  color: var(--warning-text-emphasis);
+  font-weight: 700;
+}
+
 .btn-font {
   padding: 0.5rem;
   border: 1px solid var(--border-color);

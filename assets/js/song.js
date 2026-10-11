@@ -210,12 +210,44 @@ function renderMetadata(song) {
   if (meta.year)      html += `<span class="song-meta-item"><strong>Ano:</strong> ${escapeHtml(meta.year)}</span>`;
   if (meta.copyright) html += `<span class="song-meta-item"><strong>Copyright:</strong> ${escapeHtml(meta.copyright)}</span>`;
   if (meta.key)       html += `<span class="song-meta-item"><strong>Tom:</strong> ${escapeHtml(meta.key)}</span>`;
+  // Aviso de tom alterado: começa escondido e é preenchido por updateKeyNotice() a cada renderização
+  html += `<span class="song-meta-item key-notice" id="key-notice" role="status" hidden></span>`;
   if (meta.time)      html += `<span class="song-meta-item"><strong>Compasso:</strong> ${escapeHtml(meta.time)}</span>`;
   if (meta.tempo)     html += `<span class="song-meta-item"><strong>bpm:</strong> ${escapeHtml(meta.tempo)}</span>`;
   const chordCount = song.getChords().length;
   if (chordCount)     html += `<span class="song-meta-item"><strong>Acordes:</strong> ${chordCount}</span>`;
 
   elSongHeader.innerHTML = html;
+}
+
+// Deixa explícito quando a cifra NÃO está no tom original (transpose !== 0):
+// mostra um aviso no cabeçalho (com tom original → atual, se a música tiver {key:})
+// e destaca o botão do contador de semitons
+function updateKeyNotice(transposed) {
+  const transposto = transpose !== 0;
+  elTransVal.classList.toggle('is-transposed', transposto);
+
+  const el = document.getElementById('key-notice');
+  if (!el) return;
+
+  if (!transposto) {
+    el.hidden = true;
+    el.textContent = '';
+    return;
+  }
+
+  const sinal    = transpose > 0 ? '+' : '';
+  const original = song && song.metadata && song.metadata.key;
+  const atual    = transposed && transposed.metadata && transposed.metadata.key;
+
+  let texto = `Fora do tom original (${sinal}${transpose})`;
+  if (original && atual && original !== atual) {
+    texto += ` — original: ${original} · atual: ${atual}`;
+  }
+
+  el.textContent = texto;
+  el.title       = 'Toque no número ao lado das setas para voltar ao tom original';
+  el.hidden      = false;
 }
 
 // Renderiza a cifra com os acordes no tom atual
@@ -295,6 +327,7 @@ function renderSheet() {
 
   // Atualiza o contador de semitons (+2, -1 etc.)
   elTransVal.textContent = (transpose >= 0 ? '+' : '') + transpose;
+  updateKeyNotice(transposed);
 
   // Gera o .txt (acordes sobre a letra, em texto puro) no tom atual, para download
   const txtFormatter = new ChordSheetJS.ChordsOverWordsFormatter();

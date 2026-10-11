@@ -89,6 +89,16 @@ h3.label, .comment {
   font-weight: normal;
 }
 
+/* Aviso "Fora do tom original" (aparece só quando a cifra está transposta) */
+.key-notice {
+  color: var(--warning-text-emphasis);
+  font-weight: 600;
+}
+
+.key-notice[hidden] {
+  display: none;
+}
+
 .report-error-wrap {
   margin-top: 1.5rem;
   text-align: center;
