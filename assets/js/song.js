@@ -476,6 +476,215 @@ elBtnDlPdf.addEventListener('click', async () => {
   }
 });
 
+// BAIXAR PNG =====================================================================================
+
+// Gera UMA imagem com a cifra inteira (início ao fim), pensada pra colocar em vídeo-aula ou capa.
+// Sem biblioteca extra: a cifra é montada fora da tela numa largura fixa (independente do
+// tamanho do celular), e cada pedaço de texto/fundo é desenhado num <canvas> usando as
+// posições reais medidas pelo navegador. Assim o PNG sai igual ao que aparece no app
+// (tema claro/escuro, cor dos acordes, refrão destacado), só que maior e nítido.
+const PNG_EXPORT = {
+  width:    1920,        // largura do layout em px (1080 = bom pra vídeo vertical e feed)
+  fontSize: 80,          // tamanho da fonte da cifra na imagem (px)
+  padding:  80,          // margem em volta, em px
+  maxScale: 2,           // nitidez: 2 = imagem com o dobro de pixels (2160 px de largura)
+  maxArea:  16000000,    // limite de pixels totais (iOS/Safari falha acima disso)
+  maxSide:  16384        // limite de altura/largura do canvas
+};
+
+const elBtnDlPng = elBtnDlPdf.cloneNode(true);
+elBtnDlPng.id = 'btn-download-png';
+elBtnDlPng.removeAttribute('title');
+{
+  const icon = elBtnDlPng.querySelector('svg');
+  if (icon) {
+    icon.outerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><circle cx="5.2" cy="6" r="1.1" fill="currentColor" stroke="none"/><path d="M2 12.5l3.8-3.8 2.7 2.7 2-2 3.5 3.1"/></svg>';
+  }
+  const label = elBtnDlPng.querySelector('span');
+  if (label) label.textContent = 'Baixar .png';
+}
+elBtnDlPdf.after(elBtnDlPng);
+
+// Desenha um nó de texto linha por linha, usando a posição real de cada caractere
+function pngDrawTextNode(ctx, node, offX, offY) {
+  const el   = node.parentElement;
+  const cs   = getComputedStyle(el);
+  ctx.font         = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  ctx.fillStyle    = cs.color;
+  ctx.textBaseline = 'alphabetic';
+
+  const metrics = ctx.measureText('Mg');
+  const ascent  = metrics.fontBoundingBoxAscent || parseFloat(cs.fontSize) * 0.9;
+  const text    = node.nodeValue;
+  const range   = document.createRange();
+
+  let line = '', lineLeft = 0, lineTop = null;
+  const flush = () => {
+    if (line) ctx.fillText(line, lineLeft - offX, lineTop - offY + ascent);
+    line = '';
+  };
+
+  for (let i = 0; i < text.length; i++) {
+    range.setStart(node, i);
+    range.setEnd(node, i + 1);
+    const rect = range.getClientRects()[0];
+    if (!rect) continue; // espaço "colapsado" pelo navegador (não aparece na tela)
+    if (lineTop === null || Math.abs(rect.top - lineTop) > 2) {
+      flush();
+      lineTop  = rect.top;
+      lineLeft = rect.left;
+    }
+    line += text[i];
+  }
+  flush();
+}
+
+// Fundo (com cantos arredondados) e borda esquerda de um elemento, se tiver
+function pngDrawBox(ctx, el, offX, offY) {
+  const cs   = getComputedStyle(el);
+  const rect = el.getBoundingClientRect();
+  if (!rect.width || !rect.height) return;
+
+  const x = rect.left - offX, y = rect.top - offY;
+  const bg = cs.backgroundColor;
+  const hasBg = bg && bg !== 'transparent' && bg !== 'rgba(0, 0, 0, 0)';
+
+  if (hasBg) {
+    ctx.fillStyle = bg;
+    const r = [
+      parseFloat(cs.borderTopLeftRadius)     || 0,
+      parseFloat(cs.borderTopRightRadius)    || 0,
+      parseFloat(cs.borderBottomRightRadius) || 0,
+      parseFloat(cs.borderBottomLeftRadius)  || 0
+    ];
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, rect.width, rect.height, r);
+    else ctx.rect(x, y, rect.width, rect.height);
+    ctx.fill();
+  }
+
+  const bw = parseFloat(cs.borderLeftWidth) || 0;
+  if (bw > 0 && cs.borderLeftStyle !== 'none') {
+    ctx.fillStyle = cs.borderLeftColor;
+    ctx.fillRect(x, y, bw, rect.height);
+  }
+}
+
+async function renderSheetToPngBlob() {
+  if (document.fonts && document.fonts.ready) await document.fonts.ready;
+
+  // 1. Monta uma cópia da cifra fora da tela, na largura/fonte fixas da exportação
+  const host = document.createElement('div');
+  host.style.cssText =
+    `position:fixed; left:-100000px; top:0; box-sizing:border-box; overflow:visible;` +
+    `width:${PNG_EXPORT.width}px; padding:${PNG_EXPORT.padding}px; background:var(--body-bg);`;
+
+  const clone = elSheet.cloneNode(true);
+  clone.removeAttribute('id');
+  clone.classList.add('chord-sheet');
+  clone.style.fontSize = PNG_EXPORT.fontSize + 'px';
+  clone.style.marginTop = '0';
+
+  // A margem entre seções no CSS está em rem (fixa em 16px), então não acompanha a fonte
+  // da imagem. Em "em" ela escala junto com o texto, mantendo a mesma proporção do app.
+  clone.querySelectorAll('.paragraph').forEach(p => { p.style.marginBottom = '1.5em'; });
+
+  // Tira o que só faz sentido na tela: link de reportar erro e rodapé "ChordSheetJS vX"
+  const report = clone.querySelector('.report-error-wrap');
+  if (report) {
+    if (report.nextElementSibling) report.nextElementSibling.remove();
+    report.remove();
+  }
+
+  // Linha com artista e tom, logo abaixo do título
+  const meta   = (song && song.metadata) || {};
+  const artist = meta.artist || artistParam || '';
+  const parts  = [];
+  if (artist) parts.push(artist);
+  if (transpose !== 0) parts.push(`Transposta ${transpose > 0 ? '+' : ''}${transpose}`);
+  else if (meta.key)   parts.push(`Tom: ${meta.key}`);
+  if (parts.length) {
+    const info = document.createElement('div');
+    info.textContent = parts.join('  •  ');
+    info.style.cssText = 'font-size:0.8em; margin:0.35em 0 1.25em 0; color:var(--info-text-emphasis);';
+    const anchor = clone.querySelector('h2.subtitle') || clone.querySelector('h1.title');
+    if (anchor) anchor.after(info); else clone.prepend(info);
+  }
+
+  host.appendChild(clone);
+  document.body.appendChild(host);
+
+  try {
+    // 2. Mede o tamanho final e escolhe a nitidez que cabe nos limites do navegador
+    const hostRect = host.getBoundingClientRect();
+    const W = Math.ceil(Math.max(hostRect.width, host.scrollWidth));
+    const H = Math.ceil(Math.max(hostRect.height, host.scrollHeight));
+
+    const scale = Math.max(0.5, Math.min(
+      PNG_EXPORT.maxScale,
+      Math.sqrt(PNG_EXPORT.maxArea / (W * H)),
+      PNG_EXPORT.maxSide / H,
+      PNG_EXPORT.maxSide / W
+    ));
+
+    const canvas = document.createElement('canvas');
+    canvas.width  = Math.round(W * scale);
+    canvas.height = Math.round(H * scale);
+    const ctx = canvas.getContext('2d');
+    ctx.scale(scale, scale);
+
+    ctx.fillStyle = getComputedStyle(host).backgroundColor || '#fff';
+    ctx.fillRect(0, 0, W, H);
+
+    // 3. Percorre os elementos na ordem do DOM: primeiro o fundo, depois o texto de cada um
+    const offX = hostRect.left, offY = hostRect.top;
+    const all  = [clone, ...clone.querySelectorAll('*')];
+    for (const el of all) {
+      pngDrawBox(ctx, el, offX, offY);
+      for (const node of el.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim()) {
+          pngDrawTextNode(ctx, node, offX, offY);
+        }
+      }
+    }
+
+    return await new Promise((resolve, reject) => {
+      canvas.toBlob(b => b ? resolve(b) : reject(new Error('toBlob falhou')), 'image/png');
+    });
+  } finally {
+    host.remove();
+  }
+}
+
+elBtnDlPng.addEventListener('click', async () => {
+  if (!song) return;
+
+  const label = elBtnDlPng.querySelector('span');
+  const originalLabel = label ? label.textContent : '';
+  if (label) label.textContent = 'Gerando PNG…';
+  elBtnDlPng.disabled = true;
+
+  try {
+    const blob = await renderSheetToPngBlob();
+    const url  = URL.createObjectURL(blob);
+
+    const transSuffix = transpose !== 0 ? `_${transpose >= 0 ? '+' : ''}${transpose}` : '';
+    const a = document.createElement('a');
+    a.href     = url;
+    a.download = `${baseFilename()}${transSuffix}.png`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+  } catch (e) {
+    console.warn('Falha ao gerar PNG', e);
+    alert('Não foi possível gerar a imagem. Tente novamente.');
+  } finally {
+    if (label) label.textContent = originalLabel;
+    elBtnDlPng.disabled = false;
+  }
+});
+
 // MENU DROPDOWN (⋮) ==============================================================================
 
 elBtnMenu.addEventListener('click', (e) => {
