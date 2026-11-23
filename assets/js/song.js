@@ -336,9 +336,9 @@ function renderSheet() {
           
           // Trata apenas as qualidades/extensões
           suffixStr = suffixStr
-            .replace(/ma7/gi, '7M')
-            .replace(/M7/gi, '7M')
-            .replace(/\+/gi, 'aug');
+          //.replace(/\+/gi, 'aug')
+            .replace(/ma7/gi, 'Δ7')
+            .replace(/7M/gi, 'Δ7');
 
           // Montagem manual higienizada
           let html = escapeHtml(rootStr);

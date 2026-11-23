@@ -80,7 +80,8 @@
   );
   const ACC  = { b: '♭', '#': '♯' };
   const QUAL = { o: '°', h: 'ø', '+': '⁺' };
-  const FIG1 = { '7': '⁷', '6': '⁶', 'M7': 'ᴹ⁷' };
+  const QUALCLASS = { o: 'dim', h: 'half', '+': 'aug' };
+  const FIG1 = { '7': '⁷', '6': '⁶', 'M7': 'Δ⁷' }; // 'ᴹ⁷' };
 
   // Devolve { acc, numeral, quality, figured, target:{acc,numeral}|null } ou null se inválida
   function parse(raw) {
@@ -104,7 +105,7 @@
     let h = '<span class="an">';
     if (a.acc) h += '<span class="an-acc">' + ACC[a.acc] + '</span>';
     h += '<span class="an-num">' + a.numeral + '</span>';
-    if (a.quality) h += '<span class="an-q">' + QUAL[a.quality] + '</span>';
+    if (a.quality) h += '<span class="an-q an-q-' + QUALCLASS[a.quality] + '">' + QUAL[a.quality] + '</span>';
     if (a.figured) {
       if (FIG1[a.figured]) h += '<span class="an-fig">' + FIG1[a.figured] + '</span>';
       else {
