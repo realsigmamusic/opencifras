@@ -2,13 +2,15 @@
 
 const fs = require('fs');
 const path = require('path');
+const ChordAnalysis = require('./assets/js/analysis.js');
 
 const SONGS_DIR = path.join(__dirname, 'songs');
 const OUTPUT_FILE = path.join(__dirname, 'songs.json');
 
 // Parse ChordPro metadata e letra
 function parseChordProFile(filePath) {
-  const content = fs.readFileSync(filePath, 'utf-8');
+  // Remove a análise harmônica ([G7*V7] -> [G7]) antes de contar acordes e extrair a letra
+  const content = ChordAnalysis.split(fs.readFileSync(filePath, 'utf-8')).text;
   const lines = content.split('\n');
 
   const metadata = {};

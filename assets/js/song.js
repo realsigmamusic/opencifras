@@ -9,6 +9,7 @@ const elErrorText     = document.getElementById('error-text');
 const elBtnDown       = document.getElementById('btn-down');
 const elBtnUp         = document.getElementById('btn-up');
 const elBtnFavorite   = document.getElementById('btn-favorite');
+const elAnalysisSelect = document.getElementById('analysis-select'); // seletor em Configurações
 const elBtnShare      = document.getElementById('btn-share');
 const elBtnMenu       = document.getElementById('btn-menu');
 const elDropdownMenu  = document.getElementById('dropdown-menu');
@@ -44,6 +45,8 @@ let transposeParam; // transposição inicial (vem da URL, se compartilhada com 
 let TRANS_KEY;      // chave no localStorage para salvar a transposição desta música
 
 let song              = null; // objeto da música parseado pelo ChordSheetJS
+let analysisMode      = 'off'; // 'off' | 'replace' | 'line' (preferência global, só vale se a música tiver análise)
+let songAnalyses      = null; // análises por ordem de colchete (null = sem análise ou contagem não bateu)
 let currentSongText   = null; // texto ChordPro bruto da cifra atual (usado ao criar cópia local de músicas oficiais)
 let currentChoBlobUrl = null; // URL do blob do .cho original, para revogar antes de criar um novo
 let currentTxtBlobUrl = null; // URL do blob do .txt gerado, para revogar antes de criar um novo
@@ -273,6 +276,18 @@ function renderSheet() {
     });
   });
 
+  // 1b. Análise de cada elemento, alinhada a originalChords: a lista de análises é por ordem
+  // de colchete, e pares sem acorde (só letra) não têm colchete, então não consomem análise.
+  const analysisByIndex = [];
+  let bracketIdx = 0;
+  originalChords.forEach(c => {
+    const has = c && String(c).trim() !== '';
+    analysisByIndex.push(has && songAnalyses ? songAnalyses[bracketIdx] : null);
+    if (has) bracketIdx++;
+  });
+  const showAnalysis = analysisMode === 'replace' && hasAnyAnalysis();
+  const showLine     = analysisMode === 'line'    && hasAnyAnalysis();
+
   // 2. Sincroniza o array de acordes limpos com os elementos do DOM
   const TOKEN_SELECTOR = '.chord, .rhythm-symbol, .barline, .instruction, .no-chord';
 
@@ -281,6 +296,30 @@ function renderSheet() {
 
     const rawChord = originalChords[index];
     if (!rawChord || rawChord.trim() === '') return;
+
+    // Modo "linha extra": acorde, letra e, por último, a análise (o preenchimento das
+    // colunas vizinhas é feito depois do laço)
+    if (showLine) {
+      const a = analysisByIndex[index];
+      const line = document.createElement('div');
+      line.className = 'analysis-line';
+      if (a) line.innerHTML = window.ChordAnalysis.toHtml(a.raw);
+      const col = el.parentElement;
+      const lyr = col && col.querySelector(':scope > .lyrics');
+      if (lyr) lyr.after(line); else el.after(line);
+    }
+
+    // Modo "substituir": no lugar do acorde entra a análise; sem análise, o acorde
+    // original continua, em cor apagada (D1-A: o layout não "pula" ao alternar)
+    if (showAnalysis) {
+      const a = analysisByIndex[index];
+      if (a) {
+        el.innerHTML = window.ChordAnalysis.toHtml(a.raw);
+        el.classList.add('chord-analysis');
+        return;
+      }
+      el.classList.add('chord-dim');
+    }
 
     try {
         // Separa internamente usando o parser da biblioteca
@@ -324,6 +363,24 @@ function renderSheet() {
       el.innerHTML = escapeHtml(rawChord.trim());
     }
   });
+
+  // Modo "linha extra": nas linhas que receberam ao menos uma análise, as outras colunas
+  // ganham uma linha vazia do mesmo tamanho, e a letra vazia (que o CSS esconde) volta a
+  // ocupar espaço, para a análise ficar sempre na mesma altura
+  if (showLine) {
+    elSheet.querySelectorAll('.row').forEach(row => {
+      if (!row.querySelector('.analysis-line')) return;
+      const cols = row.querySelectorAll(':scope > .column');
+      const hasLyrics = [...row.querySelectorAll('.lyrics')].some(l => l.textContent.trim() !== '');
+      if (hasLyrics) row.classList.add('analysis-row');
+      cols.forEach(col => {
+        if (col.querySelector('.analysis-line')) return;
+        const pad = document.createElement('div');
+        pad.className = 'analysis-line';
+        col.appendChild(pad);
+      });
+    });
+  }
 
   // Atualiza o contador de semitons (+2, -1 etc.)
   elTransVal.textContent = (transpose >= 0 ? '+' : '') + transpose;
@@ -805,6 +862,35 @@ function fetchSongText(url) {
   });
 }
 
+// ANÁLISE HARMÔNICA ==============================================================================
+const ANALYSIS_KEY = 'chordsheets_analysis_on';
+
+// A música tem ao menos uma análise e a contagem de colchetes bateu?
+function hasAnyAnalysis() {
+  return !!songAnalyses && songAnalyses.some(a => a);
+}
+
+const ANALYSIS_MODES = ['off', 'replace', 'line'];
+function loadAnalysisPref() {
+  analysisMode = 'off';
+  try {
+    const v = localStorage.getItem(ANALYSIS_KEY);
+    if (v === '1') analysisMode = 'replace';          // valor antigo (liga/desliga)
+    else if (ANALYSIS_MODES.includes(v)) analysisMode = v;
+  } catch (e) {}
+  if (elAnalysisSelect) elAnalysisSelect.value = analysisMode;
+}
+
+// O seletor fica em Configurações. Vale para todas as músicas; em cifras sem análise
+// (ou com a contagem de colchetes errada) nada muda na tela.
+if (elAnalysisSelect) {
+  elAnalysisSelect.addEventListener('change', () => {
+    analysisMode = ANALYSIS_MODES.includes(elAnalysisSelect.value) ? elAnalysisSelect.value : 'off';
+    try { localStorage.setItem(ANALYSIS_KEY, analysisMode); } catch (e) {}
+    renderSheet();
+  });
+}
+
 // Carrega e renderiza a cifra indicada na URL (?file=...)
 function initSong() {
   updateStateFromUrl();
@@ -813,6 +899,7 @@ function initSong() {
   document.title = titleParam;
   loadFontPref();
   loadTransposePref();
+  loadAnalysisPref();
   updateFavoriteUI();
 
   fetchSongText(fileUrl)
@@ -822,7 +909,12 @@ function initSong() {
 
       // Faz o parse do formato ChordPro (.cho) para um objeto JS
       const parser = new ChordSheetJS.ChordProParser();
-      song = parser.parse(text);
+      // Separa a análise harmônica ([G7*V7]) do acorde: a biblioteca só vê [G7].
+      // currentSongText/.cho continuam com o texto original, análise inclusa.
+      const split = window.ChordAnalysis.split(text);
+      song = parser.parse(split.text);
+      // Fase 2+: análise por ordem de colchete; só vale se a contagem bater com o parse
+      songAnalyses = window.ChordAnalysis.matches(song, split) ? split.analyses : null;
 
       renderMetadata(song);
 

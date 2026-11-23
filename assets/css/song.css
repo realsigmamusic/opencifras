@@ -54,6 +54,8 @@ h3.label, .comment {
   flex-direction: column;
 }
 
+.row:has(.analysis-line) .column { margin-bottom: 1rem; }
+
 .chord {
   min-height: calc(1em + 0.75em);
   padding-right: 0.5em;
@@ -148,3 +150,28 @@ h3.label, .comment {
   font-weight: bold;
   margin-bottom: -0.5em;
 }
+/* ===== Análise harmônica (símbolos são texto real; só o empilhado usa layout) ===== */
+.an { font-family: "Times New Roman", "Noto Serif", Georgia, serif; font-weight: 600; white-space: nowrap; display: inline-flex; align-items: baseline; line-height: 1; }
+.an-acc  { font-size: .8em; margin: 0; }
+.an-q    { font-size: 1.25em; }
+.an-fig  { font-size: .9em; position: relative; top: -.25em; margin-left: .1em; }
+.an-slash { margin: 0 .05em; opacity: 1; }
+.an-stack { display: inline-flex; flex-direction: column; align-items: center; font-size: .55em; line-height: 1; position: relative; top: -1em; margin-left: .25em; }
+.an-invalid { font-family: monospace; font-weight: 400; color: #b45309; background: rgba(245,158,11,.18); border: 1px dashed #d97706; border-radius: 3px; padding: 0 .25em; }
+
+/* Modo de análise: "substituir" */
+.chord.chord-analysis { font-weight: 600; }
+.chord.chord-dim { opacity: .35; font-weight: normal; }
+
+/* Modo de análise: "linha extra" (fica abaixo da letra) */
+.analysis-line {
+  min-height: 1.3em;
+  height: 1.3em;
+  padding-right: 0.5em;
+  margin-bottom: 0.3em;
+  color: var(--chord-color);
+  opacity: .85;
+  font-size: .92em;
+  white-space: nowrap;
+}
+.chord-sheet .row.analysis-row .lyrics:empty { display: block; }

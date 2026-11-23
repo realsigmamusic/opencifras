@@ -58,7 +58,7 @@ window.LocalSongs = (function () {
       isLocal: true
     };
     try {
-      const song = new ChordSheetJS.ChordProParser().parse(raw.content || '');
+      const song = new ChordSheetJS.ChordProParser().parse(window.ChordAnalysis.split(raw.content || '').text);
       const meta = song.metadata || {};
       return Object.assign(base, {
         title: (meta.title && String(meta.title).trim()) || 'Sem título',

@@ -95,6 +95,7 @@
           </svg>
         </button>
 
+
         <button id="btn-favorite" class="btn-toolbar" title="Favoritar">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
@@ -377,6 +378,15 @@
             </select>
           </div>
           <div class="config-group">
+            <h3>Análise harmônica</h3>
+            <p>Mostra a análise (graus e inversões) nas cifras que a trazem, escrita como <code>[G7*V7]</code>. Em "Linha extra", ela aparece abaixo da letra.</p>
+            <select id="analysis-select">
+              <option value="off">Desligada</option>
+              <option value="replace">No lugar dos acordes</option>
+              <option value="line">Linha extra, abaixo da letra</option>
+            </select>
+          </div>
+          <div class="config-group">
             <h3>OpenCifras <span id="opencifras-version"></span></h3>
             <p>Aplicativo de cifras no formato ChordPro, offline, sem anúncios e sem cadastro.</p>
             <a href="https://github.com/realsigmamusic/opencifras" target="_blank" class="config-link">
@@ -441,6 +451,7 @@
   <script src="./assets/vendor/fuse.min.js"></script>
   <script src="./assets/vendor/chordsheetjs.min.js"></script>
   <script src="./assets/vendor/chordsymbol.min.js"></script>
+  <script src="./assets/js/analysis.js"></script>
   <script src="./assets/js/local-songs.js"></script>
   <script src="./assets/js/app.js"></script>
   <script src="./assets/js/song.js"></script>
