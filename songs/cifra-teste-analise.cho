@@ -1,0 +1,35 @@
+{title: Cifra de Teste - Análise Harmônica}
+{artist: OpenCifras (exemplo)}
+{key: C}
+{time: 4/4}
+{tempo: 80}
+
+{comment: Intro - marcadores de compasso (não recebem análise)}
+[|] [C*I] [|] [Am*vi] [|] [Dm*ii] [|] [G7*V7] [|]
+
+{comment: Verso 1 - diatônico e inversões}
+Pas[C*I]so a [C/E*I6]passo, [F*IV]sem [C/G*I6,4]pressa, [G7*V7]sigo [C*I]aqui
+Ca[Am*vi]da dia [Em*iii]traz [F*IV]um [C/E*I6]novo [Dm7*ii7]ar e [G7/B*V6,5]luz [C*I]
+[C*I]Vem [G7/D*V4,3]ver, [C*I]vem [G7/F*V4,2]ser [C/E*I6]sem [F/A*IV6]medo [G*V]
+
+{start_of_chorus}
+{comment: Refrão - dominantes secundários}
+[C*I]Eu [A7*V7/ii]vou ao [Dm*ii]centro, [D7*V7/V]sigo ao [G*V]fim
+[E7*V7/vi]Volto ao [Am*vi]lar, [C7*V7/IV]peço um [F*IV]tom
+[B7*V7/iii]Sou da [Em*iii]paz, [D*V/V]canto e [F#dim7*viio7/V]sigo, [G*V]sim
+{end_of_chorus}
+
+{comment: Ponte - empréstimo modal e alterados}
+[F*IV]Chega a [Fm*iv]sombra, [C*I]passa, [Ab*bVI]quase [Bb*bVII]toda [C*I]dor
+[Dm7b5*iih7]Fica [G7*V7]a [C*I]paz
+[Db*bII]Passa [G+*V+]rápido, [Bm7b5*viih7]depois [Bdim7*viio7]volta [C*I]a si
+
+{comment: Repetição do refrão}
+{chorus}
+
+{comment: Casos de erro e limites - devem se comportar como descrito na especificação}
+Sem análise: [Am]acorde [F]comum [G]aqui
+Análise inválida: [G7*Vx9]texto [C*ii7,6,5]cru
+Análise vazia: [C*]trecho
+Dois asteriscos: [C*I*V]trecho
+Letra livre: [C*I]sem [|]barra [%]repete [N.C.]pausa

@@ -7,72 +7,72 @@
 {tempo: 120}
 
 {start_of_part: Intro}
-[|][G][|][%][|][%][|][%][|]
-[|][G][|][Ab][Bb][Ab][|][G][|][%][|][%][|]
+[|][G*I][|][%][|][%][|][%][|]
+[|][G*I][|][Ab*bII][Bb*bIII][Ab*bII][|][G*I][|][%][|][%][|]
 {end_of_part}
 
 {start_of_part: Solo}
-[|][G][|][C][C#dim][|][G][E7+][E7][|][A7][D7][|]
-[|][G][Bb7M][|][Eb7M][D7][|]
+[|][G*I][|][C*IV][C#dim*viio/V][|][G*I][E7+*V+7/ii][E7*V7/ii][|][A7*V7/V][D7*V7][|]
+[|][G*I][Bb7M*bIIIM7][|][Eb7M*bVIM7][D7*V7][|]
 {end_of_part}
 
 {start_of_verse: Verse}
-[G]Eia, salvos avançai,
-[G]nada de te[D7]mer
-[Am7]Vamos firmes [D7]batalhar,
-[Am7]prontos [D7]pra ven[G]cer[G#dim][Am7][D7]
-[G]Vai conosco o General,
-[G7]nosso bom Je[C]sus
-[C#dim]Ele nos da[G]rá vi[E7+]tó  [E7]ria
-[A7]pe [D7]la [G]cruz
+[G*I]Eia, salvos avançai,
+[G*I]nada de te[D7*V7]mer
+[Am7*ii7]Vamos firmes [D7*V7]batalhar,
+[Am7*ii7]prontos [D7*V7]pra ven[G*I]cer[G#dim*viio/ii][Am7*ii7][D7*V7]
+[G*I]Vai conosco o General,
+[G7*V7/IV]nosso bom Je[C*IV]sus
+[C#dim*viio/V]Ele nos da[G*I]rá vi[E7+*V+7/ii]tó  [E7*V7/ii]ria
+[A7*V7/V]pe [D7*V7]la [G*I]cruz
 {end_of_verse}
 
 {start_of_chorus: Chorus}
-Avante, [B7]pois, e sem pa[Em7]rar,
-o Evan[B7]gelho anunci[Em7]ai
-O Evan[A7]gelho Quadrangu[D]lar
-de Deus, o [A7]nos[Bm7]so e[A/C#]terno [D]Pai
-Pois Cristo [G]salva o pecador
-para que [Em7]seja um [A7]bom cris[D]tão
-Cura tam[Am7]bém a sua [D7]dor,
-qualquer do[Am7]en  [Bm7]ça e [C]a [D7]fli[G]ção
-Com seu po[G]der quer batizar,
-do céu vi[G7]rá pra nos le[C]var.
-[C#dim]E, com ele, nós ha[G]vemos [E7+]sem [E7]pre
-[A7]de [D7]rei[G]nar
+Avante, [B7*V7/vi]pois, e sem pa[Em7*vi7]rar,
+o Evan[B7*V7/vi]gelho anunci[Em7*vi7]ai
+O Evan[A7*V7/V]gelho Quadrangu[D*V]lar
+de Deus, o [A7*V7/V]nos[Bm7*iii7]so e[A/C#*V6/V]terno [D*V]Pai
+Pois Cristo [G*I]salva o pecador
+para que [Em7*vi7]seja um [A7*V7/V]bom cris[D*V]tão
+Cura tam[Am7*ii7]bém a sua [D7*V7]dor,
+qualquer do[Am7*ii7]en  [Bm7*iii7]ça e [C*IV]a [D7*V7]fli[G*I]ção
+Com seu po[G*I]der quer batizar,
+do céu vi[G7*V7/IV]rá pra nos le[C*IV]var.
+[C#dim*viio/V]E, com ele, nós ha[G*I]vemos [E7+*V+7/ii]sem [E7*V7/ii]pre
+[A7*V7/V]de [D7*V7]rei[G*I]nar
 {end_of_chorus}
 
 {start_of_part: Solo}
-[|][G][Bb7M][|][Eb7M][D7][|]
+[|][G*I][Bb7M*bIIIM7][|][Eb7M*bVIM7][D7*V7][|]
 {end_of_part}
 
 {start_of_verse: Verse}
-[G]Vamos templos levantar
-[G]por todo o Bra[D7]sil
-[Am7]A pregar, sem [D7]descansar,
-[Am7]nosso [D7]Rei gen[G]til[G#dim][Am7][D7]
-[G]Vamos missionários ser,
-[G7]todos, todos [C]nós
-[C#dim]Transmitindo [G]com pra[E7+]zer [E7]de
-[A7]Deus [D7]a  [G]voz
+[G*I]Vamos templos levantar
+[G*I]por todo o Bra[D7*V7]sil
+[Am7*ii7]A pregar, sem [D7*V7]descansar,
+[Am7*ii7]nosso [D7*V7]Rei gen[G*I]til[G#dim*viio/ii][Am7*ii7][D7*V7]
+[G*I]Vamos missionários ser,
+[G7*V7/IV]todos, todos [C*IV]nós
+[C#dim*viio/V]Transmitindo [G*I]com pra[E7+*V+7/ii]zer [E7*V7/ii]de
+[A7*V7/V]Deus [D7*V7]a  [G*I]voz
 {end_of_verse}
 
 {start_of_chorus: Chorus}
-Avante, [B7]pois, e sem pa[Em7]rar,
-o Evan[B7]gelho anunci[Em7]ai
-O Evan[A7]gelho Quadrangu[D]lar
-de Deus, o [A7]nos[Bm7]so e[A/C#]terno [D]Pai
-Pois Cristo [G]salva o pecador
-para que [Em7]seja um [A7]bom cris[D]tão
-Cura tam[Am7]bém a sua [D7]dor,
-qualquer do[Am7]en  [Bm7]ça e [C]a [D7]fli[G]ção
-Com seu po[G]der quer batizar,
-do céu vi[G7]rá pra nos le[C]var.
-[C#dim]E, com ele, nós ha[G]vemos [E7+]sem [E7]pre
-[A7]de [D7]rei[G]nar
+Avante, [B7*V7/vi]pois, e sem pa[Em7*vi7]rar,
+o Evan[B7*V7/vi]gelho anunci[Em7*vi7]ai
+O Evan[A7*V7/V]gelho Quadrangu[D*V]lar
+de Deus, o [A7*V7/V]nos[Bm7*iii7]so e[A/C#*V6/V]terno [D*V]Pai
+Pois Cristo [G*I]salva o pecador
+para que [Em7*vi7]seja um [A7*V7/V]bom cris[D*V]tão
+Cura tam[Am7*ii7]bém a sua [D7*V7]dor,
+qualquer do[Am7*ii7]en  [Bm7*iii7]ça e [C*IV]a [D7*V7]fli[G*I]ção
+Com seu po[G*I]der quer batizar,
+do céu vi[G7*V7/IV]rá pra nos le[C*IV]var.
+[C#dim*viio/V]E, com ele, nós ha[G*I]vemos [E7+*V+7/ii]sem [E7*V7/ii]pre
+[A7*V7/V]de [D7*V7]rei[G*I]nar
 {end_of_chorus}
 
 {start_of_part: End}
-[C]E, com [C#dim]ele, nós ha[G]vemos [E7+]sem [E7]pre
-[A7]de [D7]rei[G]nar[C][G][D][G]
+[C*IV]E, com [C#dim*viio/V]ele, nós ha[G*I]vemos [E7+*V+7/ii]sem [E7*V7/ii]pre
+[A7*V7/V]de [D7*V7]rei[G*I]nar[C*IV][G*I][D*V][G*I]
 {end_of_part}
