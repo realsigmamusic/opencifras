@@ -24,6 +24,7 @@ Projetado especificamente para músicos de palco e ministérios de louvor, o apl
 * **PWA com Cache Resiliente:** O Service Worker pré-cacheia cada arquivo `.cho` individualmente (não tudo-ou-nada), então uma música com erro de rede não impede as demais de ficarem disponíveis offline.
 * **UI Dinâmica e Altamente Personalizável:** Interface limpa construída com variáveis CSS nativas (`:root`). Além do suporte automático a **Modo Claro e Modo Escuro** via sistema, o painel de configurações permite alternar manualmente o tema, selecionar a **família de fontes da cifra** (Sem serifa, Com serifa, Monospaçada — aplicada só ao texto da música, sem alterar a fonte do restante da interface) e escolher uma **cor de destaque personalizada para os acordes** (Azul, Verde, Laranja, Vermelho, Roxo) que se adapta de forma inteligente e dinâmica ao fundo claro ou escuro.
 * **Carrossel de Banners Dinâmicos:** A tela inicial apresenta um carrossel de banners deslizante (com autoplay e botão de fechar) para veiculação de anúncios, avisos importantes ou parceiros. Ele é facilmente configurável via arquivo `app.js` sem necessidade de mexer no HTML estrutural.
+* **Análise Harmônica (Graus e Inversões):** O autor da cifra escreve a análise dentro do próprio colchete, depois de um `*` (ex.: `[G7*V7]`), e o músico escolhe em **Configurações** como vê-la: **Desligada**, **No lugar dos acordes** ou em uma **Linha extra, abaixo da letra**. A análise é relativa ao tom (não precisa ser transposta) e cifras sem análise continuam funcionando normalmente. Veja a seção [Análise Harmônica](#análise-harmônica).
 * **Cifras Próprias (Importar/Criar/Editar):** O botão **+** no menu inferior abre um editor para colar, digitar ou importar um arquivo `.cho` do aparelho. Essas cifras ficam salvas só no `localStorage` do dispositivo e aparecem misturadas ao restante do acervo (busca, Home, artistas, favoritos), com um selo **Local** discreto no card. Também é possível clicar em **Editar cifra** em qualquer música do acervo oficial: o app cria automaticamente uma cópia local editável (sem alterar o arquivo original do repositório) e já abre o editor nela.
 
 ---
@@ -54,7 +55,14 @@ O acervo de músicas é armazenado em formato de texto puro `.cho` dentro da est
 
 O resultado é escrito em `songs.json`, consumido pelo app no navegador.
 
-Sempre que o catálogo for atualizado, basta rodar `node build.js` and fazer o `git push` para atualizar o GitHub Pages automaticamente.
+#### rode o build
+```bash
+npm run build
+```
+
+> Sempre que adicionar, editar ou remover uma cifra em `songs/` (ou mexer na análise harmônica), rode `npm run build` para regenerar o `songs.json`. 
+>
+> `npm run build` é um atalho para `node build.js`; não precisa de `npm install`, pois o script só usa módulos nativos do Node.js.
 
 ### Cifras Locais (do usuário)
 
@@ -62,21 +70,69 @@ Além do acervo oficial em `songs.json`, o app mantém no navegador um segundo c
 
 ---
 
+## Análise Harmônica
+
+O recurso mostra o **grau** de cada acorde (algarismos romanos, inversões e dominantes secundários) sem alterar o acorde nem a transposição. A análise vai dentro do colchete, depois de um `*`:
+
+```
+[C*I]Eu canto [G7*V7]a ti, [C/E*I6]Senhor
+```
+
+Um pré-processador (`assets/js/analysis.js`) separa a análise do acorde **antes** de o texto chegar ao ChordSheetJS, que só vê `[G7]` e transpõe normalmente. A análise é guardada à parte, por ordem de colchete.
+
+### Modos de exibição (Configurações → Análise harmônica)
+
+* **Desligada:** só os acordes (padrão).
+* **No lugar dos acordes:** a análise substitui o acorde. Acordes sem análise continuam visíveis em cor apagada, para o layout não "pular" ao alternar.
+* **Linha extra, abaixo da letra:** acorde, letra e, por último, a análise.
+
+A preferência vale para todas as músicas e fica salva no aparelho. O modo só atua em cifras que tenham ao menos uma análise.
+
+### Sintaxe
+
+Estrutura, nesta ordem: `acidente?` `numeral` `qualidade?` `figurado?` `/alvo?`. Exemplo completo: `bvii` + `o` + `7` + `/V`.
+
+| Parte | Digitação | Aparece como |
+|---|---|---|
+| Acidente | `b` · `#` | ♭ · ♯ |
+| Numeral maior / menor | `I`…`VII` / `i`…`vii` (a caixa é significativa) | I…VII / i…vii |
+| Qualidade | `o` (diminuto) · `h` (meio-diminuto) · `+` (aumentado) | ° · ø · ⁺ |
+| Figurado | `7` · `6` · `M7` | ⁷ · ⁶ · ᴹ⁷ |
+| Figurado (inversões) | `6,4` · `6,5` · `4,3` · `4,2` | dois números empilhados |
+| Alvo (dominante secundário) | `/` + numeral, com acidente opcional | `V7/IV` → V⁷/IV |
+
+Exemplos: `I`, `ii7`, `V7`, `IM7`, `I6,4`, `V4,2`, `V7/IV`, `viio7/V`, `bVII`, `iih7`, `V+`.
+
+### Regras importantes
+
+* O lado esquerdo do `*` precisa ser um acorde (começar com nota de A a G). Marcadores como `[|]`, `[%]`, `[N.C.]` e a anotação oficial do ChordPro `[*I]` não são tocados.
+* Análise vazia (`[C*]`) é ignorada em silêncio.
+* Análise com erro de sintaxe **nunca quebra a tela**: o acorde funciona normalmente e, no modo de análise, o texto cru aparece com destaque de aviso.
+* Depois do parse, o app confere se o número de colchetes bate com o de pares com acorde. Se não bater, o modo de análise se desliga sozinho para aquela música, em vez de mostrar a análise no acorde errado.
+* Os símbolos (♭ ♯ ° ø ⁺) são caracteres de texto reais, para a exportação em PNG funcionar.
+* A análise **não** é incluída nas exportações `.txt` e `.pdf`; o `.cho` exportado mantém o texto original, análise inclusa.
+* No escopo atual: um tom por música, sem modulação nem acorde pivô. Rótulo de tonalidade, napolitana, sextas aumentadas e extensões de cifra (9, 11, 13, sus4, add9) ficam para depois.
+
+---
+
 ## Organização do Projeto
 
 * `index.html`: Ponto de entrada único do aplicativo (SPA). Alterna entre a Home (busca, artistas, favoritos) e a tela da cifra via parâmetro `?file=` na URL, sem recarregar a página. Contém também o editor de cifras (`#cho-editor-overlay`) e o novo modal dinâmico de configurações (`#settings-overlay`).
-* `build.js`: Script Node.js que varre `songs/`, faz o parse dos arquivos `.cho` e gera o `songs.json`.
+* `build.js`: Script Node.js que varre `songs/`, faz o parse dos arquivos `.cho` e gera o `songs.json`. Rode com `npm run build`. Remove a análise harmônica do texto antes de contar acordes e extrair a letra.
+* `assets/js/analysis.js`: Pré-processador e renderizador da análise harmônica (módulo UMD, usado no navegador e no Node). Separa `[G7*V7]` em acorde + análise, valida a sintaxe e gera o HTML dos símbolos. Compartilhado por `song.js`, `local-songs.js` e `build.js`.
 * `sw.js`: Service worker focado no isolamento e persistência offline dos assets e das cifras.
 * `songs.json`: Índice estruturado de metadados de todo o acervo oficial (título, artista, time/compasso, letra, `chordCount`, `mtime`), gerado pelo `build.js`.
 * `assets/js/local-songs.js`: Camada de armazenamento das cifras locais (`localStorage`) — ler, salvar, excluir e converter uma cifra local no mesmo formato de catálogo usado pelas músicas do `songs.json`. Compartilhada entre `app.js` e `song.js`.
 * `assets/js/app.js`: Inteligência da tela inicial — busca fuzzy, filtros combinados (acordes e fórmula de compasso), favoritos, listagem de artistas, carrossel de banners da Home, e o gerenciador global de preferências (tema, fonte da cifra, cor dos acordes) integrado ao modal de configurações.
-* `assets/js/song.js`: Motor de renderização da cifra — transposição resiliente com atualização da URL, ajuste de escala da fonte, download da cifra nos formatos `.cho`, `.txt` (transposta) e `.pdf` (geração client-side assíncrona sob demanda), rolagem automática com controle de velocidade (slider que aparece só enquanto a rolagem está ativa), e botão **Editar cifra**.
+* `assets/js/song.js`: Motor de renderização da cifra — transposição resiliente com atualização da URL, ajuste de escala da fonte, download da cifra nos formatos `.cho`, `.txt` (transposta) e `.pdf` (geração client-side assíncrona sob demanda), rolagem automática com controle de velocidade (slider que aparece só enquanto a rolagem está ativa), botão **Editar cifra**, e os modos de exibição da análise harmônica (no lugar dos acordes ou em linha extra).
 * `assets/css/`: Folhas de estilo divididas (`style.css` para a estrutura global, componentes de UI, carrossel de banners e modais; `song.css` para o comportamento e design visual dos acordes).
 * `songs/`: Acervo de cifras em texto puro, no formato `.cho` (ChordPro).
 
 ---
 
 ## Execução Local
+
+> Alterou cifras em `songs/`? Rode `npm run build` antes de testar ou publicar.
 
 Como o projeto faz requisições locais (`Fetch API`) para carregar o `songs.json` e os arquivos `.cho`, o navegador bloqueará o funcionamento se você abrir o `index.html` clicando duas vezes (Erro de CORS). É necessário rodar um servidor local simples:
 
