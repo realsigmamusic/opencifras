@@ -151,16 +151,70 @@ h3.label, .comment {
   margin-bottom: -0.5em;
 }
 /* ===== Análise harmônica (símbolos são texto real; só o empilhado usa layout) ===== */
-.an { font-family: "Times New Roman", "Noto Serif", Georgia, serif; font-weight: 600; white-space: nowrap; display: inline-flex; align-items: baseline; line-height: 1; }
-.an-acc  { font-size: .8em; margin: 0; }
+.an { 
+  font-family: "Times New Roman", "Noto Serif", Georgia, serif; font-weight: 600; 
+  white-space: nowrap; 
+  display: inline-flex; 
+  align-items: baseline; 
+  line-height: 1; 
+}
+
+.an-acc { 
+  font-size: .8em; 
+  margin: 0; 
+}
+
 /* Qualidade (°, ø, ⁺): line-height 0 para o símbolo não aumentar a caixa de linha e empurrar o numeral para baixo */
-.an-q    { line-height: 0; position: relative; }
-.an-q-dim  { font-size: 1.3em; top: .08em; }  /* ° */
-.an-q-half { font-size: .8em; top: -.6em;}    /* ø */
-.an-fig  { font-size: .9em; line-height: 0; position: relative; top: -.25em; margin-left: .1em; }
-.an-slash { margin: 0 .05em; opacity: 1; }
-.an-stack { display: inline-flex; flex-direction: column; align-items: center; font-size: .55em; line-height: 1; position: relative; top: -1em; margin-left: .25em; }
-.an-invalid { font-family: monospace; font-weight: 400; color: #b45309; background: rgba(245,158,11,.18); border: 1px dashed #d97706; border-radius: 3px; padding: 0 .25em; }
+.an-q { 
+  line-height: 0; 
+  position: relative; 
+}
+
+/* ° */
+.an-q-dim { 
+  font-size: 1.3em; 
+  top: .08em; 
+}
+
+/* ø */
+.an-q-half { 
+  font-size: .8em; 
+  top: -.6em;
+}
+
+.an-fig  { 
+  font-size: .9em; 
+  line-height: 0; 
+  position: relative; 
+  top: -.25em; 
+  margin-left: .1em; 
+}
+
+.an-slash { 
+  margin: 0 .05em; 
+  opacity: 1; 
+}
+
+.an-stack { 
+  display: inline-flex; 
+  flex-direction: column; 
+  align-items: center; 
+  font-size: .55em; 
+  line-height: 1; 
+  position: relative; 
+  top: -1em; 
+  margin-left: .25em; 
+}
+
+.an-invalid { 
+  font-family: monospace; 
+  font-weight: 400; 
+  color: #b45309; 
+  background: rgba(245,158,11,.18); 
+  border: 1px dashed #d97706; 
+  border-radius: 3px; 
+  padding: 0 .25em; 
+}
 
 /* Modo de análise: "substituir" */
 .chord.chord-analysis { font-weight: 600; }
