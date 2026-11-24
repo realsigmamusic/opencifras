@@ -1,4 +1,4 @@
-const CACHE_NAME = '2.9.1';
+const CACHE_NAME = '2.9.2';
 const STATIC_CACHE = `opencifras-static-${CACHE_NAME}`;
 const SONGS_CACHE = 'opencifras-songs';
 const NETWORK_TIMEOUT = 4000;
@@ -14,6 +14,7 @@ const ASSETS = [
   './assets/js/app.js',
   './assets/js/song.js',
   './assets/js/analysis.js',
+  './assets/js/key-labels.js',
   './assets/js/local-songs.js',
   './assets/vendor/fuse.min.js',
   './assets/vendor/chordsheetjs.min.js',
