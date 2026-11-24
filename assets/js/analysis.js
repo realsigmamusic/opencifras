@@ -81,7 +81,7 @@
   const ACC  = { b: '♭', '#': '♯' };
   const QUAL = { o: '°', h: 'ø', '+': '⁺' };
   const QUALCLASS = { o: 'dim', h: 'half', '+': 'aug' };
-  const FIG1 = { '7': '⁷', '6': '⁶', 'M7': 'Δ⁷' }; // 'ᴹ⁷' };
+  const FIG1 = { '7': '⁷', '6': '⁶', 'M7': 'Δ' }; // 'ᴹ⁷' };
 
   // Devolve { acc, numeral, quality, figured, target:{acc,numeral}|null } ou null se inválida
   function parse(raw) {
