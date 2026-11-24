@@ -38,18 +38,12 @@
     return labels;
   }
 
-  // Texto do rótulo.
-  //  academic=false → "Tom: E"          (análise desligada; mantém o que a biblioteca devolveu)
-  //  academic=true  → "E:" / "e:" / "f♯:" (análise ligada; minúscula para tom menor)
+  // Texto do rótulo: sempre "C:" / "Am:" / "Bb:" / "F#m:" (o tom como foi escrito, "m" = menor,
+  // sem a palavra "Tom" e igual em qualquer modo de visualização).
   // Valor que não é um tom reconhecível não gera rótulo (retorna null).
-  function format(key, academic) {
+  function format(key) {
     const m = KEY_RE.exec(String(key).trim());
-    if (!m) return null;
-    if (!academic) return 'Tom: ' + m[0];
-
-    const root = m[3] ? m[1].toLowerCase() : m[1];
-    const acc  = m[2] === '#' ? '♯' : m[2] === 'b' ? '♭' : '';
-    return root + acc + ':';
+    return m ? m[0] + ':' : null;
   }
 
   return { compute, format };

@@ -253,18 +253,19 @@ function updateKeyNotice(transposed) {
   el.hidden      = false;
 }
 
-// Desenha, antes da linha onde o tom muda, uma etiqueta "Tom: E" (ou "E:" no modo de análise)
-function insertKeyLabels(transposed, tokenSelector, academic) {
+// Desenha o rótulo de mudança de tom ("C:", "Am:") sempre embutido na linha, na altura dos
+// acordes, logo antes da coluna onde o tom muda. Igual em qualquer modo de visualização.
+function insertKeyLabels(transposed, tokenSelector) {
   if (!window.KeyLabels) return;
   const tokens = elSheet.querySelectorAll(tokenSelector); // mesma ordem dos pares acorde/letra
   window.KeyLabels.compute(transposed).forEach(({ pairIndex, key }) => {
-    const text = window.KeyLabels.format(key, academic);
-    const row  = text && tokens[pairIndex] && tokens[pairIndex].closest('.row');
-    if (!row) return;
+    const text = window.KeyLabels.format(key);
+    const col  = text && tokens[pairIndex] && tokens[pairIndex].closest('.column');
+    if (!col || !col.closest('.row')) return;
     const label = document.createElement('div');
-    label.className   = 'key-label' + (academic ? ' key-label-academic' : '');
+    label.className   = 'key-label';
     label.textContent = text;
-    row.before(label);
+    col.before(label);
   });
 }
 
@@ -397,10 +398,10 @@ function renderSheet() {
     });
   }
 
-  // Rótulos de mudança de tom ({key:} no meio da música): independem da análise, mas usam o
-  // estilo acadêmico ("E:") quando o modo de análise está ligado. Inseridos DEPOIS do laço
+  // Rótulos de mudança de tom ({key:} no meio da música): independem da análise e do modo de
+  // visualização (sempre "E:" / "Am:", inline). Inseridos DEPOIS do laço
   // acima, para não mexer no alinhamento por índice entre acordes e elementos do DOM.
-  insertKeyLabels(transposed, TOKEN_SELECTOR, showAnalysis || showLine);
+  insertKeyLabels(transposed, TOKEN_SELECTOR);
 
   // Atualiza o contador de semitons (+2, -1 etc.)
   elTransVal.textContent = (transpose >= 0 ? '+' : '') + transpose;

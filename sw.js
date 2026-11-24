@@ -1,4 +1,4 @@
-const CACHE_NAME = '2.9.2';
+const CACHE_NAME = '2.9.3';
 const STATIC_CACHE = `opencifras-static-${CACHE_NAME}`;
 const SONGS_CACHE = 'opencifras-songs';
 const NETWORK_TIMEOUT = 4000;
