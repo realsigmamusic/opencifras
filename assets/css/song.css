@@ -178,3 +178,21 @@ h3.label, .comment {
   white-space: nowrap;
 }
 .chord-sheet .row.analysis-row .lyrics:empty { display: block; }
+/* Rótulo de mudança de tom no meio da música */
+.key-label {
+  display: block;
+  width: fit-content;
+  margin: 0.6em 0 0.35em 0;
+  padding: 0.05em 0.55em;
+  font-size: 0.8em;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--warning-text-emphasis);
+  border: 1px solid var(--warning-text-emphasis);
+  border-radius: 999px;
+}
+.key-label.key-label-academic { 
+  font-family: "Times New Roman", "Noto Serif", Georgia, serif; 
+  font-size: 0.95em; 
+  font-weight: 700; 
+}

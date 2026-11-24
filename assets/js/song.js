@@ -253,6 +253,21 @@ function updateKeyNotice(transposed) {
   el.hidden      = false;
 }
 
+// Desenha, antes da linha onde o tom muda, uma etiqueta "Tom: E" (ou "E:" no modo de análise)
+function insertKeyLabels(transposed, tokenSelector, academic) {
+  if (!window.KeyLabels) return;
+  const tokens = elSheet.querySelectorAll(tokenSelector); // mesma ordem dos pares acorde/letra
+  window.KeyLabels.compute(transposed).forEach(({ pairIndex, key }) => {
+    const text = window.KeyLabels.format(key, academic);
+    const row  = text && tokens[pairIndex] && tokens[pairIndex].closest('.row');
+    if (!row) return;
+    const label = document.createElement('div');
+    label.className   = 'key-label' + (academic ? ' key-label-academic' : '');
+    label.textContent = text;
+    row.before(label);
+  });
+}
+
 // Renderiza a cifra com os acordes no tom atual
 function renderSheet() {
   if (!song) return;
@@ -381,6 +396,11 @@ function renderSheet() {
       });
     });
   }
+
+  // Rótulos de mudança de tom ({key:} no meio da música): independem da análise, mas usam o
+  // estilo acadêmico ("E:") quando o modo de análise está ligado. Inseridos DEPOIS do laço
+  // acima, para não mexer no alinhamento por índice entre acordes e elementos do DOM.
+  insertKeyLabels(transposed, TOKEN_SELECTOR, showAnalysis || showLine);
 
   // Atualiza o contador de semitons (+2, -1 etc.)
   elTransVal.textContent = (transpose >= 0 ? '+' : '') + transpose;
